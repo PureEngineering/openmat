@@ -1,0 +1,7 @@
+
+            const version='openmat-officials-0e15879fb59616308ad61a3eb60097290384d207c3d6024b02edc901e3ce1a99',assets=["/","/manifest.webmanifest","/assets/index-d6u-GKEc.js","/assets/live-venue-transport-U9ju9rhP.js","/assets/nostr-_Zpx1ca2.js"],base=self.location.pathname.replace(/\/[^/]*$/,'');
+            self.addEventListener('install',e=>e.waitUntil(caches.open(version).then(c=>c.addAll(assets.map(a=>base+a))).then(()=>self.skipWaiting())));
+            self.addEventListener('activate',e=>e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k.startsWith('openmat-officials-')&&k!==version).map(k=>caches.delete(k)))).then(()=>self.clients.claim())));
+            self.addEventListener('message',e=>{if(e.data?.type==='OPENMAT_GET_SW_VERSION')e.source?.postMessage({type:'OPENMAT_SW_VERSION',version})});
+            self.addEventListener('fetch',e=>{if(e.request.method!=='GET')return;const u=new URL(e.request.url);if(u.origin!==self.location.origin)return;const rel=base&&u.pathname.startsWith(base)?(u.pathname.slice(base.length)||'/'):u.pathname;const p=rel==='/'||rel==='/index.html'?'/':rel;if(assets.includes(p))e.respondWith(caches.open(version).then(c=>c.match(base+p,{ignoreSearch:true,ignoreVary:true}).then(r=>r||fetch(e.request))))});
+          
