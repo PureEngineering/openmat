@@ -1,0 +1,14 @@
+{
+  "name": "OpenMat Feedback and Bug Reports",
+  "short_name": "OpenMat Feedback",
+  "description": "Send OpenMat feedback and track the status of your report.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f3f6fa",
+  "theme_color": "#123653",
+  "icons": [
+    { "src": "./mark.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "./app-icon.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

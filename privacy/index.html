@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>OpenMat — Privacy Policy</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #080d1a;
+      --card: #0f172a;
+      --border: #1e293b;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --accent: #facc15;
+    }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      padding: 2.5rem 1.25rem;
+    }
+    main {
+      max-width: 760px;
+      margin: 0 auto;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 2rem;
+    }
+    h1 { margin-top: 0; font-size: 1.85rem; }
+    h2 { color: var(--accent); font-size: 1.15rem; margin-top: 1.75rem; }
+    p, li { color: #cbd5e1; }
+    a { color: var(--accent); }
+    .meta { color: var(--muted); font-size: 0.9rem; margin-bottom: 1.5rem; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>OpenMat Privacy Policy</h1>
+    <p class="meta">Effective Date: November 5, 2026 · Publisher: Pure Engineering, LLC</p>
+
+    <p>
+      <strong>OpenMat</strong> (package <code>org.openmat.app.matside</code>) is an offline-first
+      scorekeeper and connected-display scoreboard for folkstyle wrestling tournaments.
+      <strong>Pure Engineering, LLC</strong> develops and publishes this application.
+    </p>
+
+    <h2>1. Information We Collect</h2>
+    <p>
+      OpenMat does <strong>not</strong> require user account registration, cloud sign-in, or
+      personal contact data. The application includes <strong>no third-party advertising,
+      analytics, or crash-tracking SDKs</strong>.
+    </p>
+    <ul>
+      <li><strong>Practice and Local Scorekeeping Data:</strong> OpenMat stores match timers, bout scores, period choices, and event journals locally in an on-device SQLite and CBOR journal.</li>
+      <li><strong>Tournament Roster and Bracket Projections:</strong> Tournament officials enter athlete display names, school affiliations, weight classes, and bout scores. OpenMat signs and shares this data with enrolled scorekeepers and spectators over the venue network or relay.</li>
+    </ul>
+
+    <h2>2. Device Permissions</h2>
+    <ul>
+      <li><strong>Camera (<code>android.permission.CAMERA</code>):</strong> OpenMat uses the camera on-device to scan QR codes for mat enrollment and scorekeeper pairing. The application processes camera frames in memory and never records, stores, or transmits them.</li>
+      <li><strong>Foreground Service and Notifications (<code>FOREGROUND_SERVICE_SPECIAL_USE</code>, <code>POST_NOTIFICATIONS</code>):</strong> OpenMat runs a foreground service to maintain the match clock and venue session during display output.</li>
+      <li><strong>Local Network / Internet:</strong> OpenMat synchronizes signed brackets and mat scores between the tournament host, matside scorekeepers, and spectator views.</li>
+    </ul>
+
+    <h2>3. Data Sharing and Third Parties</h2>
+    <p>
+      Pure Engineering, LLC does not sell, rent, or share personal information with third-party
+      advertisers or data brokers.
+    </p>
+
+    <h2>4. Data Retention and Deletion</h2>
+    <p>
+      The Android application stores all scorekeeping journals and tournament databases in local
+      device storage. Clear the application storage in Android Settings or uninstall OpenMat to
+      delete all local data. Contact
+      <a href="mailto:admin@pureengineering.com">admin@pureengineering.com</a> for assistance.
+    </p>
+
+    <h2>5. Contact Us</h2>
+    <p>
+      Send privacy questions or data deletion requests to Pure Engineering, LLC at
+      <a href="mailto:admin@pureengineering.com">admin@pureengineering.com</a> or visit the
+      <a href="./support.html">Support Page</a>.
+    </p>
+  </main>
+</body>
+</html>

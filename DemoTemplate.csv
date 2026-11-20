@@ -1,0 +1,228 @@
+# OpenMat Full 16-Bracket Onboarding Demo Roster Template (DemoTemplate.csv)
+# Contains 224 wrestlers across all 14 NFHS weight classes (16 seeded wrestlers per weight class).
+# Import this CSV on Tab 1 (Check-In and Weigh-In) to test onboarding and generate all 14 full 16-wrestler brackets.
+athlete_id,public_display_name,team_id,team_name,division_id,weight_class_id,seed_rank,flowrestling_id,first_name,last_name,school_name,weight_lbs,actual_weight_lbs,grade,check_in_stage,weigh_in_eligible,medically_cleared,medical_decision,medical_reviewer,scale_station_id,scale_id,bracket_frozen,bracket_format,opaque_pass_token
+ATH-NOVICE-106-SBHS-01,Jordan Rivera,SBHS,Santa Barbara High School,NOVICE,106,1,FLO-2610601,Jordan,Rivera,Santa Barbara High School,106,,9,,,,,,,,,,PASS-NOVICE-106-SBHS-01
+ATH-NOVICE-106-DPHS-02,Marcus Vance,DPHS,Dos Pueblos High School,NOVICE,106,2,FLO-2610602,Marcus,Vance,Dos Pueblos High School,106,,10,,,,,,,,,,PASS-NOVICE-106-DPHS-02
+ATH-NOVICE-106-SMHS-03,Mateo Delgado,SMHS,San Marcos High School,NOVICE,106,3,FLO-2610603,Mateo,Delgado,San Marcos High School,106,,9,,,,,,,,,,PASS-NOVICE-106-SMHS-03
+ATH-NOVICE-106-VHS-04,Liam Sullivan,VHS,Ventura High School,NOVICE,106,4,FLO-2610604,Liam,Sullivan,Ventura High School,106,,10,,,,,,,,,,PASS-NOVICE-106-VHS-04
+ATH-NOVICE-106-BHS-05,Carlos Mendoza,BHS,Buena High School,NOVICE,106,5,FLO-2610605,Carlos,Mendoza,Buena High School,106,,9,,,,,,,,,,PASS-NOVICE-106-BHS-05
+ATH-NOVICE-106-OHS-06,Noah Takahashi,OHS,Oxnard High School,NOVICE,106,6,FLO-2610606,Noah,Takahashi,Oxnard High School,106,,10,,,,,,,,,,PASS-NOVICE-106-OHS-06
+ATH-NOVICE-106-PHS-07,Ethan Castillo,PHS,Pacifica High School,NOVICE,106,7,FLO-2610607,Ethan,Castillo,Pacifica High School,106,,9,,,,,,,,,,PASS-NOVICE-106-PHS-07
+ATH-NOVICE-106-RMHS-08,Diego Bennett,RMHS,Rio Mesa High School,NOVICE,106,8,FLO-2610608,Diego,Bennett,Rio Mesa High School,106,,10,,,,,,,,,,PASS-NOVICE-106-RMHS-08
+ATH-NOVICE-106-CIHS-09,Lucas Morales,CIHS,Channel Islands High School,NOVICE,106,9,FLO-2610609,Lucas,Morales,Channel Islands High School,106,,9,,,,,,,,,,PASS-NOVICE-106-CIHS-09
+ATH-NOVICE-106-HHS-10,Julian Navarro,HHS,Hueneme High School,NOVICE,106,10,FLO-2610610,Julian,Navarro,Hueneme High School,106,,10,,,,,,,,,,PASS-NOVICE-106-HHS-10
+ATH-NOVICE-106-ACHS-11,Caleb Kowalski,ACHS,Adolfo Camarillo High School,NOVICE,106,11,FLO-2610611,Caleb,Kowalski,Adolfo Camarillo High School,106,,9,,,,,,,,,,PASS-NOVICE-106-ACHS-11
+ATH-NOVICE-106-TOHS-12,Adrian Salazar,TOHS,Thousand Oaks High School,NOVICE,106,12,FLO-2610612,Adrian,Salazar,Thousand Oaks High School,106,,10,,,,,,,,,,PASS-NOVICE-106-TOHS-12
+ATH-NOVICE-106-NPHS-13,Gavin Patel,NPHS,Newbury Park High School,NOVICE,106,13,FLO-2610613,Gavin,Patel,Newbury Park High School,106,,9,,,,,,,,,,PASS-NOVICE-106-NPHS-13
+ATH-NOVICE-106-WHS-14,Isaac Brooks,WHS,Westlake High School,NOVICE,106,14,FLO-2610614,Isaac,Brooks,Westlake High School,106,,10,,,,,,,,,,PASS-NOVICE-106-WHS-14
+ATH-NOVICE-106-MHS-15,Owen Herrera,MHS,Moorpark High School,NOVICE,106,15,FLO-2610615,Owen,Herrera,Moorpark High School,106,,9,,,,,,,,,,PASS-NOVICE-106-MHS-15
+ATH-NOVICE-106-SYHS-16,Devon Kim,SYHS,Santa Ynez Valley Union High School,NOVICE,106,16,FLO-2610616,Devon,Kim,Santa Ynez Valley Union High School,106,,10,,,,,,,,,,PASS-NOVICE-106-SYHS-16
+ATH-NOVICE-113-DPHS-01,Logan Vance,DPHS,Dos Pueblos High School,NOVICE,113,1,FLO-2611301,Logan,Vance,Dos Pueblos High School,113,,10,,,,,,,,,,PASS-NOVICE-113-DPHS-01
+ATH-NOVICE-113-SMHS-02,Sebastian Delgado,SMHS,San Marcos High School,NOVICE,113,2,FLO-2611302,Sebastian,Delgado,San Marcos High School,113,,9,,,,,,,,,,PASS-NOVICE-113-SMHS-02
+ATH-NOVICE-113-VHS-03,Eli Sullivan,VHS,Ventura High School,NOVICE,113,3,FLO-2611303,Eli,Sullivan,Ventura High School,113,,10,,,,,,,,,,PASS-NOVICE-113-VHS-03
+ATH-NOVICE-113-BHS-04,Xavier Mendoza,BHS,Buena High School,NOVICE,113,4,FLO-2611304,Xavier,Mendoza,Buena High School,113,,9,,,,,,,,,,PASS-NOVICE-113-BHS-04
+ATH-NOVICE-113-OHS-05,Dominic Takahashi,OHS,Oxnard High School,NOVICE,113,5,FLO-2611305,Dominic,Takahashi,Oxnard High School,113,,10,,,,,,,,,,PASS-NOVICE-113-OHS-05
+ATH-NOVICE-113-PHS-06,Hector Castillo,PHS,Pacifica High School,NOVICE,113,6,FLO-2611306,Hector,Castillo,Pacifica High School,113,,9,,,,,,,,,,PASS-NOVICE-113-PHS-06
+ATH-NOVICE-113-RMHS-07,Nathan Bennett,RMHS,Rio Mesa High School,NOVICE,113,7,FLO-2611307,Nathan,Bennett,Rio Mesa High School,113,,10,,,,,,,,,,PASS-NOVICE-113-RMHS-07
+ATH-NOVICE-113-CIHS-08,Cole Morales,CIHS,Channel Islands High School,NOVICE,113,8,FLO-2611308,Cole,Morales,Channel Islands High School,113,,9,,,,,,,,,,PASS-NOVICE-113-CIHS-08
+ATH-NOVICE-113-HHS-09,Victor Navarro,HHS,Hueneme High School,NOVICE,113,9,FLO-2611309,Victor,Navarro,Hueneme High School,113,,10,,,,,,,,,,PASS-NOVICE-113-HHS-09
+ATH-NOVICE-113-ACHS-10,Wesley Kowalski,ACHS,Adolfo Camarillo High School,NOVICE,113,10,FLO-2611310,Wesley,Kowalski,Adolfo Camarillo High School,113,,9,,,,,,,,,,PASS-NOVICE-113-ACHS-10
+ATH-NOVICE-113-TOHS-11,Damian Salazar,TOHS,Thousand Oaks High School,NOVICE,113,11,FLO-2611311,Damian,Salazar,Thousand Oaks High School,113,,10,,,,,,,,,,PASS-NOVICE-113-TOHS-11
+ATH-NOVICE-113-NPHS-12,Micah Patel,NPHS,Newbury Park High School,NOVICE,113,12,FLO-2611312,Micah,Patel,Newbury Park High School,113,,9,,,,,,,,,,PASS-NOVICE-113-NPHS-12
+ATH-NOVICE-113-WHS-13,Rafael Brooks,WHS,Westlake High School,NOVICE,113,13,FLO-2611313,Rafael,Brooks,Westlake High School,113,,10,,,,,,,,,,PASS-NOVICE-113-WHS-13
+ATH-NOVICE-113-MHS-14,Tristan Herrera,MHS,Moorpark High School,NOVICE,113,14,FLO-2611314,Tristan,Herrera,Moorpark High School,113,,9,,,,,,,,,,PASS-NOVICE-113-MHS-14
+ATH-NOVICE-113-SYHS-15,Brody Kim,SYHS,Santa Ynez Valley Union High School,NOVICE,113,15,FLO-2611315,Brody,Kim,Santa Ynez Valley Union High School,113,,10,,,,,,,,,,PASS-NOVICE-113-SYHS-15
+ATH-NOVICE-113-SBHS-16,Kai Ortega,SBHS,Santa Barbara High School,NOVICE,113,16,FLO-2611316,Kai,Ortega,Santa Barbara High School,113,,9,,,,,,,,,,PASS-NOVICE-113-SBHS-16
+ATH-NOVICE-120-SMHS-01,Jordan Delgado,SMHS,San Marcos High School,NOVICE,120,1,FLO-2612001,Jordan,Delgado,San Marcos High School,120,,9,,,,,,,,,,PASS-NOVICE-120-SMHS-01
+ATH-NOVICE-120-VHS-02,Marcus Sullivan,VHS,Ventura High School,NOVICE,120,2,FLO-2612002,Marcus,Sullivan,Ventura High School,120,,10,,,,,,,,,,PASS-NOVICE-120-VHS-02
+ATH-NOVICE-120-BHS-03,Mateo Mendoza,BHS,Buena High School,NOVICE,120,3,FLO-2612003,Mateo,Mendoza,Buena High School,120,,9,,,,,,,,,,PASS-NOVICE-120-BHS-03
+ATH-NOVICE-120-OHS-04,Liam Takahashi,OHS,Oxnard High School,NOVICE,120,4,FLO-2612004,Liam,Takahashi,Oxnard High School,120,,10,,,,,,,,,,PASS-NOVICE-120-OHS-04
+ATH-NOVICE-120-PHS-05,Carlos Castillo,PHS,Pacifica High School,NOVICE,120,5,FLO-2612005,Carlos,Castillo,Pacifica High School,120,,9,,,,,,,,,,PASS-NOVICE-120-PHS-05
+ATH-NOVICE-120-RMHS-06,Noah Bennett,RMHS,Rio Mesa High School,NOVICE,120,6,FLO-2612006,Noah,Bennett,Rio Mesa High School,120,,10,,,,,,,,,,PASS-NOVICE-120-RMHS-06
+ATH-NOVICE-120-CIHS-07,Ethan Morales,CIHS,Channel Islands High School,NOVICE,120,7,FLO-2612007,Ethan,Morales,Channel Islands High School,120,,9,,,,,,,,,,PASS-NOVICE-120-CIHS-07
+ATH-NOVICE-120-HHS-08,Diego Navarro,HHS,Hueneme High School,NOVICE,120,8,FLO-2612008,Diego,Navarro,Hueneme High School,120,,10,,,,,,,,,,PASS-NOVICE-120-HHS-08
+ATH-NOVICE-120-ACHS-09,Lucas Kowalski,ACHS,Adolfo Camarillo High School,NOVICE,120,9,FLO-2612009,Lucas,Kowalski,Adolfo Camarillo High School,120,,9,,,,,,,,,,PASS-NOVICE-120-ACHS-09
+ATH-NOVICE-120-TOHS-10,Julian Salazar,TOHS,Thousand Oaks High School,NOVICE,120,10,FLO-2612010,Julian,Salazar,Thousand Oaks High School,120,,10,,,,,,,,,,PASS-NOVICE-120-TOHS-10
+ATH-NOVICE-120-NPHS-11,Caleb Patel,NPHS,Newbury Park High School,NOVICE,120,11,FLO-2612011,Caleb,Patel,Newbury Park High School,120,,9,,,,,,,,,,PASS-NOVICE-120-NPHS-11
+ATH-NOVICE-120-WHS-12,Adrian Brooks,WHS,Westlake High School,NOVICE,120,12,FLO-2612012,Adrian,Brooks,Westlake High School,120,,10,,,,,,,,,,PASS-NOVICE-120-WHS-12
+ATH-NOVICE-120-MHS-13,Gavin Herrera,MHS,Moorpark High School,NOVICE,120,13,FLO-2612013,Gavin,Herrera,Moorpark High School,120,,9,,,,,,,,,,PASS-NOVICE-120-MHS-13
+ATH-NOVICE-120-SYHS-14,Isaac Kim,SYHS,Santa Ynez Valley Union High School,NOVICE,120,14,FLO-2612014,Isaac,Kim,Santa Ynez Valley Union High School,120,,10,,,,,,,,,,PASS-NOVICE-120-SYHS-14
+ATH-NOVICE-120-SBHS-15,Owen Ortega,SBHS,Santa Barbara High School,NOVICE,120,15,FLO-2612015,Owen,Ortega,Santa Barbara High School,120,,9,,,,,,,,,,PASS-NOVICE-120-SBHS-15
+ATH-NOVICE-120-DPHS-16,Devon Campbell,DPHS,Dos Pueblos High School,NOVICE,120,16,FLO-2612016,Devon,Campbell,Dos Pueblos High School,120,,10,,,,,,,,,,PASS-NOVICE-120-DPHS-16
+ATH-NOVICE-126-VHS-01,Logan Sullivan,VHS,Ventura High School,NOVICE,126,1,FLO-2612601,Logan,Sullivan,Ventura High School,126,,10,,,,,,,,,,PASS-NOVICE-126-VHS-01
+ATH-NOVICE-126-BHS-02,Sebastian Mendoza,BHS,Buena High School,NOVICE,126,2,FLO-2612602,Sebastian,Mendoza,Buena High School,126,,9,,,,,,,,,,PASS-NOVICE-126-BHS-02
+ATH-NOVICE-126-OHS-03,Eli Takahashi,OHS,Oxnard High School,NOVICE,126,3,FLO-2612603,Eli,Takahashi,Oxnard High School,126,,10,,,,,,,,,,PASS-NOVICE-126-OHS-03
+ATH-NOVICE-126-PHS-04,Xavier Castillo,PHS,Pacifica High School,NOVICE,126,4,FLO-2612604,Xavier,Castillo,Pacifica High School,126,,9,,,,,,,,,,PASS-NOVICE-126-PHS-04
+ATH-NOVICE-126-RMHS-05,Dominic Bennett,RMHS,Rio Mesa High School,NOVICE,126,5,FLO-2612605,Dominic,Bennett,Rio Mesa High School,126,,10,,,,,,,,,,PASS-NOVICE-126-RMHS-05
+ATH-NOVICE-126-CIHS-06,Hector Morales,CIHS,Channel Islands High School,NOVICE,126,6,FLO-2612606,Hector,Morales,Channel Islands High School,126,,9,,,,,,,,,,PASS-NOVICE-126-CIHS-06
+ATH-NOVICE-126-HHS-07,Nathan Navarro,HHS,Hueneme High School,NOVICE,126,7,FLO-2612607,Nathan,Navarro,Hueneme High School,126,,10,,,,,,,,,,PASS-NOVICE-126-HHS-07
+ATH-NOVICE-126-ACHS-08,Cole Kowalski,ACHS,Adolfo Camarillo High School,NOVICE,126,8,FLO-2612608,Cole,Kowalski,Adolfo Camarillo High School,126,,9,,,,,,,,,,PASS-NOVICE-126-ACHS-08
+ATH-NOVICE-126-TOHS-09,Victor Salazar,TOHS,Thousand Oaks High School,NOVICE,126,9,FLO-2612609,Victor,Salazar,Thousand Oaks High School,126,,10,,,,,,,,,,PASS-NOVICE-126-TOHS-09
+ATH-NOVICE-126-NPHS-10,Wesley Patel,NPHS,Newbury Park High School,NOVICE,126,10,FLO-2612610,Wesley,Patel,Newbury Park High School,126,,9,,,,,,,,,,PASS-NOVICE-126-NPHS-10
+ATH-NOVICE-126-WHS-11,Damian Brooks,WHS,Westlake High School,NOVICE,126,11,FLO-2612611,Damian,Brooks,Westlake High School,126,,10,,,,,,,,,,PASS-NOVICE-126-WHS-11
+ATH-NOVICE-126-MHS-12,Micah Herrera,MHS,Moorpark High School,NOVICE,126,12,FLO-2612612,Micah,Herrera,Moorpark High School,126,,9,,,,,,,,,,PASS-NOVICE-126-MHS-12
+ATH-NOVICE-126-SYHS-13,Rafael Kim,SYHS,Santa Ynez Valley Union High School,NOVICE,126,13,FLO-2612613,Rafael,Kim,Santa Ynez Valley Union High School,126,,10,,,,,,,,,,PASS-NOVICE-126-SYHS-13
+ATH-NOVICE-126-SBHS-14,Tristan Ortega,SBHS,Santa Barbara High School,NOVICE,126,14,FLO-2612614,Tristan,Ortega,Santa Barbara High School,126,,9,,,,,,,,,,PASS-NOVICE-126-SBHS-14
+ATH-NOVICE-126-DPHS-15,Brody Campbell,DPHS,Dos Pueblos High School,NOVICE,126,15,FLO-2612615,Brody,Campbell,Dos Pueblos High School,126,,10,,,,,,,,,,PASS-NOVICE-126-DPHS-15
+ATH-NOVICE-126-SMHS-16,Kai Guerrero,SMHS,San Marcos High School,NOVICE,126,16,FLO-2612616,Kai,Guerrero,San Marcos High School,126,,9,,,,,,,,,,PASS-NOVICE-126-SMHS-16
+ATH-NOVICE-132-BHS-01,Jordan Mendoza,BHS,Buena High School,NOVICE,132,1,FLO-2613201,Jordan,Mendoza,Buena High School,132,,9,,,,,,,,,,PASS-NOVICE-132-BHS-01
+ATH-NOVICE-132-OHS-02,Marcus Takahashi,OHS,Oxnard High School,NOVICE,132,2,FLO-2613202,Marcus,Takahashi,Oxnard High School,132,,10,,,,,,,,,,PASS-NOVICE-132-OHS-02
+ATH-NOVICE-132-PHS-03,Mateo Castillo,PHS,Pacifica High School,NOVICE,132,3,FLO-2613203,Mateo,Castillo,Pacifica High School,132,,9,,,,,,,,,,PASS-NOVICE-132-PHS-03
+ATH-NOVICE-132-RMHS-04,Liam Bennett,RMHS,Rio Mesa High School,NOVICE,132,4,FLO-2613204,Liam,Bennett,Rio Mesa High School,132,,10,,,,,,,,,,PASS-NOVICE-132-RMHS-04
+ATH-NOVICE-132-CIHS-05,Carlos Morales,CIHS,Channel Islands High School,NOVICE,132,5,FLO-2613205,Carlos,Morales,Channel Islands High School,132,,9,,,,,,,,,,PASS-NOVICE-132-CIHS-05
+ATH-NOVICE-132-HHS-06,Noah Navarro,HHS,Hueneme High School,NOVICE,132,6,FLO-2613206,Noah,Navarro,Hueneme High School,132,,10,,,,,,,,,,PASS-NOVICE-132-HHS-06
+ATH-NOVICE-132-ACHS-07,Ethan Kowalski,ACHS,Adolfo Camarillo High School,NOVICE,132,7,FLO-2613207,Ethan,Kowalski,Adolfo Camarillo High School,132,,9,,,,,,,,,,PASS-NOVICE-132-ACHS-07
+ATH-NOVICE-132-TOHS-08,Diego Salazar,TOHS,Thousand Oaks High School,NOVICE,132,8,FLO-2613208,Diego,Salazar,Thousand Oaks High School,132,,10,,,,,,,,,,PASS-NOVICE-132-TOHS-08
+ATH-NOVICE-132-NPHS-09,Lucas Patel,NPHS,Newbury Park High School,NOVICE,132,9,FLO-2613209,Lucas,Patel,Newbury Park High School,132,,9,,,,,,,,,,PASS-NOVICE-132-NPHS-09
+ATH-NOVICE-132-WHS-10,Julian Brooks,WHS,Westlake High School,NOVICE,132,10,FLO-2613210,Julian,Brooks,Westlake High School,132,,10,,,,,,,,,,PASS-NOVICE-132-WHS-10
+ATH-NOVICE-132-MHS-11,Caleb Herrera,MHS,Moorpark High School,NOVICE,132,11,FLO-2613211,Caleb,Herrera,Moorpark High School,132,,9,,,,,,,,,,PASS-NOVICE-132-MHS-11
+ATH-NOVICE-132-SYHS-12,Adrian Kim,SYHS,Santa Ynez Valley Union High School,NOVICE,132,12,FLO-2613212,Adrian,Kim,Santa Ynez Valley Union High School,132,,10,,,,,,,,,,PASS-NOVICE-132-SYHS-12
+ATH-NOVICE-132-SBHS-13,Gavin Ortega,SBHS,Santa Barbara High School,NOVICE,132,13,FLO-2613213,Gavin,Ortega,Santa Barbara High School,132,,9,,,,,,,,,,PASS-NOVICE-132-SBHS-13
+ATH-NOVICE-132-DPHS-14,Isaac Campbell,DPHS,Dos Pueblos High School,NOVICE,132,14,FLO-2613214,Isaac,Campbell,Dos Pueblos High School,132,,10,,,,,,,,,,PASS-NOVICE-132-DPHS-14
+ATH-NOVICE-132-SMHS-15,Owen Guerrero,SMHS,San Marcos High School,NOVICE,132,15,FLO-2613215,Owen,Guerrero,San Marcos High School,132,,9,,,,,,,,,,PASS-NOVICE-132-SMHS-15
+ATH-NOVICE-132-VHS-16,Devon Foster,VHS,Ventura High School,NOVICE,132,16,FLO-2613216,Devon,Foster,Ventura High School,132,,10,,,,,,,,,,PASS-NOVICE-132-VHS-16
+ATH-NOVICE-138-OHS-01,Logan Takahashi,OHS,Oxnard High School,NOVICE,138,1,FLO-2613801,Logan,Takahashi,Oxnard High School,138,,10,,,,,,,,,,PASS-NOVICE-138-OHS-01
+ATH-NOVICE-138-PHS-02,Sebastian Castillo,PHS,Pacifica High School,NOVICE,138,2,FLO-2613802,Sebastian,Castillo,Pacifica High School,138,,9,,,,,,,,,,PASS-NOVICE-138-PHS-02
+ATH-NOVICE-138-RMHS-03,Eli Bennett,RMHS,Rio Mesa High School,NOVICE,138,3,FLO-2613803,Eli,Bennett,Rio Mesa High School,138,,10,,,,,,,,,,PASS-NOVICE-138-RMHS-03
+ATH-NOVICE-138-CIHS-04,Xavier Morales,CIHS,Channel Islands High School,NOVICE,138,4,FLO-2613804,Xavier,Morales,Channel Islands High School,138,,9,,,,,,,,,,PASS-NOVICE-138-CIHS-04
+ATH-NOVICE-138-HHS-05,Dominic Navarro,HHS,Hueneme High School,NOVICE,138,5,FLO-2613805,Dominic,Navarro,Hueneme High School,138,,10,,,,,,,,,,PASS-NOVICE-138-HHS-05
+ATH-NOVICE-138-ACHS-06,Hector Kowalski,ACHS,Adolfo Camarillo High School,NOVICE,138,6,FLO-2613806,Hector,Kowalski,Adolfo Camarillo High School,138,,9,,,,,,,,,,PASS-NOVICE-138-ACHS-06
+ATH-NOVICE-138-TOHS-07,Nathan Salazar,TOHS,Thousand Oaks High School,NOVICE,138,7,FLO-2613807,Nathan,Salazar,Thousand Oaks High School,138,,10,,,,,,,,,,PASS-NOVICE-138-TOHS-07
+ATH-NOVICE-138-NPHS-08,Cole Patel,NPHS,Newbury Park High School,NOVICE,138,8,FLO-2613808,Cole,Patel,Newbury Park High School,138,,9,,,,,,,,,,PASS-NOVICE-138-NPHS-08
+ATH-NOVICE-138-WHS-09,Victor Brooks,WHS,Westlake High School,NOVICE,138,9,FLO-2613809,Victor,Brooks,Westlake High School,138,,10,,,,,,,,,,PASS-NOVICE-138-WHS-09
+ATH-NOVICE-138-MHS-10,Wesley Herrera,MHS,Moorpark High School,NOVICE,138,10,FLO-2613810,Wesley,Herrera,Moorpark High School,138,,9,,,,,,,,,,PASS-NOVICE-138-MHS-10
+ATH-NOVICE-138-SYHS-11,Damian Kim,SYHS,Santa Ynez Valley Union High School,NOVICE,138,11,FLO-2613811,Damian,Kim,Santa Ynez Valley Union High School,138,,10,,,,,,,,,,PASS-NOVICE-138-SYHS-11
+ATH-NOVICE-138-SBHS-12,Micah Ortega,SBHS,Santa Barbara High School,NOVICE,138,12,FLO-2613812,Micah,Ortega,Santa Barbara High School,138,,9,,,,,,,,,,PASS-NOVICE-138-SBHS-12
+ATH-NOVICE-138-DPHS-13,Rafael Campbell,DPHS,Dos Pueblos High School,NOVICE,138,13,FLO-2613813,Rafael,Campbell,Dos Pueblos High School,138,,10,,,,,,,,,,PASS-NOVICE-138-DPHS-13
+ATH-NOVICE-138-SMHS-14,Tristan Guerrero,SMHS,San Marcos High School,NOVICE,138,14,FLO-2613814,Tristan,Guerrero,San Marcos High School,138,,9,,,,,,,,,,PASS-NOVICE-138-SMHS-14
+ATH-NOVICE-138-VHS-15,Brody Foster,VHS,Ventura High School,NOVICE,138,15,FLO-2613815,Brody,Foster,Ventura High School,138,,10,,,,,,,,,,PASS-NOVICE-138-VHS-15
+ATH-NOVICE-138-BHS-16,Kai Espinoza,BHS,Buena High School,NOVICE,138,16,FLO-2613816,Kai,Espinoza,Buena High School,138,,9,,,,,,,,,,PASS-NOVICE-138-BHS-16
+ATH-NOVICE-144-PHS-01,Jordan Castillo,PHS,Pacifica High School,NOVICE,144,1,FLO-2614401,Jordan,Castillo,Pacifica High School,144,,9,,,,,,,,,,PASS-NOVICE-144-PHS-01
+ATH-NOVICE-144-RMHS-02,Marcus Bennett,RMHS,Rio Mesa High School,NOVICE,144,2,FLO-2614402,Marcus,Bennett,Rio Mesa High School,144,,10,,,,,,,,,,PASS-NOVICE-144-RMHS-02
+ATH-NOVICE-144-CIHS-03,Mateo Morales,CIHS,Channel Islands High School,NOVICE,144,3,FLO-2614403,Mateo,Morales,Channel Islands High School,144,,9,,,,,,,,,,PASS-NOVICE-144-CIHS-03
+ATH-NOVICE-144-HHS-04,Liam Navarro,HHS,Hueneme High School,NOVICE,144,4,FLO-2614404,Liam,Navarro,Hueneme High School,144,,10,,,,,,,,,,PASS-NOVICE-144-HHS-04
+ATH-NOVICE-144-ACHS-05,Carlos Kowalski,ACHS,Adolfo Camarillo High School,NOVICE,144,5,FLO-2614405,Carlos,Kowalski,Adolfo Camarillo High School,144,,9,,,,,,,,,,PASS-NOVICE-144-ACHS-05
+ATH-NOVICE-144-TOHS-06,Noah Salazar,TOHS,Thousand Oaks High School,NOVICE,144,6,FLO-2614406,Noah,Salazar,Thousand Oaks High School,144,,10,,,,,,,,,,PASS-NOVICE-144-TOHS-06
+ATH-NOVICE-144-NPHS-07,Ethan Patel,NPHS,Newbury Park High School,NOVICE,144,7,FLO-2614407,Ethan,Patel,Newbury Park High School,144,,9,,,,,,,,,,PASS-NOVICE-144-NPHS-07
+ATH-NOVICE-144-WHS-08,Diego Brooks,WHS,Westlake High School,NOVICE,144,8,FLO-2614408,Diego,Brooks,Westlake High School,144,,10,,,,,,,,,,PASS-NOVICE-144-WHS-08
+ATH-NOVICE-144-MHS-09,Lucas Herrera,MHS,Moorpark High School,NOVICE,144,9,FLO-2614409,Lucas,Herrera,Moorpark High School,144,,9,,,,,,,,,,PASS-NOVICE-144-MHS-09
+ATH-NOVICE-144-SYHS-10,Julian Kim,SYHS,Santa Ynez Valley Union High School,NOVICE,144,10,FLO-2614410,Julian,Kim,Santa Ynez Valley Union High School,144,,10,,,,,,,,,,PASS-NOVICE-144-SYHS-10
+ATH-NOVICE-144-SBHS-11,Caleb Ortega,SBHS,Santa Barbara High School,NOVICE,144,11,FLO-2614411,Caleb,Ortega,Santa Barbara High School,144,,9,,,,,,,,,,PASS-NOVICE-144-SBHS-11
+ATH-NOVICE-144-DPHS-12,Adrian Campbell,DPHS,Dos Pueblos High School,NOVICE,144,12,FLO-2614412,Adrian,Campbell,Dos Pueblos High School,144,,10,,,,,,,,,,PASS-NOVICE-144-DPHS-12
+ATH-NOVICE-144-SMHS-13,Gavin Guerrero,SMHS,San Marcos High School,NOVICE,144,13,FLO-2614413,Gavin,Guerrero,San Marcos High School,144,,9,,,,,,,,,,PASS-NOVICE-144-SMHS-13
+ATH-NOVICE-144-VHS-14,Isaac Foster,VHS,Ventura High School,NOVICE,144,14,FLO-2614414,Isaac,Foster,Ventura High School,144,,10,,,,,,,,,,PASS-NOVICE-144-VHS-14
+ATH-NOVICE-144-BHS-15,Owen Espinoza,BHS,Buena High School,NOVICE,144,15,FLO-2614415,Owen,Espinoza,Buena High School,144,,9,,,,,,,,,,PASS-NOVICE-144-BHS-15
+ATH-NOVICE-144-OHS-16,Devon Reed,OHS,Oxnard High School,NOVICE,144,16,FLO-2614416,Devon,Reed,Oxnard High School,144,,10,,,,,,,,,,PASS-NOVICE-144-OHS-16
+ATH-NOVICE-150-RMHS-01,Logan Bennett,RMHS,Rio Mesa High School,NOVICE,150,1,FLO-2615001,Logan,Bennett,Rio Mesa High School,150,,10,,,,,,,,,,PASS-NOVICE-150-RMHS-01
+ATH-NOVICE-150-CIHS-02,Sebastian Morales,CIHS,Channel Islands High School,NOVICE,150,2,FLO-2615002,Sebastian,Morales,Channel Islands High School,150,,9,,,,,,,,,,PASS-NOVICE-150-CIHS-02
+ATH-NOVICE-150-HHS-03,Eli Navarro,HHS,Hueneme High School,NOVICE,150,3,FLO-2615003,Eli,Navarro,Hueneme High School,150,,10,,,,,,,,,,PASS-NOVICE-150-HHS-03
+ATH-NOVICE-150-ACHS-04,Xavier Kowalski,ACHS,Adolfo Camarillo High School,NOVICE,150,4,FLO-2615004,Xavier,Kowalski,Adolfo Camarillo High School,150,,9,,,,,,,,,,PASS-NOVICE-150-ACHS-04
+ATH-NOVICE-150-TOHS-05,Dominic Salazar,TOHS,Thousand Oaks High School,NOVICE,150,5,FLO-2615005,Dominic,Salazar,Thousand Oaks High School,150,,10,,,,,,,,,,PASS-NOVICE-150-TOHS-05
+ATH-NOVICE-150-NPHS-06,Hector Patel,NPHS,Newbury Park High School,NOVICE,150,6,FLO-2615006,Hector,Patel,Newbury Park High School,150,,9,,,,,,,,,,PASS-NOVICE-150-NPHS-06
+ATH-NOVICE-150-WHS-07,Nathan Brooks,WHS,Westlake High School,NOVICE,150,7,FLO-2615007,Nathan,Brooks,Westlake High School,150,,10,,,,,,,,,,PASS-NOVICE-150-WHS-07
+ATH-NOVICE-150-MHS-08,Cole Herrera,MHS,Moorpark High School,NOVICE,150,8,FLO-2615008,Cole,Herrera,Moorpark High School,150,,9,,,,,,,,,,PASS-NOVICE-150-MHS-08
+ATH-NOVICE-150-SYHS-09,Victor Kim,SYHS,Santa Ynez Valley Union High School,NOVICE,150,9,FLO-2615009,Victor,Kim,Santa Ynez Valley Union High School,150,,10,,,,,,,,,,PASS-NOVICE-150-SYHS-09
+ATH-NOVICE-150-SBHS-10,Wesley Ortega,SBHS,Santa Barbara High School,NOVICE,150,10,FLO-2615010,Wesley,Ortega,Santa Barbara High School,150,,9,,,,,,,,,,PASS-NOVICE-150-SBHS-10
+ATH-NOVICE-150-DPHS-11,Damian Campbell,DPHS,Dos Pueblos High School,NOVICE,150,11,FLO-2615011,Damian,Campbell,Dos Pueblos High School,150,,10,,,,,,,,,,PASS-NOVICE-150-DPHS-11
+ATH-NOVICE-150-SMHS-12,Micah Guerrero,SMHS,San Marcos High School,NOVICE,150,12,FLO-2615012,Micah,Guerrero,San Marcos High School,150,,9,,,,,,,,,,PASS-NOVICE-150-SMHS-12
+ATH-NOVICE-150-VHS-13,Rafael Foster,VHS,Ventura High School,NOVICE,150,13,FLO-2615013,Rafael,Foster,Ventura High School,150,,10,,,,,,,,,,PASS-NOVICE-150-VHS-13
+ATH-NOVICE-150-BHS-14,Tristan Espinoza,BHS,Buena High School,NOVICE,150,14,FLO-2615014,Tristan,Espinoza,Buena High School,150,,9,,,,,,,,,,PASS-NOVICE-150-BHS-14
+ATH-NOVICE-150-OHS-15,Brody Reed,OHS,Oxnard High School,NOVICE,150,15,FLO-2615015,Brody,Reed,Oxnard High School,150,,10,,,,,,,,,,PASS-NOVICE-150-OHS-15
+ATH-NOVICE-150-PHS-16,Kai Sandoval,PHS,Pacifica High School,NOVICE,150,16,FLO-2615016,Kai,Sandoval,Pacifica High School,150,,9,,,,,,,,,,PASS-NOVICE-150-PHS-16
+ATH-NOVICE-157-CIHS-01,Jordan Morales,CIHS,Channel Islands High School,NOVICE,157,1,FLO-2615701,Jordan,Morales,Channel Islands High School,157,,9,,,,,,,,,,PASS-NOVICE-157-CIHS-01
+ATH-NOVICE-157-HHS-02,Marcus Navarro,HHS,Hueneme High School,NOVICE,157,2,FLO-2615702,Marcus,Navarro,Hueneme High School,157,,10,,,,,,,,,,PASS-NOVICE-157-HHS-02
+ATH-NOVICE-157-ACHS-03,Mateo Kowalski,ACHS,Adolfo Camarillo High School,NOVICE,157,3,FLO-2615703,Mateo,Kowalski,Adolfo Camarillo High School,157,,9,,,,,,,,,,PASS-NOVICE-157-ACHS-03
+ATH-NOVICE-157-TOHS-04,Liam Salazar,TOHS,Thousand Oaks High School,NOVICE,157,4,FLO-2615704,Liam,Salazar,Thousand Oaks High School,157,,10,,,,,,,,,,PASS-NOVICE-157-TOHS-04
+ATH-NOVICE-157-NPHS-05,Carlos Patel,NPHS,Newbury Park High School,NOVICE,157,5,FLO-2615705,Carlos,Patel,Newbury Park High School,157,,9,,,,,,,,,,PASS-NOVICE-157-NPHS-05
+ATH-NOVICE-157-WHS-06,Noah Brooks,WHS,Westlake High School,NOVICE,157,6,FLO-2615706,Noah,Brooks,Westlake High School,157,,10,,,,,,,,,,PASS-NOVICE-157-WHS-06
+ATH-NOVICE-157-MHS-07,Ethan Herrera,MHS,Moorpark High School,NOVICE,157,7,FLO-2615707,Ethan,Herrera,Moorpark High School,157,,9,,,,,,,,,,PASS-NOVICE-157-MHS-07
+ATH-NOVICE-157-SYHS-08,Diego Kim,SYHS,Santa Ynez Valley Union High School,NOVICE,157,8,FLO-2615708,Diego,Kim,Santa Ynez Valley Union High School,157,,10,,,,,,,,,,PASS-NOVICE-157-SYHS-08
+ATH-NOVICE-157-SBHS-09,Lucas Ortega,SBHS,Santa Barbara High School,NOVICE,157,9,FLO-2615709,Lucas,Ortega,Santa Barbara High School,157,,9,,,,,,,,,,PASS-NOVICE-157-SBHS-09
+ATH-NOVICE-157-DPHS-10,Julian Campbell,DPHS,Dos Pueblos High School,NOVICE,157,10,FLO-2615710,Julian,Campbell,Dos Pueblos High School,157,,10,,,,,,,,,,PASS-NOVICE-157-DPHS-10
+ATH-NOVICE-157-SMHS-11,Caleb Guerrero,SMHS,San Marcos High School,NOVICE,157,11,FLO-2615711,Caleb,Guerrero,San Marcos High School,157,,9,,,,,,,,,,PASS-NOVICE-157-SMHS-11
+ATH-NOVICE-157-VHS-12,Adrian Foster,VHS,Ventura High School,NOVICE,157,12,FLO-2615712,Adrian,Foster,Ventura High School,157,,10,,,,,,,,,,PASS-NOVICE-157-VHS-12
+ATH-NOVICE-157-BHS-13,Gavin Espinoza,BHS,Buena High School,NOVICE,157,13,FLO-2615713,Gavin,Espinoza,Buena High School,157,,9,,,,,,,,,,PASS-NOVICE-157-BHS-13
+ATH-NOVICE-157-OHS-14,Isaac Reed,OHS,Oxnard High School,NOVICE,157,14,FLO-2615714,Isaac,Reed,Oxnard High School,157,,10,,,,,,,,,,PASS-NOVICE-157-OHS-14
+ATH-NOVICE-157-PHS-15,Owen Sandoval,PHS,Pacifica High School,NOVICE,157,15,FLO-2615715,Owen,Sandoval,Pacifica High School,157,,9,,,,,,,,,,PASS-NOVICE-157-PHS-15
+ATH-NOVICE-157-RMHS-16,Devon Hayes,RMHS,Rio Mesa High School,NOVICE,157,16,FLO-2615716,Devon,Hayes,Rio Mesa High School,157,,10,,,,,,,,,,PASS-NOVICE-157-RMHS-16
+ATH-NOVICE-165-HHS-01,Logan Navarro,HHS,Hueneme High School,NOVICE,165,1,FLO-2616501,Logan,Navarro,Hueneme High School,165,,10,,,,,,,,,,PASS-NOVICE-165-HHS-01
+ATH-NOVICE-165-ACHS-02,Sebastian Kowalski,ACHS,Adolfo Camarillo High School,NOVICE,165,2,FLO-2616502,Sebastian,Kowalski,Adolfo Camarillo High School,165,,9,,,,,,,,,,PASS-NOVICE-165-ACHS-02
+ATH-NOVICE-165-TOHS-03,Eli Salazar,TOHS,Thousand Oaks High School,NOVICE,165,3,FLO-2616503,Eli,Salazar,Thousand Oaks High School,165,,10,,,,,,,,,,PASS-NOVICE-165-TOHS-03
+ATH-NOVICE-165-NPHS-04,Xavier Patel,NPHS,Newbury Park High School,NOVICE,165,4,FLO-2616504,Xavier,Patel,Newbury Park High School,165,,9,,,,,,,,,,PASS-NOVICE-165-NPHS-04
+ATH-NOVICE-165-WHS-05,Dominic Brooks,WHS,Westlake High School,NOVICE,165,5,FLO-2616505,Dominic,Brooks,Westlake High School,165,,10,,,,,,,,,,PASS-NOVICE-165-WHS-05
+ATH-NOVICE-165-MHS-06,Hector Herrera,MHS,Moorpark High School,NOVICE,165,6,FLO-2616506,Hector,Herrera,Moorpark High School,165,,9,,,,,,,,,,PASS-NOVICE-165-MHS-06
+ATH-NOVICE-165-SYHS-07,Nathan Kim,SYHS,Santa Ynez Valley Union High School,NOVICE,165,7,FLO-2616507,Nathan,Kim,Santa Ynez Valley Union High School,165,,10,,,,,,,,,,PASS-NOVICE-165-SYHS-07
+ATH-NOVICE-165-SBHS-08,Cole Ortega,SBHS,Santa Barbara High School,NOVICE,165,8,FLO-2616508,Cole,Ortega,Santa Barbara High School,165,,9,,,,,,,,,,PASS-NOVICE-165-SBHS-08
+ATH-NOVICE-165-DPHS-09,Victor Campbell,DPHS,Dos Pueblos High School,NOVICE,165,9,FLO-2616509,Victor,Campbell,Dos Pueblos High School,165,,10,,,,,,,,,,PASS-NOVICE-165-DPHS-09
+ATH-NOVICE-165-SMHS-10,Wesley Guerrero,SMHS,San Marcos High School,NOVICE,165,10,FLO-2616510,Wesley,Guerrero,San Marcos High School,165,,9,,,,,,,,,,PASS-NOVICE-165-SMHS-10
+ATH-NOVICE-165-VHS-11,Damian Foster,VHS,Ventura High School,NOVICE,165,11,FLO-2616511,Damian,Foster,Ventura High School,165,,10,,,,,,,,,,PASS-NOVICE-165-VHS-11
+ATH-NOVICE-165-BHS-12,Micah Espinoza,BHS,Buena High School,NOVICE,165,12,FLO-2616512,Micah,Espinoza,Buena High School,165,,9,,,,,,,,,,PASS-NOVICE-165-BHS-12
+ATH-NOVICE-165-OHS-13,Rafael Reed,OHS,Oxnard High School,NOVICE,165,13,FLO-2616513,Rafael,Reed,Oxnard High School,165,,10,,,,,,,,,,PASS-NOVICE-165-OHS-13
+ATH-NOVICE-165-PHS-14,Tristan Sandoval,PHS,Pacifica High School,NOVICE,165,14,FLO-2616514,Tristan,Sandoval,Pacifica High School,165,,9,,,,,,,,,,PASS-NOVICE-165-PHS-14
+ATH-NOVICE-165-RMHS-15,Brody Hayes,RMHS,Rio Mesa High School,NOVICE,165,15,FLO-2616515,Brody,Hayes,Rio Mesa High School,165,,10,,,,,,,,,,PASS-NOVICE-165-RMHS-15
+ATH-NOVICE-165-CIHS-16,Kai Cabrera,CIHS,Channel Islands High School,NOVICE,165,16,FLO-2616516,Kai,Cabrera,Channel Islands High School,165,,9,,,,,,,,,,PASS-NOVICE-165-CIHS-16
+ATH-NOVICE-175-ACHS-01,Jordan Kowalski,ACHS,Adolfo Camarillo High School,NOVICE,175,1,FLO-2617501,Jordan,Kowalski,Adolfo Camarillo High School,175,,9,,,,,,,,,,PASS-NOVICE-175-ACHS-01
+ATH-NOVICE-175-TOHS-02,Marcus Salazar,TOHS,Thousand Oaks High School,NOVICE,175,2,FLO-2617502,Marcus,Salazar,Thousand Oaks High School,175,,10,,,,,,,,,,PASS-NOVICE-175-TOHS-02
+ATH-NOVICE-175-NPHS-03,Mateo Patel,NPHS,Newbury Park High School,NOVICE,175,3,FLO-2617503,Mateo,Patel,Newbury Park High School,175,,9,,,,,,,,,,PASS-NOVICE-175-NPHS-03
+ATH-NOVICE-175-WHS-04,Liam Brooks,WHS,Westlake High School,NOVICE,175,4,FLO-2617504,Liam,Brooks,Westlake High School,175,,10,,,,,,,,,,PASS-NOVICE-175-WHS-04
+ATH-NOVICE-175-MHS-05,Carlos Herrera,MHS,Moorpark High School,NOVICE,175,5,FLO-2617505,Carlos,Herrera,Moorpark High School,175,,9,,,,,,,,,,PASS-NOVICE-175-MHS-05
+ATH-NOVICE-175-SYHS-06,Noah Kim,SYHS,Santa Ynez Valley Union High School,NOVICE,175,6,FLO-2617506,Noah,Kim,Santa Ynez Valley Union High School,175,,10,,,,,,,,,,PASS-NOVICE-175-SYHS-06
+ATH-NOVICE-175-SBHS-07,Ethan Ortega,SBHS,Santa Barbara High School,NOVICE,175,7,FLO-2617507,Ethan,Ortega,Santa Barbara High School,175,,9,,,,,,,,,,PASS-NOVICE-175-SBHS-07
+ATH-NOVICE-175-DPHS-08,Diego Campbell,DPHS,Dos Pueblos High School,NOVICE,175,8,FLO-2617508,Diego,Campbell,Dos Pueblos High School,175,,10,,,,,,,,,,PASS-NOVICE-175-DPHS-08
+ATH-NOVICE-175-SMHS-09,Lucas Guerrero,SMHS,San Marcos High School,NOVICE,175,9,FLO-2617509,Lucas,Guerrero,San Marcos High School,175,,9,,,,,,,,,,PASS-NOVICE-175-SMHS-09
+ATH-NOVICE-175-VHS-10,Julian Foster,VHS,Ventura High School,NOVICE,175,10,FLO-2617510,Julian,Foster,Ventura High School,175,,10,,,,,,,,,,PASS-NOVICE-175-VHS-10
+ATH-NOVICE-175-BHS-11,Caleb Espinoza,BHS,Buena High School,NOVICE,175,11,FLO-2617511,Caleb,Espinoza,Buena High School,175,,9,,,,,,,,,,PASS-NOVICE-175-BHS-11
+ATH-NOVICE-175-OHS-12,Adrian Reed,OHS,Oxnard High School,NOVICE,175,12,FLO-2617512,Adrian,Reed,Oxnard High School,175,,10,,,,,,,,,,PASS-NOVICE-175-OHS-12
+ATH-NOVICE-175-PHS-13,Gavin Sandoval,PHS,Pacifica High School,NOVICE,175,13,FLO-2617513,Gavin,Sandoval,Pacifica High School,175,,9,,,,,,,,,,PASS-NOVICE-175-PHS-13
+ATH-NOVICE-175-RMHS-14,Isaac Hayes,RMHS,Rio Mesa High School,NOVICE,175,14,FLO-2617514,Isaac,Hayes,Rio Mesa High School,175,,10,,,,,,,,,,PASS-NOVICE-175-RMHS-14
+ATH-NOVICE-175-CIHS-15,Owen Cabrera,CIHS,Channel Islands High School,NOVICE,175,15,FLO-2617515,Owen,Cabrera,Channel Islands High School,175,,9,,,,,,,,,,PASS-NOVICE-175-CIHS-15
+ATH-NOVICE-175-HHS-16,Devon Murphy,HHS,Hueneme High School,NOVICE,175,16,FLO-2617516,Devon,Murphy,Hueneme High School,175,,10,,,,,,,,,,PASS-NOVICE-175-HHS-16
+ATH-NOVICE-190-TOHS-01,Logan Salazar,TOHS,Thousand Oaks High School,NOVICE,190,1,FLO-2619001,Logan,Salazar,Thousand Oaks High School,190,,10,,,,,,,,,,PASS-NOVICE-190-TOHS-01
+ATH-NOVICE-190-NPHS-02,Sebastian Patel,NPHS,Newbury Park High School,NOVICE,190,2,FLO-2619002,Sebastian,Patel,Newbury Park High School,190,,9,,,,,,,,,,PASS-NOVICE-190-NPHS-02
+ATH-NOVICE-190-WHS-03,Eli Brooks,WHS,Westlake High School,NOVICE,190,3,FLO-2619003,Eli,Brooks,Westlake High School,190,,10,,,,,,,,,,PASS-NOVICE-190-WHS-03
+ATH-NOVICE-190-MHS-04,Xavier Herrera,MHS,Moorpark High School,NOVICE,190,4,FLO-2619004,Xavier,Herrera,Moorpark High School,190,,9,,,,,,,,,,PASS-NOVICE-190-MHS-04
+ATH-NOVICE-190-SYHS-05,Dominic Kim,SYHS,Santa Ynez Valley Union High School,NOVICE,190,5,FLO-2619005,Dominic,Kim,Santa Ynez Valley Union High School,190,,10,,,,,,,,,,PASS-NOVICE-190-SYHS-05
+ATH-NOVICE-190-SBHS-06,Hector Ortega,SBHS,Santa Barbara High School,NOVICE,190,6,FLO-2619006,Hector,Ortega,Santa Barbara High School,190,,9,,,,,,,,,,PASS-NOVICE-190-SBHS-06
+ATH-NOVICE-190-DPHS-07,Nathan Campbell,DPHS,Dos Pueblos High School,NOVICE,190,7,FLO-2619007,Nathan,Campbell,Dos Pueblos High School,190,,10,,,,,,,,,,PASS-NOVICE-190-DPHS-07
+ATH-NOVICE-190-SMHS-08,Cole Guerrero,SMHS,San Marcos High School,NOVICE,190,8,FLO-2619008,Cole,Guerrero,San Marcos High School,190,,9,,,,,,,,,,PASS-NOVICE-190-SMHS-08
+ATH-NOVICE-190-VHS-09,Victor Foster,VHS,Ventura High School,NOVICE,190,9,FLO-2619009,Victor,Foster,Ventura High School,190,,10,,,,,,,,,,PASS-NOVICE-190-VHS-09
+ATH-NOVICE-190-BHS-10,Wesley Espinoza,BHS,Buena High School,NOVICE,190,10,FLO-2619010,Wesley,Espinoza,Buena High School,190,,9,,,,,,,,,,PASS-NOVICE-190-BHS-10
+ATH-NOVICE-190-OHS-11,Damian Reed,OHS,Oxnard High School,NOVICE,190,11,FLO-2619011,Damian,Reed,Oxnard High School,190,,10,,,,,,,,,,PASS-NOVICE-190-OHS-11
+ATH-NOVICE-190-PHS-12,Micah Sandoval,PHS,Pacifica High School,NOVICE,190,12,FLO-2619012,Micah,Sandoval,Pacifica High School,190,,9,,,,,,,,,,PASS-NOVICE-190-PHS-12
+ATH-NOVICE-190-RMHS-13,Rafael Hayes,RMHS,Rio Mesa High School,NOVICE,190,13,FLO-2619013,Rafael,Hayes,Rio Mesa High School,190,,10,,,,,,,,,,PASS-NOVICE-190-RMHS-13
+ATH-NOVICE-190-CIHS-14,Tristan Cabrera,CIHS,Channel Islands High School,NOVICE,190,14,FLO-2619014,Tristan,Cabrera,Channel Islands High School,190,,9,,,,,,,,,,PASS-NOVICE-190-CIHS-14
+ATH-NOVICE-190-HHS-15,Brody Murphy,HHS,Hueneme High School,NOVICE,190,15,FLO-2619015,Brody,Murphy,Hueneme High School,190,,10,,,,,,,,,,PASS-NOVICE-190-HHS-15
+ATH-NOVICE-190-ACHS-16,Kai Rios,ACHS,Adolfo Camarillo High School,NOVICE,190,16,FLO-2619016,Kai,Rios,Adolfo Camarillo High School,190,,9,,,,,,,,,,PASS-NOVICE-190-ACHS-16
+ATH-NOVICE-215-NPHS-01,Jordan Patel,NPHS,Newbury Park High School,NOVICE,215,1,FLO-2621501,Jordan,Patel,Newbury Park High School,215,,9,,,,,,,,,,PASS-NOVICE-215-NPHS-01
+ATH-NOVICE-215-WHS-02,Marcus Brooks,WHS,Westlake High School,NOVICE,215,2,FLO-2621502,Marcus,Brooks,Westlake High School,215,,10,,,,,,,,,,PASS-NOVICE-215-WHS-02
+ATH-NOVICE-215-MHS-03,Mateo Herrera,MHS,Moorpark High School,NOVICE,215,3,FLO-2621503,Mateo,Herrera,Moorpark High School,215,,9,,,,,,,,,,PASS-NOVICE-215-MHS-03
+ATH-NOVICE-215-SYHS-04,Liam Kim,SYHS,Santa Ynez Valley Union High School,NOVICE,215,4,FLO-2621504,Liam,Kim,Santa Ynez Valley Union High School,215,,10,,,,,,,,,,PASS-NOVICE-215-SYHS-04
+ATH-NOVICE-215-SBHS-05,Carlos Ortega,SBHS,Santa Barbara High School,NOVICE,215,5,FLO-2621505,Carlos,Ortega,Santa Barbara High School,215,,9,,,,,,,,,,PASS-NOVICE-215-SBHS-05
+ATH-NOVICE-215-DPHS-06,Noah Campbell,DPHS,Dos Pueblos High School,NOVICE,215,6,FLO-2621506,Noah,Campbell,Dos Pueblos High School,215,,10,,,,,,,,,,PASS-NOVICE-215-DPHS-06
+ATH-NOVICE-215-SMHS-07,Ethan Guerrero,SMHS,San Marcos High School,NOVICE,215,7,FLO-2621507,Ethan,Guerrero,San Marcos High School,215,,9,,,,,,,,,,PASS-NOVICE-215-SMHS-07
+ATH-NOVICE-215-VHS-08,Diego Foster,VHS,Ventura High School,NOVICE,215,8,FLO-2621508,Diego,Foster,Ventura High School,215,,10,,,,,,,,,,PASS-NOVICE-215-VHS-08
+ATH-NOVICE-215-BHS-09,Lucas Espinoza,BHS,Buena High School,NOVICE,215,9,FLO-2621509,Lucas,Espinoza,Buena High School,215,,9,,,,,,,,,,PASS-NOVICE-215-BHS-09
+ATH-NOVICE-215-OHS-10,Julian Reed,OHS,Oxnard High School,NOVICE,215,10,FLO-2621510,Julian,Reed,Oxnard High School,215,,10,,,,,,,,,,PASS-NOVICE-215-OHS-10
+ATH-NOVICE-215-PHS-11,Caleb Sandoval,PHS,Pacifica High School,NOVICE,215,11,FLO-2621511,Caleb,Sandoval,Pacifica High School,215,,9,,,,,,,,,,PASS-NOVICE-215-PHS-11
+ATH-NOVICE-215-RMHS-12,Adrian Hayes,RMHS,Rio Mesa High School,NOVICE,215,12,FLO-2621512,Adrian,Hayes,Rio Mesa High School,215,,10,,,,,,,,,,PASS-NOVICE-215-RMHS-12
+ATH-NOVICE-215-CIHS-13,Gavin Cabrera,CIHS,Channel Islands High School,NOVICE,215,13,FLO-2621513,Gavin,Cabrera,Channel Islands High School,215,,9,,,,,,,,,,PASS-NOVICE-215-CIHS-13
+ATH-NOVICE-215-HHS-14,Isaac Murphy,HHS,Hueneme High School,NOVICE,215,14,FLO-2621514,Isaac,Murphy,Hueneme High School,215,,10,,,,,,,,,,PASS-NOVICE-215-HHS-14
+ATH-NOVICE-215-ACHS-15,Owen Rios,ACHS,Adolfo Camarillo High School,NOVICE,215,15,FLO-2621515,Owen,Rios,Adolfo Camarillo High School,215,,9,,,,,,,,,,PASS-NOVICE-215-ACHS-15
+ATH-NOVICE-215-TOHS-16,Devon Wallace,TOHS,Thousand Oaks High School,NOVICE,215,16,FLO-2621516,Devon,Wallace,Thousand Oaks High School,215,,10,,,,,,,,,,PASS-NOVICE-215-TOHS-16
+ATH-NOVICE-285-WHS-01,Logan Brooks,WHS,Westlake High School,NOVICE,285,1,FLO-2628501,Logan,Brooks,Westlake High School,285,,10,,,,,,,,,,PASS-NOVICE-285-WHS-01
+ATH-NOVICE-285-MHS-02,Sebastian Herrera,MHS,Moorpark High School,NOVICE,285,2,FLO-2628502,Sebastian,Herrera,Moorpark High School,285,,9,,,,,,,,,,PASS-NOVICE-285-MHS-02
+ATH-NOVICE-285-SYHS-03,Eli Kim,SYHS,Santa Ynez Valley Union High School,NOVICE,285,3,FLO-2628503,Eli,Kim,Santa Ynez Valley Union High School,285,,10,,,,,,,,,,PASS-NOVICE-285-SYHS-03
+ATH-NOVICE-285-SBHS-04,Xavier Ortega,SBHS,Santa Barbara High School,NOVICE,285,4,FLO-2628504,Xavier,Ortega,Santa Barbara High School,285,,9,,,,,,,,,,PASS-NOVICE-285-SBHS-04
+ATH-NOVICE-285-DPHS-05,Dominic Campbell,DPHS,Dos Pueblos High School,NOVICE,285,5,FLO-2628505,Dominic,Campbell,Dos Pueblos High School,285,,10,,,,,,,,,,PASS-NOVICE-285-DPHS-05
+ATH-NOVICE-285-SMHS-06,Hector Guerrero,SMHS,San Marcos High School,NOVICE,285,6,FLO-2628506,Hector,Guerrero,San Marcos High School,285,,9,,,,,,,,,,PASS-NOVICE-285-SMHS-06
+ATH-NOVICE-285-VHS-07,Nathan Foster,VHS,Ventura High School,NOVICE,285,7,FLO-2628507,Nathan,Foster,Ventura High School,285,,10,,,,,,,,,,PASS-NOVICE-285-VHS-07
+ATH-NOVICE-285-BHS-08,Cole Espinoza,BHS,Buena High School,NOVICE,285,8,FLO-2628508,Cole,Espinoza,Buena High School,285,,9,,,,,,,,,,PASS-NOVICE-285-BHS-08
+ATH-NOVICE-285-OHS-09,Victor Reed,OHS,Oxnard High School,NOVICE,285,9,FLO-2628509,Victor,Reed,Oxnard High School,285,,10,,,,,,,,,,PASS-NOVICE-285-OHS-09
+ATH-NOVICE-285-PHS-10,Wesley Sandoval,PHS,Pacifica High School,NOVICE,285,10,FLO-2628510,Wesley,Sandoval,Pacifica High School,285,,9,,,,,,,,,,PASS-NOVICE-285-PHS-10
+ATH-NOVICE-285-RMHS-11,Damian Hayes,RMHS,Rio Mesa High School,NOVICE,285,11,FLO-2628511,Damian,Hayes,Rio Mesa High School,285,,10,,,,,,,,,,PASS-NOVICE-285-RMHS-11
+ATH-NOVICE-285-CIHS-12,Micah Cabrera,CIHS,Channel Islands High School,NOVICE,285,12,FLO-2628512,Micah,Cabrera,Channel Islands High School,285,,9,,,,,,,,,,PASS-NOVICE-285-CIHS-12
+ATH-NOVICE-285-HHS-13,Rafael Murphy,HHS,Hueneme High School,NOVICE,285,13,FLO-2628513,Rafael,Murphy,Hueneme High School,285,,10,,,,,,,,,,PASS-NOVICE-285-HHS-13
+ATH-NOVICE-285-ACHS-14,Tristan Rios,ACHS,Adolfo Camarillo High School,NOVICE,285,14,FLO-2628514,Tristan,Rios,Adolfo Camarillo High School,285,,9,,,,,,,,,,PASS-NOVICE-285-ACHS-14
+ATH-NOVICE-285-TOHS-15,Brody Wallace,TOHS,Thousand Oaks High School,NOVICE,285,15,FLO-2628515,Brody,Wallace,Thousand Oaks High School,285,,10,,,,,,,,,,PASS-NOVICE-285-TOHS-15
+ATH-NOVICE-285-NPHS-16,Kai Rivera,NPHS,Newbury Park High School,NOVICE,285,16,FLO-2628516,Kai,Rivera,Newbury Park High School,285,,9,,,,,,,,,,PASS-NOVICE-285-NPHS-16

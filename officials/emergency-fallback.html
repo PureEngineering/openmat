@@ -1,0 +1,3156 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nov 20 - Channel League Novice Tournament - Offline Emergency Fallback</title>
+  <style id="openmat-fallback-styles">
+:root,
+[data-theme="light"] {
+  --bg-page: #f1f5f9;
+  --bg-surface: #ffffff;
+  --bg-inset: #e2e8f0;
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #475569;
+  --border-subtle: #cbd5e1;
+  --border-strong: #94a3b8;
+  --accent-primary: #1d4ed8;
+  --accent-hover: #1e40af;
+  --status-ok: #15803d;
+  --status-ok-bg: #dcfce7;
+  --status-warn: #b45309;
+  --status-warn-bg: #fef3c7;
+  --status-err: #b91c1c;
+  --status-err-bg: #fee2e2;
+  --corner-red: #b91c1c;
+  --corner-red-bg: #fee2e2;
+  --corner-green: #15803d;
+  --corner-green-bg: #dcfce7;
+}
+[data-theme="dark"] {
+  --bg-page: #0b1120;
+  --bg-surface: #111827;
+  --bg-inset: #1e293b;
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+  --border-subtle: #334155;
+  --border-strong: #475569;
+  --accent-primary: #3b82f6;
+  --accent-hover: #2563eb;
+  --status-ok: #4ade80;
+  --status-ok-bg: rgba(22, 101, 52, 0.35);
+  --status-warn: #fbbf24;
+  --status-warn-bg: rgba(180, 83, 9, 0.35);
+  --status-err: #f87171;
+  --status-err-bg: rgba(185, 28, 28, 0.35);
+  --corner-red: #fca5a5;
+  --corner-red-bg: rgba(185, 28, 28, 0.32);
+  --corner-green: #86efac;
+  --corner-green-bg: rgba(21, 128, 61, 0.32);
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg-page);
+  color: var(--text-primary);
+  line-height: 1.4;
+}
+button, input, select {
+  font-family: inherit;
+  font-size: 13px;
+}
+button {
+  min-height: 34px;
+  padding: 5px 11px;
+  border-radius: 7px;
+  border: 1px solid var(--border-strong);
+  background: var(--bg-surface);
+  color: var(--text-primary);
+  font-weight: 700;
+  cursor: pointer;
+}
+button:hover:not(:disabled) { filter: brightness(0.96); }
+button:disabled { opacity: 0.5; cursor: not-allowed; }
+button:focus-visible, input:focus-visible, select:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
+}
+.btn-primary { background: var(--accent-primary); border-color: var(--accent-hover); color: #ffffff; }
+.btn-ok { background: #15803d; border-color: #166534; color: #ffffff; }
+.btn-warn { background: #d97706; border-color: #b45309; color: #ffffff; }
+.btn-danger { background: #dc2626; border-color: #b91c1c; color: #ffffff; }
+input, select {
+  min-height: 34px;
+  padding: 5px 9px;
+  border-radius: 7px;
+  border: 1px solid var(--border-strong);
+  background: var(--bg-surface);
+  color: var(--text-primary);
+}
+.topbar {
+  background: var(--bg-surface);
+  border-bottom: 2px solid var(--border-strong);
+  padding: 10px 16px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+.topbar h1 { margin: 2px 0 0; font-size: 19px; }
+.eyebrow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+}
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 800;
+}
+.pill.ok { background: var(--status-ok-bg); color: var(--status-ok); }
+.pill.warn { background: var(--status-warn-bg); color: var(--status-warn); }
+.pill.err { background: var(--status-err-bg); color: var(--status-err); }
+.topbar-actions { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.tabbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 8px 16px;
+  background: var(--bg-surface);
+  border-bottom: 1px solid var(--border-subtle);
+}
+.tab-btn {
+  border-radius: 8px;
+  padding: 7px 13px;
+  background: transparent;
+  border: 1px solid transparent;
+}
+.tab-btn[aria-selected="true"] {
+  background: var(--accent-primary);
+  color: #ffffff;
+}
+main { max-width: 1480px; margin: 0 auto; padding: 14px 16px 40px; display: grid; gap: 14px; }
+.card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 10px;
+  padding: 14px;
+}
+.card-head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.card-head h2 { margin: 0; font-size: 16px; }
+.sub { margin: 2px 0 0; font-size: 12px; color: var(--text-muted); }
+.toast {
+  padding: 9px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+.toast.ok { background: var(--status-ok-bg); color: var(--status-ok); border: 1px solid var(--status-ok); }
+.toast.err { background: var(--status-err-bg); color: var(--status-err); border: 1px solid var(--status-err); }
+.mats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+  gap: 12px;
+}
+.mat-card {
+  background: var(--bg-surface);
+  border: 2px solid var(--border-strong);
+  border-radius: 10px;
+  padding: 12px;
+  display: grid;
+  gap: 8px;
+  align-content: start;
+}
+.corner-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  font-weight: 700;
+}
+.corner-row.red { background: var(--corner-red-bg); color: var(--corner-red); }
+.corner-row.green { background: var(--corner-green-bg); color: var(--corner-green); }
+.corner-tag {
+  display: inline-block;
+  min-width: 20px;
+  text-align: center;
+  padding: 1px 5px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 900;
+  color: #ffffff;
+  margin-right: 5px;
+}
+.corner-tag.red { background: #dc2626; }
+.corner-tag.green { background: #16a34a; }
+.slip-form {
+  background: var(--bg-inset);
+  border-radius: 8px;
+  padding: 8px;
+  display: grid;
+  gap: 6px;
+}
+.queue-row {
+  border: 1px solid var(--border-subtle);
+  border-radius: 7px;
+  padding: 7px 9px;
+  font-size: 12px;
+  display: grid;
+  gap: 4px;
+}
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th, td {
+  padding: 7px 8px;
+  border-bottom: 1px solid var(--border-subtle);
+  text-align: left;
+  vertical-align: middle;
+}
+th {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  background: var(--bg-inset);
+}
+.num { text-align: right; }
+.filter-bar { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.pill-btn { min-height: 30px; padding: 3px 10px; border-radius: 999px; font-size: 12px; }
+.pill-btn.active { background: var(--accent-primary); color: #ffffff; border-color: var(--accent-hover); }
+.bracket-cols { display: flex; gap: 14px; overflow-x: auto; padding-bottom: 8px; align-items: stretch; }
+.bracket-col { min-width: 255px; flex: 1; display: flex; flex-direction: column; gap: 10px; }
+.bracket-node {
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  padding: 8px;
+  background: var(--bg-surface);
+  display: grid;
+  gap: 5px;
+  font-size: 12px;
+}
+dialog {
+  border: 2px solid var(--border-strong);
+  border-radius: 12px;
+  padding: 18px;
+  max-width: 520px;
+  width: calc(100% - 24px);
+  background: var(--bg-surface);
+  color: var(--text-primary);
+}
+dialog::backdrop { background: rgba(15, 23, 42, 0.6); }
+
+/* Printable Runner Slips and Wall Brackets */
+.print-slips-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+.runner-slip {
+  border: 2px solid #0f172a;
+  border-radius: 8px;
+  padding: 10px 12px;
+  background: #ffffff;
+  color: #0f172a;
+  break-inside: avoid;
+  page-break-inside: avoid;
+  display: grid;
+  gap: 6px;
+  font-size: 12px;
+}
+.runner-slip-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #0f172a;
+  padding-bottom: 4px;
+  font-weight: 900;
+  font-size: 14px;
+}
+.runner-slip-corner {
+  border: 1px solid #334155;
+  border-radius: 5px;
+  padding: 6px 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 700;
+}
+.runner-box {
+  display: inline-block;
+  min-width: 48px;
+  height: 22px;
+  border: 1.5px solid #0f172a;
+  border-radius: 3px;
+  vertical-align: middle;
+}
+.wall-bracket-sheet {
+  background: #ffffff;
+  color: #0f172a;
+  border: 1px solid #94a3b8;
+  border-radius: 8px;
+  padding: 14px;
+  margin-bottom: 16px;
+  break-inside: avoid;
+}
+#print-only-container { display: none; }
+@media print {
+  body { background: #ffffff !important; color: #000000 !important; }
+  .topbar, .tabbar, main, dialog { display: none !important; }
+  #print-only-container {
+    display: block !important;
+    padding: 0;
+    margin: 0;
+  }
+  .wall-page-break { break-after: page; page-break-after: always; }
+}
+</style>
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <div class="eyebrow">
+        <span class="pill warn" id="hdr-mode-pill">OFFLINE FALLBACK</span>
+        <span id="hdr-save-status">Saved in browser</span>
+        <span id="hdr-progress-summary">0 / 0 Bouts</span>
+      </div>
+      <h1 id="hdr-tournament-title">Nov 20 - Channel League Novice Tournament</h1>
+    </div>
+    <div class="topbar-actions">
+      <button type="button" class="btn-primary" id="btn-save-html" title="Download an updated single-file HTML checkpoint for USB or laptop backup">Save Updated HTML</button>
+      <button type="button" class="btn-ok" id="btn-export-csv" title="Download an OpenMat backup CSV to restore results into Officials Console">Export OpenMat CSV</button>
+      <button type="button" id="btn-export-xlsx" title="Download a multi-sheet Excel workbook with bracket and team formulas">Export Excel (.xlsx)</button>
+      <label for="input-import-csv" style="display:inline-flex;align-items:center;min-height:34px;padding:5px 11px;border-radius:7px;border:1px solid var(--border-strong);background:var(--bg-surface);font-size:13px;font-weight:700;cursor:pointer;">Import CSV</label>
+      <input id="input-import-csv" type="file" accept=".csv,text/csv" style="display:none" />
+      <button type="button" id="btn-open-wallboard" title="Open a local second-screen scoreboard window for an HDMI TV or projector">Open Wall Board</button>
+      <button type="button" id="btn-toggle-theme" title="Toggle daylight or dark display">Theme</button>
+    </div>
+  </header>
+
+  <nav class="tabbar" role="tablist" aria-label="Emergency tournament views">
+    <button type="button" role="tab" class="tab-btn" id="tab-btn-desk" data-tab="desk" aria-selected="true">1. Paper Runner Desk</button>
+    <button type="button" role="tab" class="tab-btn" id="tab-btn-brackets" data-tab="brackets" aria-selected="false">2. Brackets and Seeds</button>
+    <button type="button" role="tab" class="tab-btn" id="tab-btn-print" data-tab="print" aria-selected="false">3. Print Slips and Wall Charts</button>
+    <button type="button" role="tab" class="tab-btn" id="tab-btn-standings" data-tab="standings" aria-selected="false">4. Standings and Roster</button>
+  </nav>
+
+  <main id="fallback-main">
+    <section class="card" aria-label="Emergency fallback instructions">
+      <h2>Single-Laptop Paper Runner Mode</h2>
+      <p class="sub">Start Practice Mode on each mat device. Print bout slips and record paper runner results on this laptop without internet.</p>
+    </section>
+  </main>
+
+  <section id="print-only-container" aria-label="Printable tournament output"></section>
+
+  <dialog id="fallback-correction-dialog" aria-label="Correct or reopen bout result"></dialog>
+  <template id="openmat-shell-template">
+  <header class="topbar">
+    <div>
+      <div class="eyebrow">
+        <span class="pill warn" id="hdr-mode-pill">OFFLINE FALLBACK</span>
+        <span id="hdr-save-status">Saved in browser</span>
+        <span id="hdr-progress-summary">0 / 0 Bouts</span>
+      </div>
+      <h1 id="hdr-tournament-title">Nov 20 - Channel League Novice Tournament</h1>
+    </div>
+    <div class="topbar-actions">
+      <button type="button" class="btn-primary" id="btn-save-html" title="Download an updated single-file HTML checkpoint for USB or laptop backup">Save Updated HTML</button>
+      <button type="button" class="btn-ok" id="btn-export-csv" title="Download an OpenMat backup CSV to restore results into Officials Console">Export OpenMat CSV</button>
+      <button type="button" id="btn-export-xlsx" title="Download a multi-sheet Excel workbook with bracket and team formulas">Export Excel (.xlsx)</button>
+      <label for="input-import-csv" style="display:inline-flex;align-items:center;min-height:34px;padding:5px 11px;border-radius:7px;border:1px solid var(--border-strong);background:var(--bg-surface);font-size:13px;font-weight:700;cursor:pointer;">Import CSV</label>
+      <input id="input-import-csv" type="file" accept=".csv,text/csv" style="display:none" />
+      <button type="button" id="btn-open-wallboard" title="Open a local second-screen scoreboard window for an HDMI TV or projector">Open Wall Board</button>
+      <button type="button" id="btn-toggle-theme" title="Toggle daylight or dark display">Theme</button>
+    </div>
+  </header>
+
+  <nav class="tabbar" role="tablist" aria-label="Emergency tournament views">
+    <button type="button" role="tab" class="tab-btn" id="tab-btn-desk" data-tab="desk" aria-selected="true">1. Paper Runner Desk</button>
+    <button type="button" role="tab" class="tab-btn" id="tab-btn-brackets" data-tab="brackets" aria-selected="false">2. Brackets and Seeds</button>
+    <button type="button" role="tab" class="tab-btn" id="tab-btn-print" data-tab="print" aria-selected="false">3. Print Slips and Wall Charts</button>
+    <button type="button" role="tab" class="tab-btn" id="tab-btn-standings" data-tab="standings" aria-selected="false">4. Standings and Roster</button>
+  </nav>
+
+  <main id="fallback-main">
+    <section class="card" aria-label="Emergency fallback instructions">
+      <h2>Single-Laptop Paper Runner Mode</h2>
+      <p class="sub">Start Practice Mode on each mat device. Print bout slips and record paper runner results on this laptop without internet.</p>
+    </section>
+  </main>
+
+  <section id="print-only-container" aria-label="Printable tournament output"></section>
+
+  <dialog id="fallback-correction-dialog" aria-label="Correct or reopen bout result"></dialog>
+  </template>
+  <script id="openmat-fallback-state" type="application/json">{"version":1,"revision":1,"updated_at_ms":0,"tournament_id":"channel-league-novice-2026-11-20","tournament_name":"Nov 20 - Channel League Novice Tournament","event_date":"2026-11-20","venue":"Channel League Main Gymnasium","rules_version":"NFHS-2026-27-NOVICE-1-2-2","mat_count":5,"growth_allowance_tenths":20,"consecutive_day_allowance_tenths":0,"required_rest_ms":1800000,"bracket_frozen_by_class":[],"athletes":[],"bouts":[],"weigh_ins":{},"medicals":{}}</script>
+  <script id="openmat-fallback-runtime">(function () {
+  "use strict";
+
+  var NOVICE_RULESET = "NFHS-2026-27-NOVICE-1-2-2";
+  var VARSITY_RULESET = "NFHS-2026-27-v1";
+  var PRESET_SCHOOLS = [{"teamId":"SBHS","teamName":"Santa Barbara High School"},{"teamId":"DPHS","teamName":"Dos Pueblos High School"},{"teamId":"SMHS","teamName":"San Marcos High School"},{"teamId":"VHS","teamName":"Ventura High School"},{"teamId":"BHS","teamName":"Buena High School"},{"teamId":"OHS","teamName":"Oxnard High School"},{"teamId":"PHS","teamName":"Pacifica High School"},{"teamId":"RMHS","teamName":"Rio Mesa High School"}];
+  var STAGE_LABELS = {"1":"Expected","2":"Arrived","3":"Weigh-In Pending","4":"Medical Pending","5":"Eligible","6":"Withdrawn","7":"Scratched"};
+  var BOYS_WEIGHTS = ["106","113","120","126","132","138","144","150","157","165","175","190","215","285"];
+  var GIRLS_WEIGHTS = ["100","107","114","120","126","132","138","145","152","165","175","185","205","235"];
+  var ALL_WEIGHTS = ["100","106","107","113","114","120","126","132","138","144","145","150","152","157","165","175","185","190","205","215","235","285"];
+  var DIVISIONS = ["NOVICE","JV","VARSITY","GIRLS","BOYS","U16","U18"];
+  var WIN_TYPES = ["FALL","TF","MD","DEC","FORFEIT","INJURY_DEFAULT","DQ"];
+  var PAPER_MARGINS = {"DEC":{"min":1,"max":7,"message":"For a decision, the winner must lead by 1 to 7 points."},"MD":{"min":8,"max":14,"message":"For a major decision, the winner must lead by 8 to 14 points."},"TF":{"min":15,"message":"For a technical fall, the winner must lead by at least 15 points."}};
+  var computeByeAdvancement = function computeByeAdvancement(bouts, completedWinner) {
+  const brackets = /* @__PURE__ */ new Map();
+  for (const bout of bouts) {
+    const bracketId = bout.bracket_id || JSON.stringify([bout.division_id?.toUpperCase() || "VARSITY", bout.weight_class_id]);
+    const bracket = brackets.get(bracketId) ?? /* @__PURE__ */ new Map();
+    bracket.set(bout.match_id, bout);
+    brackets.set(bracketId, bracket);
+  }
+  const credits = /* @__PURE__ */ new Map();
+  for (const bracket of brackets.values()) {
+    const byes = /* @__PURE__ */ new Map();
+    const rounds = /* @__PURE__ */ new Map();
+    for (const bout of bracket.values()) {
+      if (bout.is_bye || bout.win_type?.toUpperCase() === "BYE") {
+        const winner = completedWinner(bout);
+        const soleEntrant = bout.red_athlete_id && bout.green_athlete_id ? "" : bout.red_athlete_id || bout.green_athlete_id;
+        byes.set(bout, !bout.is_true_second_challenge && !bout.loser_athlete_id && winner === soleEntrant ? winner : "");
+      } else {
+        const key = `${bout.is_consolation}:${bout.round_index}`;
+        const round = rounds.get(key) ?? { bouts: [], wrestled: false };
+        round.bouts.push(bout);
+        if (bout.red_athlete_id && bout.green_athlete_id && completedWinner(bout) && !["FF", "FORFEIT", "MEDICAL_FORFEIT"].includes(bout.win_type?.toUpperCase())) {
+          round.wrestled = true;
+        }
+        rounds.set(key, round);
+      }
+    }
+    for (const [bye, recipient] of byes) {
+      if (!recipient || bye.format === "ROUND_ROBIN_POOL" || bye.format === "BEST_OF_THREE") continue;
+      const round = rounds.get(`${bye.is_consolation}:${bye.round_index}`);
+      if (!round) continue;
+      const visited = /* @__PURE__ */ new Set([bye.match_id]);
+      let next = bracket.get(bye.winner_next_match_id);
+      while (next && byes.get(next) === recipient && next.is_consolation === bye.is_consolation && !visited.has(next.match_id)) {
+        visited.add(next.match_id);
+        next = bracket.get(next.winner_next_match_id);
+      }
+      if (!next || byes.has(next) || next.is_consolation !== bye.is_consolation || next.red_athlete_id !== recipient && next.green_athlete_id !== recipient) continue;
+      const credit = credits.get(next.match_id) ?? { earnedPoints: 0, conditions: [] };
+      const points = bye.is_consolation ? 1 : 2;
+      const corner = next.red_athlete_id === recipient ? "R" : "G";
+      credit.conditions.push({ corner, points, roundBouts: round.bouts });
+      if (round.wrestled && next.red_athlete_id && next.green_athlete_id && completedWinner(next) === recipient) {
+        credit.earnedPoints += points;
+      }
+      credits.set(next.match_id, credit);
+    }
+  }
+  return credits;
+};
+  var byeAdvancementFormula = function byeAdvancementFormula(conditions, rowById, row, winnerColumn, typeColumn) {
+  return conditions.map(({ corner, points, roundBouts }) => {
+    const wrestled = roundBouts.map((bout) => {
+      const peer = rowById.get(bout.match_id);
+      const result = typeColumn + peer;
+      const winner = winnerColumn + peer;
+      return `AND(OR(${winner}="R",${winner}="G"),${result}<>"FF",${result}<>"FORFEIT",${result}<>"MEDICAL_FORFEIT",${result}<>"BYE")`;
+    });
+    return `+IF(AND(${winnerColumn}${row}="${corner}",OR(${wrestled.join(",")})),${points},0)`;
+  }).join("");
+};
+  var completedBoutTeamPoints = function completedBoutTeamPoints(bout, byePoints) {
+  const adv = bout.is_consolation ? 1 : 2;
+  const wt = (bout.win_type || "DEC").toUpperCase();
+  const bonus = wt === "FALL" || wt === "PIN" || wt === "FORFEIT" || wt === "FF" || wt === "INJURY_DEFAULT" || wt === "DQ" ? 2 : wt === "TF" ? 1.5 : wt === "MD" ? 1 : 0;
+  const place = bout.is_placement_bout && bout.placement_rank === 1 ? 16 : bout.is_placement_bout && bout.placement_rank === 3 ? 9 : 0;
+  return adv + byePoints + bonus + place;
+};
+
+  function byeAdvancement() {
+    return computeByeAdvancement(state.bouts || [], function (b) {
+      return isBoutDone(b) ? b.winner_athlete_id : "";
+    });
+  }
+
+  var Lifecycle = {
+    PendingUpstream: 1,
+    Assigned: 2,
+    Ready: 3,
+    InProgress: 4,
+    EndedLocal: 5,
+    LocallyConfirmed: 6,
+    ResultAccepted: 7
+  };
+
+  var Format = {
+    AutoByCount: "AUTO_BY_COUNT",
+    BestOfThree: "BEST_OF_THREE",
+    DoubleElimCrossover: "DOUBLE_ELIM_CROSSOVER",
+    RoundRobinPool: "ROUND_ROBIN_POOL",
+    PoolToBracket: "POOL_TO_BRACKET",
+    TeamDual: "TEAM_DUAL",
+    TrueSecondChallenge: "TRUE_SECOND_CHALLENGE"
+  };
+
+  function esc(str) {
+    return String(str == null ? "" : str)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  }
+
+  function safeScriptJson(val) {
+    return JSON.stringify(val)
+      .replace(/</g, "\\u003c")
+      .replace(/>/g, "\\u003e")
+      .replace(/&/g, "\\u0026");
+  }
+
+  function cloneObj(val) {
+    return JSON.parse(JSON.stringify(val));
+  }
+
+  function weightsForDivision(div) {
+    var up = String(div || "").trim().toUpperCase();
+    if (up === "ALL") return ALL_WEIGHTS;
+    if (up.indexOf("GIRL") >= 0 || up.indexOf("FEMALE") >= 0 || up === "F" || up === "W") return GIRLS_WEIGHTS;
+    return BOYS_WEIGHTS;
+  }
+
+  function period1MsForRules(rulesVersion) {
+    return rulesVersion === NOVICE_RULESET ? 60000 : 120000;
+  }
+
+  function isBoutDone(b) {
+    if (!b) return false;
+    if (b.is_bye) return b.lifecycle === Lifecycle.ResultAccepted;
+    return Boolean(b.winner_athlete_id) && (
+      b.lifecycle === Lifecycle.EndedLocal ||
+      b.lifecycle === Lifecycle.LocallyConfirmed ||
+      b.lifecycle === Lifecycle.ResultAccepted
+    );
+  }
+
+  // Load embedded state and reconcile with localStorage by revision
+  var stateEl = document.getElementById("openmat-fallback-state");
+  var embeddedState = JSON.parse(stateEl ? stateEl.textContent : "{}");
+  var state = cloneObj(embeddedState);
+  var storageAvailable = false;
+  var dirtySinceFileExport = false;
+  var lastSavedLabel = "Loaded from file";
+
+  function storageKeyFor(tournamentId) {
+    return "openmat_emergency_fallback_v1:" + (tournamentId || "default");
+  }
+
+  try {
+    var testKey = "__openmat_fallback_probe__";
+    window.localStorage.setItem(testKey, "1");
+    window.localStorage.removeItem(testKey);
+    storageAvailable = true;
+  } catch (_err) {
+    storageAvailable = false;
+  }
+
+  if (storageAvailable && state.tournament_id) {
+    try {
+      var rawSaved = window.localStorage.getItem(storageKeyFor(state.tournament_id));
+      if (rawSaved) {
+        var parsedSaved = JSON.parse(rawSaved);
+        if (
+          parsedSaved &&
+          parsedSaved.tournament_id === state.tournament_id &&
+          ((parsedSaved.revision || 0) > (state.revision || 0) ||
+            ((parsedSaved.revision || 0) === (state.revision || 0) &&
+              (parsedSaved.updated_at_ms || 0) > (state.updated_at_ms || 0)))
+        ) {
+          state = parsedSaved;
+          lastSavedLabel = "Restored newer browser auto-save (rev " + state.revision + ")";
+        }
+      }
+    } catch (_err2) {}
+  }
+
+  // UI view state
+  var ui = {
+    tab: (state.bouts && state.bouts.length > 0) ? "desk" : "brackets",
+    theme: "light",
+    toastMsg: "",
+    toastKind: "ok",
+    deskSearch: "",
+    deskFilter: "OPEN",
+    selectedDivision: "ALL",
+    selectedWeight: "",
+    selectedFormat: Format.AutoByCount,
+    printMode: "staged-slips",
+    printRound: 1,
+    rosterSearch: "",
+    walkupName: "",
+    walkupTeamId: PRESET_SCHOOLS[0] ? PRESET_SCHOOLS[0].teamId : "SBHS",
+    walkupTeamName: PRESET_SCHOOLS[0] ? PRESET_SCHOOLS[0].teamName : "Santa Barbara High School",
+    walkupDivision: state.athletes && state.athletes[0] ? state.athletes[0].division_id : "NOVICE",
+    walkupWeight: "132",
+    walkupSeed: 1,
+    slipInputs: {},
+    correctionMatchId: "",
+    correctionWinnerId: "",
+    correctionWinType: "FALL",
+    correctionRedScore: "0",
+    correctionGreenScore: "0",
+    wallboardWin: null
+  };
+
+  function ensureSelectedWeight() {
+    var weights = populatedWeights();
+    if (!ui.selectedWeight || (weights.length > 0 && weights.indexOf(ui.selectedWeight) < 0 && ALL_WEIGHTS.indexOf(ui.selectedWeight) < 0)) {
+      ui.selectedWeight = weights[0] || "132";
+    } else if (weights.length > 0 && weights.indexOf(ui.selectedWeight) < 0) {
+      ui.selectedWeight = weights[0];
+    }
+  }
+
+  function athleteMap() {
+    var m = new Map();
+    (state.athletes || []).forEach(function (a) { m.set(a.athlete_id, a); });
+    return m;
+  }
+
+  function boutMap() {
+    var m = new Map();
+    (state.bouts || []).forEach(function (b) { m.set(b.match_id, b); });
+    return m;
+  }
+
+  function frozenMap() {
+    return new Map(state.bracket_frozen_by_class || []);
+  }
+
+  function saveFrozenMap(m) {
+    state.bracket_frozen_by_class = Array.from(m.entries());
+  }
+
+  function isAthleteEligible(a) {
+    return a && a.check_in_stage === 5 && a.weigh_in_eligible && a.medically_cleared;
+  }
+
+  function isWithdrawn(athleteId, aMap) {
+    var a = aMap.get(athleteId);
+    return a ? (a.check_in_stage === 6 || a.check_in_stage === 7) : false;
+  }
+
+  function populatedWeights() {
+    var set = {};
+    (state.athletes || []).forEach(function (a) {
+      if (a.weight_class_id) set[a.weight_class_id] = true;
+    });
+    (state.bouts || []).forEach(function (b) {
+      if (b.weight_class_id) set[b.weight_class_id] = true;
+    });
+    return Object.keys(set).sort(function (a, b) { return Number(a) - Number(b); });
+  }
+
+  function showToast(msg, kind) {
+    ui.toastMsg = msg;
+    ui.toastKind = kind || "ok";
+    render();
+  }
+
+  function persistState(markDirty) {
+    state.revision = (state.revision || 1) + 1;
+    state.updated_at_ms = Date.now();
+    if (markDirty !== false) dirtySinceFileExport = true;
+    if (stateEl) stateEl.textContent = safeScriptJson(state);
+    if (storageAvailable && state.tournament_id) {
+      try {
+        window.localStorage.setItem(storageKeyFor(state.tournament_id), JSON.stringify(state));
+        var d = new Date(state.updated_at_ms);
+        lastSavedLabel = "Auto-saved " + d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second: "2-digit" });
+      } catch (_e) {
+        lastSavedLabel = "Memory mode (click Save Updated HTML)";
+      }
+    } else {
+      lastSavedLabel = "Offline file mode (click Save Updated HTML)";
+    }
+    refreshWallboard();
+  }
+
+  window.addEventListener("beforeunload", function (e) {
+    if (dirtySinceFileExport && !storageAvailable) {
+      e.preventDefault();
+      e.returnValue = "";
+    }
+  });
+
+  // ===========================================================================
+  // Rest Status, Bracket Advancement, Best-of-3, True Second, and Standings
+  // ===========================================================================
+
+  function getAthleteRest(athleteId, nowMs) {
+    var now = nowMs || Date.now();
+    var reqMs = state.required_rest_ms || (30 * 60 * 1000);
+    var a = athleteMap().get(athleteId);
+    if (!a || !a.last_bout_ended_ms || a.last_bout_ended_ms <= 0) {
+      return { restLocked: false, remainingMs: 0, remainingMinutes: 0 };
+    }
+    var elapsed = now - a.last_bout_ended_ms;
+    if (elapsed >= reqMs) {
+      return { restLocked: false, remainingMs: 0, remainingMinutes: 0 };
+    }
+    var rem = reqMs - elapsed;
+    return { restLocked: true, remainingMs: rem, remainingMinutes: Math.ceil(rem / 60000) };
+  }
+
+  function getBoutRest(bout, nowMs) {
+    var now = nowMs || Date.now();
+    var aMap = athleteMap();
+    var names = [];
+    var maxRem = 0;
+    [bout.red_athlete_id, bout.green_athlete_id].forEach(function (id) {
+      if (!id) return;
+      var st = getAthleteRest(id, now);
+      if (st.restLocked) {
+        var ath = aMap.get(id);
+        names.push(ath ? ath.public_display_name : id);
+        if (st.remainingMs > maxRem) maxRem = st.remainingMs;
+      }
+    });
+    return {
+      restLocked: names.length > 0,
+      remainingMs: maxRem,
+      remainingMinutes: Math.ceil(maxRem / 60000),
+      restingNames: names
+    };
+  }
+
+  function recomputeWorkloadAndRestFromBouts() {
+    var counts = {};
+    var latestEnd = {};
+    (state.bouts || []).forEach(function (b) {
+      if (b.is_bye || !isBoutDone(b)) return;
+      var wt = String(b.win_type || "").toUpperCase();
+      if (wt === "FORFEIT" || wt === "BYE") return;
+      [b.red_athlete_id, b.green_athlete_id].forEach(function (id) {
+        if (!id) return;
+        counts[id] = (counts[id] || 0) + 1;
+        var endMs = b.completed_at_ms || 0;
+        if (endMs > (latestEnd[id] || 0)) latestEnd[id] = endMs;
+      });
+    });
+    (state.athletes || []).forEach(function (a) {
+      a.matches_wrestled_today = counts[a.athlete_id] || 0;
+      a.last_bout_ended_ms = latestEnd[a.athlete_id] || 0;
+    });
+  }
+
+  function advanceParticipantToDownstream(bMap, targetMatchId, athleteId, sourceMatchId) {
+    var target = bMap.get(targetMatchId);
+    if (!target || !athleteId) return;
+    if (target.format === Format.BestOfThree) return;
+    if (target.red_athlete_id === athleteId || target.green_athlete_id === athleteId) {
+      if (target.red_athlete_id && target.green_athlete_id && target.lifecycle === Lifecycle.PendingUpstream) {
+        target.lifecycle = Lifecycle.Assigned;
+      }
+      return;
+    }
+    var preferGreen = false;
+    if (sourceMatchId) {
+      var nonByeFeeders = Array.from(bMap.values())
+        .filter(function (u) {
+          return !u.is_bye && (u.winner_next_match_id === targetMatchId || u.loser_next_match_id === targetMatchId);
+        })
+        .sort(function (a, b) {
+          return (a.bout_number - b.bout_number) || a.match_id.localeCompare(b.match_id);
+        });
+      if (nonByeFeeders.length === 2 && nonByeFeeders[1] && nonByeFeeders[1].match_id === sourceMatchId) {
+        preferGreen = true;
+      }
+    }
+    if (preferGreen && !target.green_athlete_id) {
+      target.green_athlete_id = athleteId;
+    } else if (!target.red_athlete_id) {
+      target.red_athlete_id = athleteId;
+    } else if (!target.green_athlete_id && target.red_athlete_id !== athleteId) {
+      target.green_athlete_id = athleteId;
+    }
+    if (target.red_athlete_id && target.green_athlete_id && target.lifecycle === Lifecycle.PendingUpstream) {
+      target.lifecycle = Lifecycle.Assigned;
+    }
+  }
+
+  function reconcileBestOfThree(bMap, bracketId, nowMs) {
+    var bo3 = Array.from(bMap.values())
+      .filter(function (b) { return b.bracket_id === bracketId && b.format === Format.BestOfThree; })
+      .sort(function (a, b) { return a.round_index - b.round_index; });
+    if (bo3.length < 3) return;
+    var m1 = bo3[0], m2 = bo3[1], m3 = bo3[2];
+    var seed1Id = m1.red_athlete_id;
+    var seed2Id = m1.green_athlete_id;
+    if (!seed1Id || !seed2Id) return;
+    m2.red_athlete_id = seed2Id;
+    m2.green_athlete_id = seed1Id;
+    m3.red_athlete_id = seed1Id;
+    m3.green_athlete_id = seed2Id;
+
+    if (!isBoutDone(m1)) {
+      if (m2.lifecycle === Lifecycle.Assigned) m2.lifecycle = Lifecycle.PendingUpstream;
+      m2.is_placement_bout = false; m2.placement_rank = 0;
+      m3.is_bye = false; m3.lifecycle = Lifecycle.PendingUpstream;
+      m3.is_placement_bout = true; m3.placement_rank = 1;
+      m3.winner_athlete_id = ""; m3.loser_athlete_id = ""; m3.win_type = ""; m3.completed_at_ms = 0;
+      return;
+    }
+    if (!isBoutDone(m2)) {
+      if (m2.lifecycle === Lifecycle.PendingUpstream) m2.lifecycle = Lifecycle.Assigned;
+      m2.is_placement_bout = false; m2.placement_rank = 0;
+      m3.is_bye = false; m3.lifecycle = Lifecycle.PendingUpstream;
+      m3.is_placement_bout = true; m3.placement_rank = 1;
+      m3.winner_athlete_id = ""; m3.loser_athlete_id = ""; m3.win_type = ""; m3.completed_at_ms = 0;
+      return;
+    }
+    if (m1.winner_athlete_id === m2.winner_athlete_id) {
+      m2.is_placement_bout = Boolean(m2.winner_athlete_id);
+      m2.placement_rank = m2.is_placement_bout ? 1 : 0;
+      m3.is_placement_bout = false; m3.placement_rank = 0;
+      m3.is_bye = true; m3.lifecycle = Lifecycle.ResultAccepted;
+      m3.winner_athlete_id = m2.winner_athlete_id;
+      m3.loser_athlete_id = m2.loser_athlete_id;
+      m3.win_type = "BYE";
+      m3.completed_at_ms = m2.completed_at_ms || nowMs;
+    } else {
+      m2.is_placement_bout = false; m2.placement_rank = 0;
+      m3.is_placement_bout = true; m3.placement_rank = 1;
+      if ((m3.is_bye && m3.winner_athlete_id) || m3.lifecycle === Lifecycle.PendingUpstream) {
+        m3.is_bye = false;
+        m3.lifecycle = Lifecycle.Assigned;
+        m3.winner_athlete_id = ""; m3.loser_athlete_id = ""; m3.win_type = ""; m3.completed_at_ms = 0;
+      }
+    }
+  }
+
+  function resolveCompletedByesForBracket(bMap, aMap, bracketId, nowMs) {
+    reconcileBestOfThree(bMap, bracketId, nowMs);
+    var changed = true;
+    while (changed) {
+      changed = false;
+      var bracketBouts = Array.from(bMap.values()).filter(function (b) { return b.bracket_id === bracketId; });
+      for (var i = 0; i < bracketBouts.length; i++) {
+        var target = bracketBouts[i];
+        if (target.format === Format.BestOfThree) continue;
+        if (
+          target.is_true_second_challenge &&
+          target.lifecycle < Lifecycle.InProgress &&
+          target.red_athlete_id &&
+          target.green_athlete_id
+        ) {
+          var previouslyMet = bracketBouts.some(function (other) {
+            return !other.is_true_second_challenge &&
+              !other.is_bye &&
+              isBoutDone(other) &&
+              ((other.red_athlete_id === target.red_athlete_id && other.green_athlete_id === target.green_athlete_id) ||
+               (other.red_athlete_id === target.green_athlete_id && other.green_athlete_id === target.red_athlete_id));
+          });
+          if (previouslyMet) {
+            var firstBout = bracketBouts.find(function (other) {
+              return !other.is_true_second_challenge && other.is_placement_bout && other.placement_rank === 1;
+            });
+            var secondPlaceId = (firstBout && firstBout.loser_athlete_id) || target.red_athlete_id;
+            var thirdPlaceId = secondPlaceId === target.red_athlete_id ? target.green_athlete_id : target.red_athlete_id;
+            target.red_athlete_id = secondPlaceId;
+            target.green_athlete_id = thirdPlaceId;
+            target.is_bye = true;
+            target.lifecycle = Lifecycle.ResultAccepted;
+            target.winner_athlete_id = secondPlaceId;
+            target.loser_athlete_id = thirdPlaceId;
+            target.win_type = "DEC";
+            target.completed_at_ms = nowMs;
+            changed = true;
+            continue;
+          }
+        }
+        if (target.lifecycle !== Lifecycle.PendingUpstream) continue;
+        var feeders = bracketBouts.filter(function (u) {
+          return u.winner_next_match_id === target.match_id || u.loser_next_match_id === target.match_id;
+        });
+        if (feeders.length === 0 || !feeders.every(isBoutDone)) continue;
+        if (target.red_athlete_id && target.green_athlete_id) {
+          target.lifecycle = Lifecycle.Assigned;
+          changed = true;
+        } else if (target.red_athlete_id || target.green_athlete_id) {
+          var cand = target.red_athlete_id || target.green_athlete_id;
+          var sole = isWithdrawn(cand, aMap) ? "" : cand;
+          target.red_athlete_id = sole;
+          target.green_athlete_id = "";
+          target.is_bye = true;
+          target.lifecycle = Lifecycle.ResultAccepted;
+          target.winner_athlete_id = sole;
+          target.loser_athlete_id = "";
+          target.win_type = "BYE";
+          target.completed_at_ms = nowMs;
+          if (target.winner_next_match_id) {
+            advanceParticipantToDownstream(bMap, target.winner_next_match_id, sole, target.match_id);
+          }
+          changed = true;
+        } else {
+          target.is_bye = true;
+          target.lifecycle = Lifecycle.ResultAccepted;
+          target.winner_athlete_id = "";
+          target.loser_athlete_id = "";
+          target.win_type = "BYE";
+          target.completed_at_ms = nowMs;
+          changed = true;
+        }
+      }
+    }
+  }
+
+  function acceptBoutInternal(bMap, aMap, bout, winnerId, winType, redScore, greenScore, nowMs) {
+    var loserId = !winnerId ? "" : (winnerId === bout.red_athlete_id ? bout.green_athlete_id : bout.red_athlete_id);
+    bout.red_score = redScore;
+    bout.green_score = greenScore;
+    bout.winner_athlete_id = winnerId;
+    bout.loser_athlete_id = loserId;
+    bout.win_type = winType;
+    bout.clock_running = false;
+    bout.clock_remaining_ms = 0;
+    bout.completed_at_ms = nowMs;
+    bout.lifecycle = Lifecycle.ResultAccepted;
+
+    [bout.red_athlete_id, bout.green_athlete_id].forEach(function (pid) {
+      var ath = aMap.get(pid);
+      if (ath && winType !== "FORFEIT" && winType !== "BYE") {
+        ath.matches_wrestled_today = (ath.matches_wrestled_today || 0) + 1;
+        ath.last_bout_ended_ms = nowMs;
+        ath.updated_at_ms = nowMs;
+      }
+    });
+
+    if (bout.winner_next_match_id) {
+      advanceParticipantToDownstream(bMap, bout.winner_next_match_id, winnerId, bout.match_id);
+    }
+    if (bout.loser_next_match_id && !isWithdrawn(loserId, aMap)) {
+      advanceParticipantToDownstream(bMap, bout.loser_next_match_id, loserId, bout.match_id);
+    }
+    resolveCompletedByesForBracket(bMap, aMap, bout.bracket_id, nowMs);
+  }
+
+  function advanceScratchesInternal(bMap, aMap, nowMs) {
+    var advanced = false;
+    for (;;) {
+      var nextBout = Array.from(bMap.values()).find(function (b) {
+        return !b.is_bye &&
+          !b.clock_running &&
+          (b.lifecycle === Lifecycle.Assigned || b.lifecycle === Lifecycle.Ready) &&
+          b.red_athlete_id &&
+          b.green_athlete_id &&
+          (isWithdrawn(b.red_athlete_id, aMap) || isWithdrawn(b.green_athlete_id, aMap));
+      });
+      if (!nextBout) return advanced;
+      var redOut = isWithdrawn(nextBout.red_athlete_id, aMap);
+      var greenOut = isWithdrawn(nextBout.green_athlete_id, aMap);
+      if (redOut && greenOut) nextBout.is_bye = true;
+      var winId = (redOut && greenOut) ? "" : (redOut ? nextBout.green_athlete_id : nextBout.red_athlete_id);
+      acceptBoutInternal(bMap, aMap, nextBout, winId, nextBout.is_bye ? "BYE" : "FORFEIT", 0, 0, nowMs);
+      advanced = true;
+    }
+  }
+
+  function promoteMatReadyBout(matId, nowMs) {
+    var uncompleted = (state.bouts || []).filter(function (b) {
+      return !b.is_bye && !isBoutDone(b);
+    });
+    if (uncompleted.length === 0) return;
+    var currentRound = Math.min.apply(null, uncompleted.map(function (b) { return b.round_index; }));
+    var matQueue = uncompleted
+      .filter(function (b) {
+        return b.assigned_mat_id === matId && b.red_athlete_id && b.green_athlete_id;
+      })
+      .sort(function (a, b) {
+        return (a.mat_queue_order || 9999) - (b.mat_queue_order || 9999) || (a.bout_number - b.bout_number);
+      });
+    var alreadyActive = matQueue.some(function (b) {
+      return b.lifecycle === Lifecycle.Ready || b.lifecycle === Lifecycle.InProgress;
+    });
+    if (alreadyActive) return;
+    var candidate = matQueue.find(function (b) {
+      return b.lifecycle === Lifecycle.Assigned &&
+        b.round_index === currentRound &&
+        !getBoutRest(b, nowMs).restLocked;
+    });
+    if (candidate) {
+      candidate.lifecycle = Lifecycle.Ready;
+    }
+  }
+
+  function validatePaperScores(bout, winnerId, winType, redScore, greenScore) {
+    if (!winnerId || (winnerId !== bout.red_athlete_id && winnerId !== bout.green_athlete_id)) {
+      throw new Error("Select either the Red or Green wrestler as the winner.");
+    }
+    if (WIN_TYPES.indexOf(winType) < 0) {
+      throw new Error("Select a valid win type.");
+    }
+    if (!Number.isInteger(redScore) || redScore < 0 || redScore > 999 ||
+        !Number.isInteger(greenScore) || greenScore < 0 || greenScore > 999) {
+      throw new Error("Enter whole-number scores between 0 and 999.");
+    }
+    var rule = PAPER_MARGINS[winType];
+    var lead = winnerId === bout.red_athlete_id ? redScore - greenScore : greenScore - redScore;
+    if (rule && (lead < rule.min || lead > (rule.max ?? Infinity))) {
+      throw new Error(rule.message);
+    }
+  }
+
+  function recordPaperResult(matchId, form) {
+    var bMap = boutMap();
+    var aMap = athleteMap();
+    var bout = bMap.get(matchId);
+    if (!bout) return;
+    var winnerId = form.querySelector("[data-slip-winner]").value;
+    var winType = form.querySelector("[data-slip-wintype]").value;
+    var redScore = form.querySelector("[data-slip-red]").valueAsNumber;
+    var greenScore = form.querySelector("[data-slip-green]").valueAsNumber;
+    validatePaperScores(bout, winnerId, winType, redScore, greenScore);
+    if (isBoutDone(bout)) {
+      throw new Error("Bout #" + bout.bout_number + " already has a saved result. Use Correct Result.");
+    }
+    var nowMs = Date.now();
+    acceptBoutInternal(bMap, aMap, bout, winnerId, winType, redScore, greenScore, nowMs);
+    advanceScratchesInternal(bMap, aMap, nowMs);
+    state.bouts = Array.from(bMap.values());
+    state.athletes = Array.from(aMap.values());
+    if (bout.assigned_mat_id > 0) promoteMatReadyBout(bout.assigned_mat_id, nowMs);
+    delete ui.slipInputs[matchId];
+    persistState(true);
+    var winnerAth = aMap.get(bout.winner_athlete_id);
+    showToast(
+      "Saved Bout #" + bout.bout_number + ": " +
+      (winnerAth ? winnerAth.public_display_name : bout.winner_athlete_id) +
+      " won by " + bout.win_type + " (" + bout.red_score + "-" + bout.green_score + ").",
+      "ok"
+    );
+  }
+
+  function previewDownstreamImpact(matchId) {
+    var bMap = boutMap();
+    var root = bMap.get(matchId);
+    if (!root) return { affected: [], safe: false };
+    var affected = [];
+    var safe = true;
+    var queue = [];
+    if (root.winner_next_match_id) queue.push(root.winner_next_match_id);
+    if (root.loser_next_match_id) queue.push(root.loser_next_match_id);
+    var visited = {};
+    while (queue.length > 0) {
+      var id = queue.shift();
+      if (!id || visited[id]) continue;
+      visited[id] = true;
+      var node = bMap.get(id);
+      if (!node) continue;
+      affected.push(node);
+      var unstarted = (node.lifecycle === Lifecycle.PendingUpstream ||
+        node.lifecycle === Lifecycle.Assigned ||
+        node.lifecycle === Lifecycle.Ready) ||
+        (node.lifecycle === Lifecycle.ResultAccepted && node.is_bye);
+      if (!unstarted) safe = false;
+      if (node.winner_next_match_id) queue.push(node.winner_next_match_id);
+      if (node.loser_next_match_id) queue.push(node.loser_next_match_id);
+    }
+    return { affected: affected, safe: safe };
+  }
+
+  function resetAndRefillAffectedDownstream(bMap, aMap, root, affectedNodes, nowMs) {
+    var affectedIds = {};
+    affectedNodes.forEach(function (node) {
+      affectedIds[node.match_id] = true;
+      node.red_athlete_id = "";
+      node.green_athlete_id = "";
+      node.winner_athlete_id = "";
+      node.loser_athlete_id = "";
+      node.is_bye = false;
+      node.lifecycle = Lifecycle.PendingUpstream;
+      node.red_score = 0;
+      node.green_score = 0;
+      node.win_type = "";
+      node.completed_at_ms = 0;
+      node.period_number = 1;
+      node.clock_running = false;
+      node.clock_remaining_ms = period1MsForRules(state.rules_version);
+      node.assignment_revision = (node.assignment_revision || 1) + 1;
+    });
+    Array.from(bMap.values())
+      .sort(function (a, b) { return a.bout_number - b.bout_number; })
+      .forEach(function (b) {
+        if (!isBoutDone(b)) return;
+        if (b.winner_next_match_id && affectedIds[b.winner_next_match_id]) {
+          advanceParticipantToDownstream(bMap, b.winner_next_match_id, b.winner_athlete_id, b.match_id);
+        }
+        if (b.loser_next_match_id && affectedIds[b.loser_next_match_id] && b.loser_athlete_id && !isWithdrawn(b.loser_athlete_id, aMap)) {
+          advanceParticipantToDownstream(bMap, b.loser_next_match_id, b.loser_athlete_id, b.match_id);
+        }
+      });
+    resolveCompletedByesForBracket(bMap, aMap, root.bracket_id, nowMs);
+  }
+
+  function applyCorrectionFromDialog() {
+    var bMap = boutMap();
+    var aMap = athleteMap();
+    var root = bMap.get(ui.correctionMatchId);
+    if (!root) return;
+    var impact = previewDownstreamImpact(root.match_id);
+    if (!impact.safe) {
+      throw new Error("Downstream bouts already have results. Reopen or correct the later bout first.");
+    }
+    var rScore = Number(ui.correctionRedScore);
+    var gScore = Number(ui.correctionGreenScore);
+    validatePaperScores(root, ui.correctionWinnerId, ui.correctionWinType, rScore, gScore);
+    root.winner_athlete_id = ui.correctionWinnerId;
+    root.loser_athlete_id = ui.correctionWinnerId === root.red_athlete_id ? root.green_athlete_id : root.red_athlete_id;
+    root.win_type = ui.correctionWinType;
+    root.red_score = rScore;
+    root.green_score = gScore;
+    root.lifecycle = Lifecycle.ResultAccepted;
+    root.completed_at_ms = root.completed_at_ms || Date.now();
+    root.assignment_revision = (root.assignment_revision || 1) + 1;
+
+    var nowMs = Date.now();
+    resetAndRefillAffectedDownstream(bMap, aMap, root, impact.affected, nowMs);
+    state.bouts = Array.from(bMap.values());
+    recomputeWorkloadAndRestFromBouts();
+    persistState(true);
+    closeCorrectionDialog();
+    showToast("Updated Bout #" + root.bout_number + " and refreshed downstream bracket slots.", "ok");
+  }
+
+  function reopenBoutFromDialog() {
+    var bMap = boutMap();
+    var aMap = athleteMap();
+    var root = bMap.get(ui.correctionMatchId);
+    if (!root) return;
+    var impact = previewDownstreamImpact(root.match_id);
+    if (!impact.safe) {
+      throw new Error("Downstream bouts already have results. Reopen the downstream bout first.");
+    }
+    root.winner_athlete_id = "";
+    root.loser_athlete_id = "";
+    root.win_type = "";
+    root.red_score = 0;
+    root.green_score = 0;
+    root.completed_at_ms = 0;
+    root.clock_running = false;
+    root.clock_remaining_ms = period1MsForRules(state.rules_version);
+    root.lifecycle = (root.red_athlete_id && root.green_athlete_id) ? Lifecycle.Assigned : Lifecycle.PendingUpstream;
+    root.assignment_revision = (root.assignment_revision || 1) + 1;
+
+    var nowMs = Date.now();
+    resetAndRefillAffectedDownstream(bMap, aMap, root, impact.affected, nowMs);
+    state.bouts = Array.from(bMap.values());
+    recomputeWorkloadAndRestFromBouts();
+    persistState(true);
+    closeCorrectionDialog();
+    showToast("Reopened Bout #" + root.bout_number + " as unstarted.", "ok");
+  }
+
+  function autoDispatchRestedBouts() {
+    var nowMs = Date.now();
+    var bMap = boutMap();
+    var aMap = athleteMap();
+    advanceScratchesInternal(bMap, aMap, nowMs);
+    state.bouts = Array.from(bMap.values());
+
+    var uncompleted = state.bouts.filter(function (b) { return !b.is_bye && !isBoutDone(b); });
+    if (uncompleted.length === 0) {
+      showToast("All bouts are complete.", "ok");
+      return;
+    }
+    var currentRound = Math.min.apply(null, uncompleted.map(function (b) { return b.round_index; }));
+    var activeAthletes = {};
+    var busyMats = {};
+    uncompleted.forEach(function (b) {
+      if (b.lifecycle === Lifecycle.Ready || b.lifecycle === Lifecycle.InProgress) {
+        busyMats[b.assigned_mat_id] = true;
+        if (b.red_athlete_id) activeAthletes[b.red_athlete_id] = true;
+        if (b.green_athlete_id) activeAthletes[b.green_athlete_id] = true;
+      }
+    });
+
+    var candidates = uncompleted
+      .filter(function (b) {
+        return b.round_index === currentRound &&
+          b.lifecycle === Lifecycle.Assigned &&
+          Boolean(b.red_athlete_id && b.green_athlete_id);
+      })
+      .sort(function (a, b) {
+        return (a.mat_queue_order || 9999) - (b.mat_queue_order || 9999) || (a.bout_number - b.bout_number);
+      });
+
+    var staged = [];
+    var restingCount = 0;
+    candidates.forEach(function (bout) {
+      if (activeAthletes[bout.red_athlete_id] || activeAthletes[bout.green_athlete_id]) return;
+      var rest = getBoutRest(bout, nowMs);
+      if (rest.restLocked) {
+        restingCount += 1;
+        return;
+      }
+      var targetMat = (!busyMats[bout.assigned_mat_id] && bout.assigned_mat_id >= 1 && bout.assigned_mat_id <= state.mat_count)
+        ? bout.assigned_mat_id
+        : 0;
+      if (!targetMat) {
+        for (var m = 1; m <= state.mat_count; m++) {
+          if (!busyMats[m]) { targetMat = m; break; }
+        }
+      }
+      if (!targetMat) return;
+      bout.assigned_mat_id = targetMat;
+      bout.lifecycle = Lifecycle.Ready;
+      bout.assignment_revision = (bout.assignment_revision || 1) + 1;
+      busyMats[targetMat] = true;
+      activeAthletes[bout.red_athlete_id] = true;
+      activeAthletes[bout.green_athlete_id] = true;
+      staged.push("Bout #" + bout.bout_number + " -> Mat " + targetMat);
+    });
+
+    persistState(true);
+    if (staged.length > 0) {
+      showToast("Staged " + staged.length + " rested bout(s): " + staged.join(", ") + ".", "ok");
+    } else if (restingCount > 0) {
+      showToast(restingCount + " current-round bout(s) are still inside 30-minute NFHS recovery rest.", "err");
+    } else {
+      showToast("All mats already have active bouts staged.", "ok");
+    }
+  }
+
+  function detectCoachConflicts() {
+    var aMap = athleteMap();
+    var active = (state.bouts || []).filter(function (b) {
+      return !b.is_bye && !isBoutDone(b) && (b.lifecycle === Lifecycle.Ready || b.lifecycle === Lifecycle.InProgress);
+    });
+    var seen = {};
+    var alerts = [];
+    for (var i = 0; i < active.length; i++) {
+      for (var j = i + 1; j < active.length; j++) {
+        var a = active[i], b = active[j];
+        if (a.assigned_mat_id === b.assigned_mat_id) continue;
+        var aList = [aMap.get(a.red_athlete_id), aMap.get(a.green_athlete_id)].filter(Boolean);
+        var bList = [aMap.get(b.red_athlete_id), aMap.get(b.green_athlete_id)].filter(Boolean);
+        aList.forEach(function (athA) {
+          bList.forEach(function (athB) {
+            if (athA.team_id && athA.team_id === athB.team_id) {
+              var key = athA.team_id + ":" + a.match_id + ":" + b.match_id;
+              if (seen[key]) return;
+              seen[key] = true;
+              alerts.push({
+                teamName: athA.team_name || athA.team_id,
+                firstBout: a,
+                secondBout: b
+              });
+            }
+          });
+        });
+      }
+    }
+    return alerts;
+  }
+
+  // ===========================================================================
+  // Offline Bracket Generation (1..64 Entrants)
+  // ===========================================================================
+
+  function buildStandardTopSeeds(bracketSize) {
+    var topSeeds = [1];
+    var numMatches = 1;
+    while (numMatches * 2 <= bracketSize / 2) {
+      var nextMatches = numMatches * 2;
+      var next = [];
+      for (var i = 0; i < topSeeds.length; i++) {
+        var x = topSeeds[i];
+        var comp = nextMatches + 1 - x;
+        if (i % 2 === 0) next.push(x, comp);
+        else next.push(comp, x);
+      }
+      topSeeds = next;
+      numMatches = nextMatches;
+    }
+    return topSeeds;
+  }
+
+  function numberBoutsInRunningOrder() {
+    var ordered = (state.bouts || []).slice().sort(function (a, b) {
+      return (a.round_index - b.round_index) ||
+        (Number(a.weight_class_id) - Number(b.weight_class_id)) ||
+        String(a.division_id || "").localeCompare(String(b.division_id || "")) ||
+        (Number(a.is_consolation) - Number(b.is_consolation)) ||
+        (a.bout_number - b.bout_number) ||
+        a.match_id.localeCompare(b.match_id);
+    });
+    var matPos = {};
+    ordered.forEach(function (b, idx) {
+      b.bout_number = 101 + idx;
+      var pos = (matPos[b.assigned_mat_id] || 0) + 1;
+      matPos[b.assigned_mat_id] = pos;
+      b.mat_queue_order = pos;
+    });
+    state.bouts = ordered;
+  }
+
+  function generateBracketForClass(weightClassId, requestedFormat, divisionId) {
+    var cleanDiv = String(divisionId || "").trim().toUpperCase();
+    var matchingDivs = {};
+    (state.athletes || []).forEach(function (a) {
+      if (a.weight_class_id === weightClassId && isAthleteEligible(a)) {
+        matchingDivs[String(a.division_id || "VARSITY").toUpperCase()] = true;
+      }
+    });
+    var divKeys = Object.keys(matchingDivs);
+    if ((!cleanDiv || cleanDiv === "ALL") && divKeys.length > 1) {
+      throw new Error("Select a specific division before generating " + weightClassId + " lbs.");
+    }
+    var resolvedDiv = (cleanDiv && cleanDiv !== "ALL") ? cleanDiv : (divKeys[0] || "VARSITY");
+    var existingStarted = (state.bouts || []).some(function (b) {
+      return b.weight_class_id === weightClassId &&
+        String(b.division_id || "VARSITY").toUpperCase() === resolvedDiv &&
+        !b.is_bye &&
+        (isBoutDone(b) || b.red_score > 0 || b.green_score > 0);
+    });
+    if (existingStarted) {
+      throw new Error("Completed bouts exist in " + resolvedDiv + " " + weightClassId + " lbs. Reopen them before regenerating.");
+    }
+
+    var allDivsAtWeight = {};
+    (state.athletes || []).forEach(function (a) {
+      if (a.weight_class_id === weightClassId) allDivsAtWeight[String(a.division_id || "VARSITY").toUpperCase()] = true;
+    });
+    var usePrefix = Object.keys(allDivsAtWeight).length > 1 || (resolvedDiv !== "VARSITY");
+    var scopeToken = usePrefix ? (resolvedDiv + "-" + weightClassId) : weightClassId;
+
+    var entrants = (state.athletes || [])
+      .filter(function (a) {
+        return a.weight_class_id === weightClassId &&
+          String(a.division_id || "VARSITY").toUpperCase() === resolvedDiv &&
+          isAthleteEligible(a);
+      })
+      .sort(function (a, b) {
+        return (a.seed_rank - b.seed_rank) || a.athlete_id.localeCompare(b.athlete_id);
+      });
+
+    if (entrants.length > 64) {
+      throw new Error("Bracket capacity is 64 wrestlers.");
+    }
+
+    state.bouts = (state.bouts || []).filter(function (b) {
+      return !(b.weight_class_id === weightClassId && String(b.division_id || "VARSITY").toUpperCase() === resolvedDiv);
+    });
+    if (entrants.length === 0) return [];
+    entrants.forEach(function (a, idx) { a.seed_rank = idx + 1; });
+
+    var fmt = requestedFormat || Format.AutoByCount;
+    if (entrants.length === 1) fmt = Format.RoundRobinPool;
+    else if (entrants.length === 2) fmt = (fmt === Format.RoundRobinPool) ? Format.RoundRobinPool : Format.BestOfThree;
+    else if (entrants.length >= 3 && entrants.length <= 5) fmt = Format.RoundRobinPool;
+    else if (fmt === Format.AutoByCount || fmt === Format.BestOfThree) fmt = Format.DoubleElimCrossover;
+
+    var bracketId = "BRK-" + scopeToken + "-" + fmt;
+    var p1Ms = period1MsForRules(state.rules_version);
+    var matCount = Math.max(1, state.mat_count || 5);
+    var nowMs = Date.now();
+    var created = [];
+    var bMap = boutMap();
+    var aMap = athleteMap();
+
+    function mkBout(fields) {
+      var matId = fields.assigned_mat_id || 1;
+      var node = {
+        match_id: fields.match_id,
+        bracket_id: bracketId,
+        weight_class_id: weightClassId,
+        division_id: resolvedDiv,
+        format: fmt,
+        bout_number: 100 + bMap.size + 1,
+        round_index: fields.round_index,
+        round_label: fields.round_label,
+        is_consolation: Boolean(fields.is_consolation),
+        is_placement_bout: Boolean(fields.is_placement_bout),
+        is_true_second_challenge: Boolean(fields.is_true_second_challenge),
+        placement_rank: fields.placement_rank || 0,
+        red_athlete_id: fields.red_athlete_id || "",
+        green_athlete_id: fields.green_athlete_id || "",
+        is_bye: Boolean(fields.is_bye),
+        winner_next_match_id: fields.winner_next_match_id || "",
+        loser_next_match_id: fields.loser_next_match_id || "",
+        lifecycle: fields.lifecycle || Lifecycle.PendingUpstream,
+        assigned_mat_id: matId,
+        mat_queue_order: fields.mat_queue_order || 1,
+        assignment_revision: 1,
+        authority_epoch: 1,
+        delegated_android_device_id: "mat-" + matId + "-scorekeeper",
+        red_score: 0,
+        green_score: 0,
+        period_number: 1,
+        clock_remaining_ms: fields.is_bye ? 0 : p1Ms,
+        clock_running: false,
+        winner_athlete_id: fields.winner_athlete_id || "",
+        loser_athlete_id: "",
+        win_type: fields.win_type || "",
+        completed_at_ms: fields.completed_at_ms || 0
+      };
+      bMap.set(node.match_id, node);
+      created.push(node);
+      return node;
+    }
+
+    if (entrants.length === 1) {
+      var sole = entrants[0];
+      mkBout({
+        match_id: "BOUT-" + scopeToken + "-WALKOVER-1ST",
+        round_index: 1,
+        round_label: "Uncontested 1st Place (Walkover)",
+        is_placement_bout: true,
+        placement_rank: 1,
+        red_athlete_id: sole.athlete_id,
+        is_bye: true,
+        lifecycle: Lifecycle.ResultAccepted,
+        assigned_mat_id: 1,
+        winner_athlete_id: sole.athlete_id,
+        win_type: "BYE",
+        completed_at_ms: nowMs
+      });
+    } else if (fmt === Format.BestOfThree) {
+      var s1 = entrants[0], s2 = entrants[1];
+      var m1Id = "BOUT-" + scopeToken + "-BO3-1";
+      var m2Id = "BOUT-" + scopeToken + "-BO3-2";
+      var m3Id = "BOUT-" + scopeToken + "-BO3-3";
+      mkBout({ match_id: m1Id, round_index: 1, round_label: "Best of 3 - Match 1", red_athlete_id: s1.athlete_id, green_athlete_id: s2.athlete_id, winner_next_match_id: m2Id, loser_next_match_id: m2Id, lifecycle: Lifecycle.Assigned, assigned_mat_id: 1 });
+      mkBout({ match_id: m2Id, round_index: 2, round_label: "Best of 3 - Match 2", red_athlete_id: s2.athlete_id, green_athlete_id: s1.athlete_id, winner_next_match_id: m3Id, loser_next_match_id: m3Id, lifecycle: Lifecycle.PendingUpstream, assigned_mat_id: (1 % matCount) + 1 });
+      mkBout({ match_id: m3Id, round_index: 3, round_label: "Best of 3 - Match 3 (If Needed)", red_athlete_id: s1.athlete_id, green_athlete_id: s2.athlete_id, is_placement_bout: true, placement_rank: 1, lifecycle: Lifecycle.PendingUpstream, assigned_mat_id: (2 % matCount) + 1 });
+    } else if (fmt === Format.RoundRobinPool) {
+      var circle = entrants.slice();
+      if (circle.length % 2 === 1) circle.push(null);
+      for (var rIdx = 1; rIdx < circle.length; rIdx++) {
+        for (var ci = 0; ci < circle.length / 2; ci++) {
+          var rAth = circle[ci];
+          var gAth = circle[circle.length - 1 - ci];
+          if (!rAth || !gAth) continue;
+          mkBout({
+            match_id: "BOUT-" + scopeToken + "-RR" + (created.length + 1),
+            round_index: rIdx,
+            round_label: "Pool Round " + rIdx,
+            red_athlete_id: rAth.athlete_id,
+            green_athlete_id: gAth.athlete_id,
+            lifecycle: Lifecycle.Assigned,
+            assigned_mat_id: (created.length % matCount) + 1
+          });
+        }
+        circle.splice(1, 0, circle.pop());
+      }
+    } else if (entrants.length <= 8) {
+      var slotSeeds = [[0,7],[3,4],[1,6],[2,5]];
+      var qfIds = ["QF1","QF2","QF3","QF4"].map(function (s) { return "BOUT-" + scopeToken + "-" + s; });
+      var sfIds = ["SF1","SF2"].map(function (s) { return "BOUT-" + scopeToken + "-" + s; });
+      var c1Ids = ["C1-1","C1-2"].map(function (s) { return "BOUT-" + scopeToken + "-" + s; });
+      var c2Ids = ["C2-1","C2-2"].map(function (s) { return "BOUT-" + scopeToken + "-" + s; });
+      var f1Id = "BOUT-" + scopeToken + "-FINAL-1ST";
+      var f3Id = "BOUT-" + scopeToken + "-FINAL-3RD";
+      var t2Id = "BOUT-" + scopeToken + "-TRUE-2ND";
+
+      slotSeeds.forEach(function (pair, idx) {
+        var rId = entrants[pair[0]] ? entrants[pair[0]].athlete_id : "";
+        var gId = entrants[pair[1]] ? entrants[pair[1]].athlete_id : "";
+        var bye = !rId || !gId;
+        mkBout({
+          match_id: qfIds[idx],
+          round_index: 1,
+          round_label: "Championship Quarterfinal",
+          red_athlete_id: rId,
+          green_athlete_id: gId,
+          is_bye: bye,
+          winner_next_match_id: idx < 2 ? sfIds[0] : sfIds[1],
+          loser_next_match_id: idx < 2 ? c1Ids[0] : c1Ids[1],
+          lifecycle: bye ? Lifecycle.ResultAccepted : Lifecycle.Assigned,
+          assigned_mat_id: (idx % matCount) + 1,
+          winner_athlete_id: bye ? (rId || gId) : "",
+          win_type: bye ? "BYE" : "",
+          completed_at_ms: bye ? nowMs : 0
+        });
+      });
+      c1Ids.forEach(function (mId, idx) {
+        mkBout({ match_id: mId, round_index: 2, round_label: "Consolation Round 1", is_consolation: true, winner_next_match_id: c2Ids[idx], assigned_mat_id: ((idx + 2) % matCount) + 1 });
+      });
+      sfIds.forEach(function (mId, idx) {
+        mkBout({ match_id: mId, round_index: 2, round_label: "Championship Semifinal", winner_next_match_id: f1Id, loser_next_match_id: idx === 0 ? c2Ids[1] : c2Ids[0], assigned_mat_id: (idx % matCount) + 1 });
+      });
+      c2Ids.forEach(function (mId, idx) {
+        mkBout({ match_id: mId, round_index: 3, round_label: "Consolation Semifinal (Crossover)", is_consolation: true, winner_next_match_id: f3Id, assigned_mat_id: ((idx + 2) % matCount) + 1 });
+      });
+      mkBout({ match_id: f3Id, round_index: 4, round_label: "3rd Place Match", is_consolation: true, is_placement_bout: true, placement_rank: 3, winner_next_match_id: fmt === Format.TrueSecondChallenge ? t2Id : "", assigned_mat_id: Math.min(2, matCount) });
+      mkBout({ match_id: f1Id, round_index: 4, round_label: "1st Place Championship Final", is_placement_bout: true, placement_rank: 1, loser_next_match_id: fmt === Format.TrueSecondChallenge ? t2Id : "", assigned_mat_id: 1 });
+      if (fmt === Format.TrueSecondChallenge) {
+        mkBout({ match_id: t2Id, round_index: 5, round_label: "True Second Challenge Match", is_consolation: true, is_placement_bout: true, is_true_second_challenge: true, placement_rank: 2, assigned_mat_id: 1 });
+      }
+      created.forEach(function (b) {
+        if (b.is_bye && b.winner_athlete_id && b.winner_next_match_id) {
+          advanceParticipantToDownstream(bMap, b.winner_next_match_id, b.winner_athlete_id);
+        }
+      });
+      resolveCompletedByesForBracket(bMap, aMap, bracketId, nowMs);
+    } else {
+      var N = entrants.length <= 16 ? 16 : (entrants.length <= 32 ? 32 : 64);
+      var R = Math.round(Math.log(N) / Math.log(2));
+      var makeId = function (suf) { return "BOUT-" + scopeToken + "-" + suf; };
+      var qSeq = 1;
+      var champIds = [];
+      for (var ri = 0; ri <= R; ri++) champIds.push([]);
+      for (var r = 1; r <= R; r++) {
+        var cnt = N >> r;
+        var lbl = r === R ? "1st Place Championship Final" : (cnt === 2 ? "Championship Semifinal" : (cnt === 4 ? "Championship Quarterfinal" : "Championship Round of " + (cnt * 2)));
+        for (var bi = 0; bi < cnt; bi++) {
+          var cid = r === R ? makeId("FINAL-1ST") : makeId("C" + r + "-" + (bi + 1));
+          champIds[r].push(cid);
+          mkBout({ match_id: cid, round_index: r, round_label: lbl, is_placement_bout: r === R, placement_rank: r === R ? 1 : 0, assigned_mat_id: ((qSeq++ - 1) % matCount) + 1 });
+        }
+      }
+      for (var r2 = 1; r2 < R; r2++) {
+        champIds[r2].forEach(function (cid2, idx2) {
+          bMap.get(cid2).winner_next_match_id = champIds[r2 + 1][Math.floor(idx2 / 2)];
+        });
+      }
+      var f3 = makeId("FINAL-3RD"), p5 = makeId("P5"), p7 = makeId("P7"), t2 = makeId("TRUE-2ND");
+      var consRound = 1;
+      var prevCons = [];
+      for (var li = 0; li < N / 4; li++) {
+        var lid = makeId("L" + consRound + "-" + (li + 1));
+        prevCons.push(lid);
+        mkBout({ match_id: lid, round_index: consRound + 1, round_label: "Consolation Round " + consRound, is_consolation: true, assigned_mat_id: ((qSeq++ - 1) % matCount) + 1 });
+        bMap.get(champIds[1][2 * li]).loser_next_match_id = lid;
+        bMap.get(champIds[1][2 * li + 1]).loser_next_match_id = lid;
+      }
+      for (var c = 2; c < R; c++) {
+        var dropCnt = champIds[c].length;
+        consRound += 1;
+        var dropCons = [];
+        for (var di = 0; di < dropCnt; di++) {
+          var did = makeId("L" + consRound + "-" + (di + 1));
+          dropCons.push(did);
+          var dlbl = c === R - 1 ? "Consolation Semifinal (Crossover)" : "Consolation Round " + consRound + " (Crossover)";
+          mkBout({ match_id: did, round_index: c + consRound, round_label: dlbl, is_consolation: true, assigned_mat_id: ((qSeq++ - 1) % matCount) + 1 });
+          bMap.get(prevCons[di]).winner_next_match_id = did;
+          var crossIdx = (c % 2 === 0) ? (dropCnt - 1 - di) : (di ^ Math.floor(dropCnt / 2));
+          bMap.get(champIds[c][crossIdx]).loser_next_match_id = did;
+        }
+        if (c < R - 1) {
+          consRound += 1;
+          var redCnt = dropCnt / 2;
+          var redCons = [];
+          for (var rci = 0; rci < redCnt; rci++) {
+            var rid = makeId("L" + consRound + "-" + (rci + 1));
+            redCons.push(rid);
+            var rq = mkBout({ match_id: rid, round_index: c + consRound, round_label: redCnt === 2 ? "Consolation Quarterfinal" : "Consolation Round " + consRound, is_consolation: true, assigned_mat_id: ((qSeq++ - 1) % matCount) + 1 });
+            bMap.get(dropCons[2 * rci]).winner_next_match_id = rid;
+            bMap.get(dropCons[2 * rci + 1]).winner_next_match_id = rid;
+            if (redCnt === 2) rq.loser_next_match_id = p7;
+          }
+          prevCons = redCons;
+        } else {
+          for (var si = 0; si < 2; si++) {
+            bMap.get(dropCons[si]).winner_next_match_id = f3;
+            bMap.get(dropCons[si]).loser_next_match_id = p5;
+          }
+          prevCons = dropCons;
+        }
+      }
+      var placeRnd = R + consRound + 1;
+      var p3Node = mkBout({ match_id: f3, round_index: placeRnd, round_label: "3rd Place Match", is_consolation: true, is_placement_bout: true, placement_rank: 3, assigned_mat_id: ((qSeq++ - 1) % matCount) + 1 });
+      mkBout({ match_id: p5, round_index: placeRnd, round_label: "5th Place Match", is_consolation: true, is_placement_bout: true, placement_rank: 5, assigned_mat_id: ((qSeq++ - 1) % matCount) + 1 });
+      mkBout({ match_id: p7, round_index: placeRnd, round_label: "7th Place Match", is_consolation: true, is_placement_bout: true, placement_rank: 7, assigned_mat_id: ((qSeq++ - 1) % matCount) + 1 });
+      if (fmt === Format.TrueSecondChallenge) {
+        mkBout({ match_id: t2, round_index: placeRnd + 1, round_label: "True Second Challenge Match", is_consolation: true, is_placement_bout: true, is_true_second_challenge: true, placement_rank: 2, assigned_mat_id: 1 });
+        bMap.get(champIds[R][0]).loser_next_match_id = t2;
+        p3Node.winner_next_match_id = t2;
+      }
+      var topSeeds = buildStandardTopSeeds(N);
+      for (var m = 0; m < N / 2; m++) {
+        var sA = topSeeds[m], sB = N + 1 - sA;
+        var cb = bMap.get(champIds[1][m]);
+        var rEnt = (sA >= 1 && sA <= entrants.length) ? entrants[sA - 1].athlete_id : "";
+        var gEnt = (sB >= 1 && sB <= entrants.length) ? entrants[sB - 1].athlete_id : "";
+        if (rEnt && gEnt) {
+          cb.red_athlete_id = rEnt; cb.green_athlete_id = gEnt; cb.is_bye = false; cb.lifecycle = Lifecycle.Assigned;
+        } else if (rEnt || gEnt) {
+          var only = rEnt || gEnt;
+          cb.red_athlete_id = only; cb.green_athlete_id = ""; cb.is_bye = true; cb.lifecycle = Lifecycle.ResultAccepted;
+          cb.winner_athlete_id = only; cb.win_type = "BYE"; cb.completed_at_ms = nowMs;
+        } else {
+          cb.is_bye = true; cb.lifecycle = Lifecycle.ResultAccepted; cb.win_type = "BYE"; cb.completed_at_ms = nowMs;
+        }
+      }
+      created.forEach(function (b) {
+        if (b.is_bye && b.winner_athlete_id && b.winner_next_match_id) {
+          advanceParticipantToDownstream(bMap, b.winner_next_match_id, b.winner_athlete_id);
+        }
+      });
+      resolveCompletedByesForBracket(bMap, aMap, bracketId, nowMs);
+    }
+
+    state.bouts = Array.from(bMap.values());
+    numberBoutsInRunningOrder();
+    var fm = frozenMap();
+    fm.set(resolvedDiv + ":" + weightClassId, true);
+    if (!usePrefix) fm.set(weightClassId, true);
+    saveFrozenMap(fm);
+    persistState(true);
+    return created;
+  }
+
+  function generateAllBracketsOffline() {
+    var groups = {};
+    (state.athletes || []).forEach(function (a) {
+      if (!isAthleteEligible(a)) return;
+      var d = String(a.division_id || "VARSITY").toUpperCase();
+      if (ui.selectedDivision !== "ALL" && d !== ui.selectedDivision) return;
+      groups[d + ":" + a.weight_class_id] = true;
+    });
+    var keys = Object.keys(groups).sort(function (a, b) {
+      var pa = a.split(":"), pb = b.split(":");
+      return pa[0].localeCompare(pb[0]) || (Number(pa[1]) - Number(pb[1]));
+    });
+    var total = 0;
+    keys.forEach(function (k) {
+      var parts = k.split(":");
+      var created = generateBracketForClass(parts[1], ui.selectedFormat, parts[0]);
+      total += created.length;
+    });
+    showToast("Generated " + keys.length + " bracket(s) (" + total + " nodes).", "ok");
+  }
+
+  // ===========================================================================
+  // Standings & Placements (Identical to TournamentAuthorityEngine)
+  // ===========================================================================
+
+  function computeBracketStandings(weightClassId, divisionId) {
+    var cleanDiv = String(divisionId || "").trim().toUpperCase();
+    var entrants = (state.athletes || []).filter(function (a) {
+      return a.weight_class_id === weightClassId &&
+        (!cleanDiv || cleanDiv === "ALL" || String(a.division_id || "VARSITY").toUpperCase() === cleanDiv) &&
+        isAthleteEligible(a);
+    });
+    var classBouts = (state.bouts || []).filter(function (b) {
+      return b.weight_class_id === weightClassId &&
+        (!cleanDiv || cleanDiv === "ALL" || String(b.division_id || "VARSITY").toUpperCase() === cleanDiv);
+    });
+    var rows = new Map();
+    entrants.forEach(function (a) {
+      rows.set(a.athlete_id, {
+        place: 0,
+        athlete_id: a.athlete_id,
+        public_display_name: a.public_display_name,
+        team_id: a.team_id,
+        team_name: a.team_name,
+        seed_rank: a.seed_rank,
+        wins: 0,
+        losses: 0,
+        falls_forfeits_dq: 0,
+        tech_falls: 0,
+        major_decisions: 0,
+        bonus_points: 0,
+        points_scored: 0,
+        points_allowed: 0
+      });
+    });
+    var h2h = {};
+    classBouts.forEach(function (b) {
+      if (b.is_bye || !isBoutDone(b)) return;
+      var wRow = rows.get(b.winner_athlete_id);
+      var lRow = rows.get(b.loser_athlete_id);
+      var wRed = b.winner_athlete_id === b.red_athlete_id;
+      var wPts = wRed ? b.red_score : b.green_score;
+      var lPts = wRed ? b.green_score : b.red_score;
+      if (wRow) {
+        wRow.wins += 1;
+        wRow.points_scored += wPts;
+        wRow.points_allowed += lPts;
+        if (b.win_type === "FALL" || b.win_type === "FORFEIT" || b.win_type === "INJURY_DEFAULT" || b.win_type === "DQ") {
+          wRow.falls_forfeits_dq += 1;
+          wRow.bonus_points += 2;
+        } else if (b.win_type === "TF") {
+          wRow.tech_falls += 1;
+          wRow.bonus_points += 1.5;
+        } else if (b.win_type === "MD") {
+          wRow.major_decisions += 1;
+          wRow.bonus_points += 1;
+        }
+      }
+      if (lRow) {
+        lRow.losses += 1;
+        lRow.points_scored += lPts;
+        lRow.points_allowed += wPts;
+      }
+      if (b.winner_athlete_id && b.loser_athlete_id) {
+        var k = b.winner_athlete_id + ":" + b.loser_athlete_id;
+        h2h[k] = (h2h[k] || 0) + 1;
+      }
+    });
+    var sorted = Array.from(rows.values()).sort(function (a, b) {
+      if (b.wins !== a.wins) return b.wins - a.wins;
+      if (a.losses !== b.losses) return a.losses - b.losses;
+      var ab = h2h[a.athlete_id + ":" + b.athlete_id] || 0;
+      var ba = h2h[b.athlete_id + ":" + a.athlete_id] || 0;
+      if (ab !== ba) return ba - ab;
+      if (b.bonus_points !== a.bonus_points) return b.bonus_points - a.bonus_points;
+      if (b.falls_forfeits_dq !== a.falls_forfeits_dq) return b.falls_forfeits_dq - a.falls_forfeits_dq;
+      if (b.tech_falls !== a.tech_falls) return b.tech_falls - a.tech_falls;
+      if (b.major_decisions !== a.major_decisions) return b.major_decisions - a.major_decisions;
+      var dA = a.points_scored - a.points_allowed;
+      var dB = b.points_scored - b.points_allowed;
+      if (dB !== dA) return dB - dA;
+      if (b.points_scored !== a.points_scored) return b.points_scored - a.points_scored;
+      return (a.seed_rank - b.seed_rank) || a.athlete_id.localeCompare(b.athlete_id);
+    });
+    sorted.forEach(function (r, idx) { r.place = idx + 1; });
+    return sorted;
+  }
+
+  function computeTeamStandings() {
+    var aMap = athleteMap();
+    var byePoints = byeAdvancement();
+    var map = new Map();
+    (state.athletes || []).forEach(function (a) {
+      if (!map.has(a.team_id)) {
+        map.set(a.team_id, {
+          rank: 0,
+          team_id: a.team_id,
+          team_name: a.team_name,
+          total_points: 0,
+          advancement_points: 0,
+          placement_points: 0,
+          bonus_points: 0,
+          falls_forfeits_dq: 0,
+          tech_falls: 0,
+          major_decisions: 0,
+          first_place_winners: 0
+        });
+      }
+    });
+    (state.bouts || []).forEach(function (b) {
+      if (!isBoutDone(b) || !b.winner_athlete_id) return;
+      var w = aMap.get(b.winner_athlete_id);
+      if (!w) return;
+      var row = map.get(w.team_id);
+      if (!row) return;
+      if (b.is_bye) {
+        if (b.is_placement_bout && b.placement_rank === 1 && !b.green_athlete_id) {
+          row.placement_points += 16;
+          row.first_place_winners += 1;
+          row.total_points = row.advancement_points + row.placement_points + row.bonus_points;
+        }
+        return;
+      }
+      row.advancement_points += (b.is_consolation ? 1 : 2) + (byePoints.get(b.match_id)?.earnedPoints || 0);
+      if (b.win_type === "FALL" || b.win_type === "FORFEIT" || b.win_type === "INJURY_DEFAULT" || b.win_type === "DQ") {
+        row.bonus_points += 2;
+        row.falls_forfeits_dq += 1;
+      } else if (b.win_type === "TF") {
+        row.bonus_points += 1.5;
+        row.tech_falls += 1;
+      } else if (b.win_type === "MD") {
+        row.bonus_points += 1;
+        row.major_decisions += 1;
+      }
+      if (b.is_placement_bout && b.placement_rank === 1) {
+        row.placement_points += 16;
+        row.first_place_winners += 1;
+      } else if (b.is_placement_bout && b.placement_rank === 3) {
+        row.placement_points += 9;
+      }
+      row.total_points = row.advancement_points + row.placement_points + row.bonus_points;
+    });
+
+    var rrGroups = {};
+    (state.bouts || []).forEach(function (b) {
+      if (b.format === Format.RoundRobinPool && !b.is_bye) {
+        var d = String(b.division_id || "VARSITY").toUpperCase();
+        var k = d + ":" + b.weight_class_id;
+        if (!rrGroups[k]) rrGroups[k] = { wc: b.weight_class_id, div: d, bouts: [] };
+        rrGroups[k].bouts.push(b);
+      }
+    });
+    Object.keys(rrGroups).forEach(function (k) {
+      var grp = rrGroups[k];
+      if (grp.bouts.length > 0 && grp.bouts.every(isBoutDone)) {
+        var ps = computeBracketStandings(grp.wc, grp.div);
+        if (ps[0] && ps[0].wins > 0 && map.has(ps[0].team_id)) {
+          var t1 = map.get(ps[0].team_id);
+          t1.placement_points += 16;
+          t1.first_place_winners += 1;
+          t1.total_points = t1.advancement_points + t1.placement_points + t1.bonus_points;
+        }
+        if (ps[2] && map.has(ps[2].team_id)) {
+          var t3 = map.get(ps[2].team_id);
+          t3.placement_points += 9;
+          t3.total_points = t3.advancement_points + t3.placement_points + t3.bonus_points;
+        }
+      }
+    });
+
+    var sorted = Array.from(map.values()).sort(function (a, b) {
+      return (b.total_points - a.total_points) ||
+        (b.falls_forfeits_dq - a.falls_forfeits_dq) ||
+        (b.tech_falls - a.tech_falls) ||
+        (b.major_decisions - a.major_decisions) ||
+        (b.first_place_winners - a.first_place_winners) ||
+        a.team_name.localeCompare(b.team_name);
+    });
+    sorted.forEach(function (r, idx) { r.rank = idx + 1; });
+    return sorted;
+  }
+
+  // ===========================================================================
+  // File Exports & Imports (Self-Saving HTML, OpenMat CSV, OOXML XLSX)
+  // ===========================================================================
+
+  function triggerDownload(bytesOrText, mimeType, fileName) {
+    var blob = new Blob([bytesOrText], { type: mimeType });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement("a");
+    a.href = url;
+    a.download = fileName;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(function () { URL.revokeObjectURL(url); }, 1500);
+  }
+
+  function slugifyFilePrefix() {
+    return String(state.tournament_id || state.tournament_name || "openmat-tournament")
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "") || "openmat-tournament";
+  }
+
+  function exportUpdatedStandaloneHtml() {
+    var stylesText = document.getElementById("openmat-fallback-styles").textContent;
+    var runtimeText = document.getElementById("openmat-fallback-runtime").textContent;
+    var shellTemplateHtml = document.getElementById("openmat-shell-template").innerHTML;
+    var safeTitle = esc(state.tournament_name || "OpenMat Emergency Fallback Tournament");
+    var htmlDoc =
+      "<!DOCTYPE html>\n" +
+      "<html lang=\"en\" data-theme=\"" + esc(ui.theme) + "\">\n" +
+      "<head>\n" +
+      "  <meta charset=\"utf-8\">\n" +
+      "  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" +
+      "  <title>" + safeTitle + " - Offline Emergency Fallback</title>\n" +
+      "  <style id=\"openmat-fallback-styles\">" + stylesText + "</style>\n" +
+      "</head>\n" +
+      "<body>\n" +
+      shellTemplateHtml + "\n" +
+      "  <template id=\"openmat-shell-template\">" + shellTemplateHtml + "</template>\n" +
+      "  <" + "script id=\"openmat-fallback-state\" type=\"application/json\">" + safeScriptJson(state) + "<\/script>\n" +
+      "  <" + "script id=\"openmat-fallback-runtime\">" + runtimeText + "<\/script>\n" +
+      "</body>\n" +
+      "</html>\n";
+    dirtySinceFileExport = false;
+    triggerDownload(htmlDoc, "text/html;charset=utf-8", slugifyFilePrefix() + "-emergency-fallback.html");
+    showToast("Downloaded updated standalone HTML checkpoint.", "ok");
+  }
+
+  function escapeCsvCell(val) {
+    var s = String(val == null ? "" : val);
+    if (s.indexOf(",") >= 0 || s.indexOf("\"") >= 0 || s.indexOf("\n") >= 0 || s.indexOf("\r") >= 0) {
+      return "\"" + s.replace(/"/g, "\"\"") + "\"";
+    }
+    return s;
+  }
+
+  function exportOpenMatBackupCsv() {
+    var backupMeta = {
+      version: 1,
+      tournament_id: state.tournament_id,
+      tournament_name: state.tournament_name,
+      event_date: state.event_date,
+      venue: state.venue,
+      rules_version: state.rules_version,
+      mat_count: state.mat_count,
+      growth_allowance_tenths: state.growth_allowance_tenths,
+      consecutive_day_allowance_tenths: state.consecutive_day_allowance_tenths || 0,
+      bracket_frozen_by_class: state.bracket_frozen_by_class || [],
+      bouts: state.bouts || []
+    };
+    var formatByClassKey = {};
+    (state.bouts || []).forEach(function (b) {
+      var k = String(b.division_id || "VARSITY").toUpperCase() + ":" + b.weight_class_id;
+      if (!formatByClassKey[k]) formatByClassKey[k] = b.format || Format.DoubleElimCrossover;
+    });
+    var fm = frozenMap();
+    var lines = [
+      "# OpenMat Full Tournament Backup & Disaster Recovery CSV (v1)",
+      "# Re-importing this CSV into OpenMat Officials Console fully rebuilds all wrestlers, seeds, scale weigh-ins, skin/medical checks, and generated brackets.",
+      "#openmat_tournament_backup_v1:" + JSON.stringify(backupMeta),
+      "athlete_id,public_display_name,team_id,team_name,division_id,weight_class_id,seed_rank,flowrestling_id,first_name,last_name,school_name,weight_lbs,actual_weight_lbs,grade,check_in_stage,weigh_in_eligible,medically_cleared,medical_decision,medical_reviewer,scale_station_id,scale_id,bracket_frozen,bracket_format,opaque_pass_token"
+    ];
+    var sortedAthletes = (state.athletes || []).slice().sort(function (a, b) {
+      return String(a.division_id || "VARSITY").localeCompare(String(b.division_id || "VARSITY")) ||
+        (Number(a.weight_class_id) - Number(b.weight_class_id)) ||
+        (a.seed_rank - b.seed_rank) ||
+        a.athlete_id.localeCompare(b.athlete_id);
+    });
+    sortedAthletes.forEach(function (a) {
+      var div = String(a.division_id || "VARSITY").toUpperCase();
+      var wc = a.weight_class_id;
+      var parts = String(a.public_display_name || "").trim().split(/\s+/);
+      var firstName = parts[0] || "";
+      var lastName = parts.slice(1).join(" ");
+      var wRec = state.weigh_ins ? state.weigh_ins[a.athlete_id] : null;
+      var mRec = state.medicals ? state.medicals[a.athlete_id] : null;
+      var actualLbs = wRec ? (wRec.measured_weight_tenths / 10).toFixed(1) : "";
+      var stageName = String(STAGE_LABELS[a.check_in_stage] || a.check_in_stage || "ELIGIBLE")
+        .toUpperCase()
+        .replace(/[^A-Z0-9]+/g, "_");
+      var isFrz = Boolean(fm.get(div + ":" + wc) || fm.get(wc));
+      var row = [
+        a.athlete_id,
+        a.public_display_name,
+        a.team_id,
+        a.team_name,
+        div,
+        wc,
+        a.seed_rank,
+        a.flowrestling_id || "",
+        firstName,
+        lastName,
+        a.team_name,
+        wc,
+        actualLbs,
+        "",
+        stageName,
+        Boolean(a.weigh_in_eligible),
+        Boolean(a.medically_cleared),
+        (mRec && mRec.decision) || (a.medically_cleared ? "CLEARED" : ""),
+        (mRec && mRec.reviewer_id) || "Emergency Fallback",
+        (wRec && wRec.station_id) || "",
+        (wRec && wRec.scale_id) || "",
+        isFrz,
+        formatByClassKey[div + ":" + wc] || Format.DoubleElimCrossover,
+        a.opaque_pass_token || ("PASS-" + wc + "-FALLBACK")
+      ].map(escapeCsvCell);
+      lines.push(row.join(","));
+    });
+    dirtySinceFileExport = false;
+    triggerDownload(lines.join("\n") + "\n", "text/csv;charset=utf-8", slugifyFilePrefix() + "-openmat-backup.csv");
+    showToast("Exported OpenMat recovery CSV (" + sortedAthletes.length + " wrestlers, " + (state.bouts || []).length + " bouts).", "ok");
+  }
+
+  // Minimal offline OOXML XLSX builder inside standalone HTML
+  var crcTable = (function () {
+    var t = new Uint32Array(256);
+    for (var i = 0; i < 256; i++) {
+      var c = i;
+      for (var k = 0; k < 8; k++) c = (c & 1) ? (0xedb88320 ^ (c >>> 1)) : (c >>> 1);
+      t[i] = c >>> 0;
+    }
+    return t;
+  })();
+
+  function crc32(bytes) {
+    var c = 0xffffffff;
+    for (var i = 0; i < bytes.length; i++) c = crcTable[(c ^ bytes[i]) & 0xff] ^ (c >>> 8);
+    return (c ^ 0xffffffff) >>> 0;
+  }
+
+  function colLetter(idx) {
+    var n = idx + 1, out = "";
+    while (n > 0) { var r = (n - 1) % 26; out = String.fromCharCode(65 + r) + out; n = Math.floor((n - 1) / 26); }
+    return out;
+  }
+
+  function xmlEsc(s) {
+    return String(s == null ? "" : s)
+      .replace(/[\x00-\x08\x0B\x0C\x0E-\x1F]/g, "")
+      .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
+
+  function exportOfflineXlsx() {
+    var enc = new TextEncoder();
+    var aMap = athleteMap();
+    var contested = (state.bouts || []).filter(function (b) { return !b.is_bye; })
+      .sort(function (a, b) { return a.bout_number - b.bout_number; });
+    var rowById = new Map(contested.map(function (b, idx) { return [b.match_id, idx + 2]; }));
+    var credits = byeAdvancement();
+
+    function sheetXml(rows) {
+      var rXml = rows.map(function (r, rIdx) {
+        var rn = rIdx + 1;
+        var cXml = r.map(function (cell, cIdx) {
+          if (!cell) return "";
+          var ref = colLetter(cIdx) + rn;
+          if (cell.f) {
+            return "<c r=\"" + ref + "\" t=\"" + (cell.num ? "" : "str") + "\"><f>" + xmlEsc(cell.f) + "</f><v>" + xmlEsc(cell.v) + "</v></c>";
+          }
+          if (typeof cell.v === "number") return "<c r=\"" + ref + "\"><v>" + cell.v + "</v></c>";
+          return "<c r=\"" + ref + "\" t=\"inlineStr\"><is><t xml:space=\"preserve\">" + xmlEsc(cell.v) + "</t></is></c>";
+        }).join("");
+        return "<row r=\"" + rn + "\">" + cXml + "</row>";
+      }).join("");
+      return "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>" +
+        "<worksheet xmlns=\"http://schemas.openxmlformats.org/spreadsheetml/2006/main\"><sheetData>" + rXml + "</sheetData></worksheet>";
+    }
+
+    var logRows = [[
+      {v:"Bout #"},{v:"Mat"},{v:"Division"},{v:"Weight"},{v:"Round"},{v:"Red Corner"},{v:"Green Corner"},
+      {v:"Red Pts"},{v:"Green Pts"},{v:"Winner (R/G)"},{v:"Win Type"},{v:"Winning Wrestler"},{v:"Winning Team"},{v:"Team Pts"},{v:"Red Team"},{v:"Green Team"}
+    ]];
+    contested.forEach(function (b, idx) {
+      var r = idx + 2;
+      var ra = aMap.get(b.red_athlete_id), ga = aMap.get(b.green_athlete_id);
+      var rLabel = ra ? ("#" + ra.seed_rank + " " + ra.public_display_name + " (" + ra.team_id + ")") : (b.red_athlete_id || "TBD");
+      var gLabel = ga ? ("#" + ga.seed_rank + " " + ga.public_display_name + " (" + ga.team_id + ")") : (b.green_athlete_id || "TBD");
+      var done = isBoutDone(b);
+      var winCode = done ? (b.winner_athlete_id === b.red_athlete_id ? "R" : "G") : "";
+      var credit = credits.get(b.match_id);
+      var adv = (b.is_consolation ? 1 : 2) + byeAdvancementFormula(credit?.conditions || [], rowById, r, "J", "K");
+      var plc = (b.is_placement_bout && b.placement_rank === 1) ? 16 : ((b.is_placement_bout && b.placement_rank === 3) ? 9 : 0);
+      var ptsF = "IF(M" + r + "=\"\",0," + adv + "+IF(OR(K" + r + "=\"FALL\",K" + r + "=\"FORFEIT\",K" + r + "=\"INJURY_DEFAULT\",K" + r + "=\"DQ\"),2,IF(K" + r + "=\"TF\",1.5,IF(K" + r + "=\"MD\",1,0)))+" + plc + ")";
+      logRows.push([
+        {v:b.bout_number},{v:b.assigned_mat_id || 1},{v:b.division_id || "VARSITY"},{v:b.weight_class_id},{v:b.round_label},
+        {v:rLabel},{v:gLabel},
+        {v:done ? b.red_score : ""},{v:done ? b.green_score : ""},{v:winCode},{v:done ? b.win_type : ""},
+        {f:"IF(J" + r + "=\"R\",F" + r + ",IF(J" + r + "=\"G\",G" + r + ",\"\"))", v: winCode === "R" ? rLabel : (winCode === "G" ? gLabel : "")},
+        {f:"IF(J" + r + "=\"R\",O" + r + ",IF(J" + r + "=\"G\",P" + r + ",\"\"))", v: winCode === "R" ? (ra ? ra.team_id : "") : (winCode === "G" ? (ga ? ga.team_id : "") : "")},
+        {f:ptsF, v:winCode ? completedBoutTeamPoints(b, credit?.earnedPoints || 0) : 0, num:true},
+        {v:ra ? ra.team_id : ""},{v:ga ? ga.team_id : ""}
+      ]);
+    });
+
+    var standings = computeTeamStandings();
+    var lastRow = Math.max(2, contested.length + 1);
+    var stRows = [[{v:"Team Code"},{v:"School"},{v:"Total Pts"},{v:"Wins"}]];
+    standings.forEach(function (s, idx) {
+      var sr = idx + 2;
+      stRows.push([
+        {v:s.team_id},{v:s.team_name},
+        contested.length > 0
+          ? {f:"SUMIF('Bout Runner Log'!$M$2:$M$" + lastRow + ",A" + sr + ",'Bout Runner Log'!$N$2:$N$" + lastRow + ")", v:s.total_points, num:true}
+          : {v:s.total_points},
+        contested.length > 0
+          ? {f:"COUNTIF('Bout Runner Log'!$M$2:$M$" + lastRow + ",A" + sr + ")", v:0, num:true}
+          : {v:0}
+      ]);
+    });
+
+    var files = [
+      { p: "[Content_Types].xml", d: enc.encode("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><Types xmlns=\"http://schemas.openxmlformats.org/package/2006/content-types\"><Default Extension=\"rels\" ContentType=\"application/vnd.openxmlformats-package.relationships+xml\"/><Default Extension=\"xml\" ContentType=\"application/xml\"/><Override PartName=\"/xl/workbook.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml\"/><Override PartName=\"/xl/worksheets/bouts.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml\"/><Override PartName=\"/xl/worksheets/standings.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml\"/></Types>") },
+      { p: "_rels/.rels", d: enc.encode("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><Relationships xmlns=\"http://schemas.openxmlformats.org/package/2006/relationships\"><Relationship Id=\"rId1\" Type=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument\" Target=\"xl/workbook.xml\"/></Relationships>") },
+      { p: "xl/workbook.xml", d: enc.encode("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><workbook xmlns=\"http://schemas.openxmlformats.org/spreadsheetml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\"><sheets><sheet name=\"Bout Runner Log\" sheetId=\"1\" r:id=\"rBouts\"/><sheet name=\"Team Standings\" sheetId=\"2\" r:id=\"rStandings\"/></sheets><calcPr fullCalcOnLoad=\"1\"/></workbook>") },
+      { p: "xl/_rels/workbook.xml.rels", d: enc.encode("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><Relationships xmlns=\"http://schemas.openxmlformats.org/package/2006/relationships\"><Relationship Id=\"rBouts\" Type=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet\" Target=\"worksheets/bouts.xml\"/><Relationship Id=\"rStandings\" Type=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet\" Target=\"worksheets/standings.xml\"/></Relationships>") },
+      { p: "xl/worksheets/bouts.xml", d: enc.encode(sheetXml(logRows)) },
+      { p: "xl/worksheets/standings.xml", d: enc.encode(sheetXml(stRows)) }
+    ];
+
+    var localLen = 0, centralLen = 0;
+    var prep = files.map(function (f) {
+      var nb = enc.encode(f.p);
+      localLen += 30 + nb.length + f.d.length;
+      centralLen += 46 + nb.length;
+      return { nb: nb, d: f.d, crc: crc32(f.d) };
+    });
+    var out = new Uint8Array(localLen + centralLen + 22);
+    var dv = new DataView(out.buffer);
+    var off = 0, offs = [];
+    prep.forEach(function (it) {
+      offs.push(off);
+      dv.setUint32(off, 0x04034b50, true); dv.setUint16(off + 4, 20, true); dv.setUint16(off + 6, 0x0800, true);
+      dv.setUint32(off + 14, it.crc, true); dv.setUint32(off + 18, it.d.length, true); dv.setUint32(off + 22, it.d.length, true);
+      dv.setUint16(off + 26, it.nb.length, true);
+      out.set(it.nb, off + 30); out.set(it.d, off + 30 + it.nb.length);
+      off += 30 + it.nb.length + it.d.length;
+    });
+    var cStart = off;
+    prep.forEach(function (it, i) {
+      dv.setUint32(off, 0x02014b50, true); dv.setUint16(off + 4, 20, true); dv.setUint16(off + 6, 20, true); dv.setUint16(off + 8, 0x0800, true);
+      dv.setUint32(off + 16, it.crc, true); dv.setUint32(off + 20, it.d.length, true); dv.setUint32(off + 24, it.d.length, true);
+      dv.setUint16(off + 28, it.nb.length, true); dv.setUint32(off + 42, offs[i], true);
+      out.set(it.nb, off + 46); off += 46 + it.nb.length;
+    });
+    dv.setUint32(off, 0x06054b50, true); dv.setUint16(off + 8, prep.length, true); dv.setUint16(off + 10, prep.length, true);
+    dv.setUint32(off + 12, off - cStart, true); dv.setUint32(off + 16, cStart, true);
+
+    triggerDownload(out, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", slugifyFilePrefix() + "-emergency-spreadsheet.xlsx");
+    showToast("Downloaded offline Excel workbook (.xlsx).", "ok");
+  }
+
+  function parseCsvRows(csvText) {
+    var rows = [];
+    var row = [];
+    var cur = "";
+    var inQ = false;
+    for (var i = 0; i < csvText.length; i++) {
+      var ch = csvText[i];
+      if (inQ) {
+        if (ch === "\"") {
+          if (csvText[i + 1] === "\"") { cur += "\""; i++; }
+          else inQ = false;
+        } else cur += ch;
+      } else {
+        if (ch === "\"") inQ = true;
+        else if (ch === ",") { row.push(cur); cur = ""; }
+        else if (ch === "\n" || ch === "\r") {
+          if (ch === "\r" && csvText[i + 1] === "\n") i++;
+          row.push(cur); cur = "";
+          if (row.some(function (c) { return c.trim() !== ""; })) rows.push(row);
+          row = [];
+        } else cur += ch;
+      }
+    }
+    row.push(cur);
+    if (row.some(function (c) { return c.trim() !== ""; })) rows.push(row);
+    return rows;
+  }
+
+  function importCsvOffline(csvText) {
+    var clean = String(csvText || "").replace(/^\uFEFF/, "");
+    var backupMeta = null;
+    clean.split(/\r?\n/).forEach(function (line) {
+      var t = line.trim();
+      if (t.indexOf("#openmat_tournament_backup_v1:") === 0) {
+        try { backupMeta = JSON.parse(t.slice("#openmat_tournament_backup_v1:".length)); } catch (_e) {}
+      }
+    });
+    var rows = parseCsvRows(clean).filter(function (r) { return String(r[0] || "").trim().indexOf("#") !== 0; });
+    if (rows.length === 0) throw new Error("CSV file is empty.");
+    var hdr = rows[0].map(function (h) { return String(h || "").trim().toLowerCase().replace(/[^a-z0-9]+/g, "_"); });
+    var idxOf = function (names) {
+      for (var i = 0; i < names.length; i++) {
+        var p = hdr.indexOf(names[i]);
+        if (p >= 0) return p;
+      }
+      return -1;
+    };
+    var hasHeader = idxOf(["athlete_id","first_name","public_display_name","name","wrestler","weight_class_id","weight_class_lbs","weight"]) >= 0;
+    var dataRows = hasHeader ? rows.slice(1) : rows;
+    var importedAthletes = [];
+    var weighIns = {};
+    var medicals = {};
+
+    dataRows.forEach(function (cols, rIdx) {
+      var get = function (names) {
+        var p = idxOf(names);
+        return (p >= 0 && p < cols.length) ? String(cols[p] || "").trim() : "";
+      };
+      var fName = get(["first_name","firstname","first"]);
+      var lName = get(["last_name","lastname","last"]);
+      var fullName = get(["public_display_name","full_name","name","athlete_name","wrestler"]) || [fName, lName].filter(Boolean).join(" ");
+      var teamName = get(["team_name","school_name","school","club"]);
+      var teamId = (get(["team_id","team_code","team","school_code"]) || teamName.replace(/[^A-Za-z]/g, "").slice(0, 4) || "TEAM").toUpperCase();
+      if (!teamName) teamName = teamId;
+      var div = (get(["division_id","division","div"]) || "NOVICE").toUpperCase();
+      var wc = get(["weight_class_id","weight_class_lbs","weight_class","weight_lbs","weight","wt"]).replace(/\s*lbs?\.?$/i, "");
+      if (!fullName || !wc) return;
+      var athId = get(["athlete_id","id"]) || ("ATH-" + teamId + "-" + wc + "-" + (rIdx + 1));
+      var seed = Math.max(1, parseInt(get(["seed_rank","seed"]), 10) || (rIdx + 1));
+      var stageRaw = get(["check_in_stage","status"]).toUpperCase();
+      var stage = stageRaw === "SCRATCHED" ? 7 : (stageRaw === "WITHDRAWN" ? 6 : 5);
+      var actualW = parseFloat(get(["actual_weight_lbs","actual_weight","scale_weight"]));
+      if (Number.isFinite(actualW) && actualW >= 50) {
+        weighIns[athId] = { station_id: "CSV", scale_id: "CSV", measured_weight_tenths: Math.round(actualW * 10) };
+      } else {
+        weighIns[athId] = { station_id: "CSV", scale_id: "CSV", measured_weight_tenths: (Number(wc) || 132) * 10 };
+      }
+      medicals[athId] = { reviewer_id: "CSV", decision: "CLEARED" };
+      importedAthletes.push({
+        athlete_id: athId,
+        opaque_pass_token: get(["opaque_pass_token"]) || ("PASS-" + wc + "-" + (rIdx + 1)),
+        public_display_name: fullName,
+        team_id: teamId,
+        team_name: teamName,
+        division_id: div,
+        weight_class_id: wc,
+        seed_rank: seed,
+        flowrestling_id: get(["flowrestling_id"]) || "",
+        check_in_stage: stage,
+        weigh_in_eligible: stage === 5,
+        medically_cleared: stage === 5,
+        matches_wrestled_today: 0,
+        prior_day_matches: 0,
+        last_bout_ended_ms: 0,
+        updated_at_ms: Date.now()
+      });
+    });
+
+    if (backupMeta) {
+      state.tournament_id = backupMeta.tournament_id || state.tournament_id;
+      state.tournament_name = backupMeta.tournament_name || state.tournament_name;
+      state.event_date = backupMeta.event_date || state.event_date;
+      state.venue = backupMeta.venue || state.venue;
+      state.rules_version = backupMeta.rules_version || state.rules_version;
+      state.mat_count = backupMeta.mat_count || state.mat_count;
+      state.growth_allowance_tenths = backupMeta.growth_allowance_tenths != null ? backupMeta.growth_allowance_tenths : state.growth_allowance_tenths;
+      state.bracket_frozen_by_class = backupMeta.bracket_frozen_by_class || [];
+      state.bouts = backupMeta.bouts || [];
+    } else {
+      state.bouts = [];
+      state.bracket_frozen_by_class = [];
+    }
+    state.athletes = importedAthletes;
+    state.weigh_ins = weighIns;
+    state.medicals = medicals;
+    recomputeWorkloadAndRestFromBouts();
+    ensureSelectedWeight();
+    ui.tab = (state.bouts && state.bouts.length > 0) ? "desk" : "brackets";
+    persistState(true);
+    showToast("Imported " + importedAthletes.length + " wrestlers" + (state.bouts.length ? (" and " + state.bouts.length + " bouts") : "") + ".", "ok");
+  }
+
+  // ===========================================================================
+  // Local HDMI / Projector Wall Board (Zero Network Required)
+  // ===========================================================================
+
+  function openWallboardWindow() {
+    var win = window.open("", "openmat_fallback_wallboard", "width=1280,height=720");
+    if (!win) {
+      showToast("Allow pop-ups for this file to open the second-screen Wall Board.", "err");
+      return;
+    }
+    ui.wallboardWin = win;
+    refreshWallboard();
+  }
+
+  function refreshWallboard() {
+    var win = ui.wallboardWin;
+    if (!win || win.closed) return;
+    var aMap = athleteMap();
+    var openBouts = (state.bouts || []).filter(function (b) {
+      return !b.is_bye && !isBoutDone(b) && b.red_athlete_id && b.green_athlete_id;
+    });
+    var matsHtml = "";
+    for (var m = 1; m <= (state.mat_count || 5); m++) {
+      var mb = openBouts
+        .filter(function (b) { return b.assigned_mat_id === m; })
+        .sort(function (a, b) {
+          var ar = (a.lifecycle === Lifecycle.Ready || a.lifecycle === Lifecycle.InProgress) ? 0 : 1;
+          var br = (b.lifecycle === Lifecycle.Ready || b.lifecycle === Lifecycle.InProgress) ? 0 : 1;
+          return (ar - br) || (a.mat_queue_order - b.mat_queue_order) || (a.bout_number - b.bout_number);
+        });
+      var cur = mb[0], deck = mb[1];
+      var rCur = cur ? aMap.get(cur.red_athlete_id) : null;
+      var gCur = cur ? aMap.get(cur.green_athlete_id) : null;
+      var rDeck = deck ? aMap.get(deck.red_athlete_id) : null;
+      var gDeck = deck ? aMap.get(deck.green_athlete_id) : null;
+      matsHtml += "<div style=\"background:#111827;border:2px solid #334155;border-radius:12px;padding:14px;display:grid;gap:8px;\">" +
+        "<div style=\"display:flex;justify-content:space-between;font-weight:900;font-size:20px;color:#f8fafc;\"><span>MAT " + m + "</span><span style=\"font-size:14px;color:#94a3b8;\">" + (cur ? ("BOUT #" + cur.bout_number + " · " + esc(cur.weight_class_id) + " LBS") : "OPEN") + "</span></div>" +
+        (cur
+          ? "<div style=\"background:rgba(185,28,28,0.35);color:#fecaca;padding:8px 10px;border-radius:8px;font-size:17px;font-weight:800;\">R: " + esc(rCur ? rCur.public_display_name : cur.red_athlete_id) + " <small>(" + esc(rCur ? rCur.team_id : "") + ")</small></div>" +
+            "<div style=\"background:rgba(21,128,61,0.35);color:#bbf7d0;padding:8px 10px;border-radius:8px;font-size:17px;font-weight:800;\">G: " + esc(gCur ? gCur.public_display_name : cur.green_athlete_id) + " <small>(" + esc(gCur ? gCur.team_id : "") + ")</small></div>"
+          : "<div style=\"padding:18px;text-align:center;color:#64748b;\">Waiting for next bout</div>") +
+        (deck
+          ? "<div style=\"border-top:1px solid #334155;padding-top:6px;font-size:13px;color:#cbd5e1;\"><strong>ON DECK #" + deck.bout_number + " (" + esc(deck.weight_class_id) + " lbs):</strong> " + esc(rDeck ? rDeck.public_display_name : "") + " vs " + esc(gDeck ? gDeck.public_display_name : "") + "</div>"
+          : "") +
+        "</div>";
+    }
+    var standings = computeTeamStandings().slice(0, 8);
+    var stHtml = standings.map(function (s) {
+      return "<span style=\"background:#1e293b;padding:5px 12px;border-radius:999px;font-size:14px;font-weight:800;\">#" + s.rank + " " + esc(s.team_name) + ": " + s.total_points.toFixed(1) + "</span>";
+    }).join(" ");
+
+    win.document.open();
+    win.document.write(
+      "<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"utf-8\"><title>Gym Wall Board</title></head>" +
+      "<body style=\"margin:0;padding:20px;background:#020617;color:#f8fafc;font-family:system-ui,sans-serif;\">" +
+      "<div style=\"display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;\">" +
+      "<h1 style=\"margin:0;font-size:26px;\">" + esc(state.tournament_name || "OpenMat Tournament") + " — Live Mat Assignments</h1>" +
+      "<span style=\"font-size:14px;color:#94a3b8;\">Updated " + new Date().toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"}) + "</span></div>" +
+      "<div style=\"display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px;margin-bottom:18px;\">" + matsHtml + "</div>" +
+      "<div style=\"display:flex;flex-wrap:wrap;gap:8px;align-items:center;\"><strong style=\"font-size:14px;color:#94a3b8;\">TEAM STANDINGS:</strong> " + stHtml + "</div>" +
+      "</body></html>"
+    );
+    win.document.close();
+  }
+
+  // ===========================================================================
+  // Rendering Helpers & Views
+  // ===========================================================================
+
+  function getSlipInput(bout) {
+    if (!ui.slipInputs[bout.match_id]) {
+      ui.slipInputs[bout.match_id] = {
+        winnerId: bout.winner_athlete_id || bout.red_athlete_id || "",
+        winType: (bout.win_type && WIN_TYPES.indexOf(bout.win_type) >= 0) ? bout.win_type : "FALL",
+        redScore: String(bout.red_score || 0),
+        greenScore: String(bout.green_score || 0)
+      };
+    }
+    return ui.slipInputs[bout.match_id];
+  }
+
+  function renderSlipEntryControls(bout, aMap) {
+    var r = aMap.get(bout.red_athlete_id);
+    var g = aMap.get(bout.green_athlete_id);
+    var inp = getSlipInput(bout);
+    var winOpts =
+      "<option value=\"" + esc(bout.red_athlete_id) + "\"" + (inp.winnerId === bout.red_athlete_id ? " selected" : "") + ">Red: " + esc(r ? r.public_display_name : bout.red_athlete_id) + "</option>" +
+      "<option value=\"" + esc(bout.green_athlete_id) + "\"" + (inp.winnerId === bout.green_athlete_id ? " selected" : "") + ">Green: " + esc(g ? g.public_display_name : bout.green_athlete_id) + "</option>";
+    var typeOpts = WIN_TYPES.map(function (wt) {
+      return "<option value=\"" + wt + "\"" + (inp.winType === wt ? " selected" : "") + ">" + wt + "</option>";
+    }).join("");
+
+    return "<div class=\"slip-form\">" +
+      "<div style=\"display:grid;grid-template-columns:1.5fr 1fr;gap:6px;\">" +
+      "<select aria-label=\"Winner for Bout #" + bout.bout_number + "\" data-slip-winner=\"" + esc(bout.match_id) + "\">" + winOpts + "</select>" +
+      "<select aria-label=\"Win type for Bout #" + bout.bout_number + "\" data-slip-wintype=\"" + esc(bout.match_id) + "\">" + typeOpts + "</select>" +
+      "</div>" +
+      "<div style=\"display:grid;grid-template-columns:1fr 1fr auto;gap:6px;align-items:center;\">" +
+      "<input type=\"number\" min=\"0\" max=\"999\" aria-label=\"Red score for Bout #" + bout.bout_number + "\" placeholder=\"Red Pts\" value=\"" + esc(inp.redScore) + "\" data-slip-red=\"" + esc(bout.match_id) + "\" />" +
+      "<input type=\"number\" min=\"0\" max=\"999\" aria-label=\"Green score for Bout #" + bout.bout_number + "\" placeholder=\"Green Pts\" value=\"" + esc(inp.greenScore) + "\" data-slip-green=\"" + esc(bout.match_id) + "\" />" +
+      "<button type=\"button\" class=\"btn-ok\" data-save-bout=\"" + esc(bout.match_id) + "\">Save Result</button>" +
+      "</div></div>";
+  }
+
+  function renderDeskTab() {
+    var aMap = athleteMap();
+    var allContested = (state.bouts || []).filter(function (b) { return !b.is_bye; })
+      .sort(function (a, b) { return a.bout_number - b.bout_number; });
+    var openWithBoth = allContested.filter(function (b) {
+      return !isBoutDone(b) && b.red_athlete_id && b.green_athlete_id;
+    });
+    var curRound = openWithBoth.length > 0
+      ? Math.min.apply(null, openWithBoth.map(function (b) { return b.round_index; }))
+      : 1;
+    var conflicts = detectCoachConflicts();
+    var periodText = state.rules_version === NOVICE_RULESET ? "Novice 1-2-2 (1:00 / 2:00 / 2:00)" : "Varsity 2-2-2 (2:00 / 2:00 / 2:00)";
+
+    var html = "";
+
+    html += "<details class=\"card\"><summary style=\"cursor:pointer;font-weight:800;font-size:14px;\">Emergency Operations Checklist (Single Laptop + Practice Mode + Paper Runners)</summary>" +
+      "<ol style=\"margin:8px 0 0;padding-left:20px;font-size:13px;display:grid;gap:4px;\">" +
+      "<li>Open the Scorekeeper app on each mat phone or tablet and start <strong>Practice Mode (" + esc(periodText) + ")</strong>.</li>" +
+      "<li>Open <strong>3. Print Slips and Wall Charts</strong> to print cuttable paper runner bout slips for Mats 1 through " + (state.mat_count || 5) + ".</li>" +
+      "<li>When a paper runner brings a completed bout slip to this laptop, enter the winner, win type, and score below.</li>" +
+      "<li>Click <strong>Save Updated HTML</strong> or <strong>Export OpenMat CSV</strong> after each round to save a portable backup file.</li>" +
+      "</ol></details>";
+
+    if (conflicts.length > 0) {
+      html += "<div class=\"toast err\"><div><strong>Same-School Mat Conflict:</strong> " +
+        conflicts.map(function (c) {
+          return esc(c.teamName) + " has Bout #" + c.firstBout.bout_number + " (Mat " + c.firstBout.assigned_mat_id + ") and Bout #" + c.secondBout.bout_number + " (Mat " + c.secondBout.assigned_mat_id + ")";
+        }).join(" · ") +
+        "</div><div style=\"display:flex;gap:6px;\">" +
+        conflicts.map(function (c) {
+          return "<button type=\"button\" class=\"btn-warn\" data-hold-bout=\"" + esc(c.secondBout.match_id) + "\">Hold #" + c.secondBout.bout_number + " On Deck</button>";
+        }).join("") +
+        "</div></div>";
+    }
+
+    if (allContested.length === 0) {
+      html += "<section class=\"card\" style=\"text-align:center;padding:28px;\">" +
+        "<h2>No Brackets Generated Yet</h2>" +
+        "<p class=\"sub\">Import a roster CSV above or open Tab 2 (Brackets and Seeds) to build brackets offline.</p>" +
+        "<button type=\"button\" class=\"btn-primary\" data-goto-tab=\"brackets\" style=\"margin-top:10px;\">Open Tab 2: Brackets and Seeds</button>" +
+        "</section>";
+      return html;
+    }
+
+    html += "<section class=\"card\"><div class=\"card-head\"><div><h2>Active Mats (" + (state.mat_count || 5) + " Mats · Active Round " + curRound + ")</h2>" +
+      "<p class=\"sub\">Enter paper runner slips directly on each mat card or search any bout number below.</p></div>" +
+      "<div class=\"filter-bar\">" +
+      "<button type=\"button\" class=\"btn-primary\" id=\"btn-auto-dispatch\">Auto-Assign Rested Bouts</button>" +
+      "<button type=\"button\" data-quick-print=\"staged-slips\">Print Active Mat Slips</button>" +
+      "</div></div><div class=\"mats-grid\">";
+
+    for (var m = 1; m <= (state.mat_count || 5); m++) {
+      var matBouts = openWithBoth
+        .filter(function (b) { return b.assigned_mat_id === m; })
+        .sort(function (a, b) {
+          var aReady = (a.lifecycle === Lifecycle.Ready || a.lifecycle === Lifecycle.InProgress) ? 0 : 1;
+          var bReady = (b.lifecycle === Lifecycle.Ready || b.lifecycle === Lifecycle.InProgress) ? 0 : 1;
+          if (aReady !== bReady) return aReady - bReady;
+          var aCur = a.round_index === curRound ? 0 : 1;
+          var bCur = b.round_index === curRound ? 0 : 1;
+          if (aCur !== bCur) return aCur - bCur;
+          var aRest = getBoutRest(a).restLocked ? 1 : 0;
+          var bRest = getBoutRest(b).restLocked ? 1 : 0;
+          if (aRest !== bRest) return aRest - bRest;
+          return (a.mat_queue_order || 9999) - (b.mat_queue_order || 9999) || (a.bout_number - b.bout_number);
+        });
+
+      var activeBout = matBouts[0];
+      var queueBouts = matBouts.slice(1, 5);
+      html += "<article class=\"mat-card\" aria-label=\"Mat " + m + "\">" +
+        "<div style=\"display:flex;justify-content:space-between;align-items:center;\">" +
+        "<strong style=\"font-size:16px;\">MAT " + m + "</strong>" +
+        "<span class=\"pill " + (activeBout ? "ok" : "warn") + "\">" + (activeBout ? ("ON MAT · #" + activeBout.bout_number) : "OPEN") + "</span></div>";
+
+      if (activeBout) {
+        var rAth = aMap.get(activeBout.red_athlete_id);
+        var gAth = aMap.get(activeBout.green_athlete_id);
+        var restSt = getBoutRest(activeBout);
+        html += "<div style=\"font-size:12px;font-weight:700;color:var(--text-muted);\">" +
+          esc((activeBout.division_id || "VARSITY") + " · " + activeBout.weight_class_id + " lbs · " + activeBout.round_label) + "</div>";
+        if (restSt.restLocked) {
+          html += "<div class=\"pill warn\" style=\"justify-content:space-between;width:100%;border-radius:6px;padding:5px 8px;\">" +
+            "<span>30m Rest: " + esc(restSt.restingNames.join(", ")) + " (" + restSt.remainingMinutes + "m left)</span>" +
+            "<button type=\"button\" style=\"min-height:24px;padding:1px 7px;font-size:11px;\" data-clear-rest=\"" + esc(activeBout.match_id) + "\">Rest Done</button></div>";
+        }
+        html += "<div class=\"corner-row red\"><span><span class=\"corner-tag red\">R</span>" +
+          esc(rAth ? ("#" + rAth.seed_rank + " " + rAth.public_display_name + " (" + rAth.team_id + ")") : activeBout.red_athlete_id) + "</span></div>" +
+          "<div class=\"corner-row green\"><span><span class=\"corner-tag green\">G</span>" +
+          esc(gAth ? ("#" + gAth.seed_rank + " " + gAth.public_display_name + " (" + gAth.team_id + ")") : activeBout.green_athlete_id) + "</span></div>" +
+          renderSlipEntryControls(activeBout, aMap);
+      } else {
+        html += "<div style=\"padding:16px;text-align:center;background:var(--bg-inset);border-radius:7px;font-size:12px;color:var(--text-muted);\">No bout staged on Mat " + m + ".</div>";
+      }
+
+      if (queueBouts.length > 0) {
+        html += "<div style=\"font-size:11px;font-weight:800;text-transform:uppercase;color:var(--text-muted);margin-top:4px;\">On Deck (" + queueBouts.length + ")</div>";
+        queueBouts.forEach(function (qb, qIdx) {
+          var rq = aMap.get(qb.red_athlete_id), gq = aMap.get(qb.green_athlete_id);
+          var qRest = getBoutRest(qb);
+          var matOpts = "";
+          for (var mm = 1; mm <= (state.mat_count || 5); mm++) {
+            matOpts += "<option value=\"" + mm + "\"" + (qb.assigned_mat_id === mm ? " selected" : "") + ">Mat " + mm + "</option>";
+          }
+          html += "<div class=\"queue-row\"><div style=\"display:flex;justify-content:space-between;align-items:center;gap:4px;\">" +
+            "<strong>" + (qIdx === 0 ? "ON DECK" : "QUEUE") + " #" + qb.bout_number + " (" + esc(qb.weight_class_id) + " lbs)</strong>" +
+            "<div style=\"display:flex;gap:4px;align-items:center;\">" +
+            (qRest.restLocked
+              ? "<span class=\"pill warn\">" + qRest.remainingMinutes + "m rest</span><button type=\"button\" style=\"min-height:24px;padding:1px 6px;font-size:11px;\" data-clear-rest=\"" + esc(qb.match_id) + "\">Rest Done</button>"
+              : "<button type=\"button\" style=\"min-height:24px;padding:1px 6px;font-size:11px;\" data-call-bout=\"" + esc(qb.match_id) + "\">Call Now</button>") +
+            "<select aria-label=\"Move Bout #" + qb.bout_number + "\" style=\"min-height:24px;padding:1px 4px;font-size:11px;\" data-move-mat=\"" + esc(qb.match_id) + "\">" + matOpts + "</select>" +
+            "</div></div><div>" + esc(rq ? rq.public_display_name : "TBD") + " vs " + esc(gq ? gq.public_display_name : "TBD") + "</div></div>";
+        });
+      }
+      html += "</article>";
+    }
+    html += "</div></section>";
+
+    // Fast Bout Lookup & All-Bouts Paper Slip Table
+    var q = ui.deskSearch.trim().toLowerCase();
+    var filteredBouts = allContested.filter(function (b) {
+      var done = isBoutDone(b);
+      if (ui.deskFilter === "OPEN" && done) return false;
+      if (ui.deskFilter === "DONE" && !done) return false;
+      if (ui.deskFilter === "REST" && (done || !getBoutRest(b).restLocked)) return false;
+      if (ui.deskFilter.indexOf("MAT:") === 0) {
+        var fmId = Number(ui.deskFilter.slice(4));
+        if (done || b.assigned_mat_id !== fmId) return false;
+      }
+      if (!q) return true;
+      var ra = aMap.get(b.red_athlete_id), ga = aMap.get(b.green_athlete_id);
+      return String(b.bout_number).indexOf(q) >= 0 ||
+        ("#" + b.bout_number).indexOf(q) >= 0 ||
+        String(b.weight_class_id).toLowerCase().indexOf(q) >= 0 ||
+        String(b.round_label).toLowerCase().indexOf(q) >= 0 ||
+        (ra && (ra.public_display_name.toLowerCase().indexOf(q) >= 0 || ra.team_id.toLowerCase().indexOf(q) >= 0 || ra.team_name.toLowerCase().indexOf(q) >= 0)) ||
+        (ga && (ga.public_display_name.toLowerCase().indexOf(q) >= 0 || ga.team_id.toLowerCase().indexOf(q) >= 0 || ga.team_name.toLowerCase().indexOf(q) >= 0));
+    });
+
+    var matFilterBtns = "";
+    for (var mf = 1; mf <= (state.mat_count || 5); mf++) {
+      var tok = "MAT:" + mf;
+      matFilterBtns += "<button type=\"button\" class=\"pill-btn " + (ui.deskFilter === tok ? "active" : "") + "\" data-desk-filter=\"" + tok + "\">Mat " + mf + "</button>";
+    }
+
+    html += "<section class=\"card\"><div class=\"card-head\"><div><h2>Quick Bout Lookup and Paper Result Log (" + filteredBouts.length + ")</h2>" +
+      "<p class=\"sub\">Search by Bout #, wrestler, school, or weight class to record out-of-order paper slips or correct results.</p></div></div>" +
+      "<search class=\"filter-bar\" style=\"margin-bottom:10px;\">" +
+      "<input type=\"search\" id=\"input-desk-search\" aria-label=\"Search bout number or wrestler\" placeholder=\"Type Bout # (e.g. 104), wrestler, school, or weight...\" style=\"min-width:280px;flex:1;\" value=\"" + esc(ui.deskSearch) + "\" />" +
+      "<button type=\"button\" class=\"pill-btn " + (ui.deskFilter === "OPEN" ? "active" : "") + "\" data-desk-filter=\"OPEN\">Open Bouts</button>" +
+      matFilterBtns +
+      "<button type=\"button\" class=\"pill-btn " + (ui.deskFilter === "REST" ? "active" : "") + "\" data-desk-filter=\"REST\">30m Rest</button>" +
+      "<button type=\"button\" class=\"pill-btn " + (ui.deskFilter === "DONE" ? "active" : "") + "\" data-desk-filter=\"DONE\">Completed</button>" +
+      "<button type=\"button\" class=\"pill-btn " + (ui.deskFilter === "ALL" ? "active" : "") + "\" data-desk-filter=\"ALL\">All</button>" +
+      "</search>" +
+      "<div style=\"overflow-x:auto;\"><table><thead><tr><th>Bout</th><th>Mat</th><th>Weight &amp; Round</th><th>Red Corner</th><th>Green Corner</th><th>Paper Result / Action</th></tr></thead><tbody>";
+
+    filteredBouts.slice(0, 120).forEach(function (b) {
+      var ra = aMap.get(b.red_athlete_id), ga = aMap.get(b.green_athlete_id);
+      var done = isBoutDone(b);
+      var wa = b.winner_athlete_id ? aMap.get(b.winner_athlete_id) : null;
+      var actionCell = "";
+      if (done) {
+        actionCell = "<div style=\"display:flex;justify-content:space-between;align-items:center;gap:8px;\">" +
+          "<span class=\"pill ok\">Winner: " + esc(wa ? wa.public_display_name : b.winner_athlete_id) + " (" + esc(b.win_type) + " " + b.red_score + "-" + b.green_score + ")</span>" +
+          "<button type=\"button\" style=\"min-height:28px;padding:2px 9px;font-size:12px;\" data-open-correction=\"" + esc(b.match_id) + "\">Correct / Reopen</button></div>";
+      } else if (b.red_athlete_id && b.green_athlete_id) {
+        actionCell = renderSlipEntryControls(b, aMap);
+      } else {
+        actionCell = "<span class=\"sub\">Waiting on upstream bouts</span>";
+      }
+      html += "<tr><td><strong>#" + b.bout_number + "</strong></td><td>Mat " + (b.assigned_mat_id || 1) + "</td>" +
+        "<td>" + esc((b.division_id || "VARSITY") + " " + b.weight_class_id + " lbs · " + b.round_label) + "</td>" +
+        "<td><strong style=\"color:var(--corner-red);\">" + esc(ra ? ("#" + ra.seed_rank + " " + ra.public_display_name + " (" + ra.team_id + ")") : "TBD") + "</strong></td>" +
+        "<td><strong style=\"color:var(--corner-green);\">" + esc(ga ? ("#" + ga.seed_rank + " " + ga.public_display_name + " (" + ga.team_id + ")") : "TBD") + "</strong></td>" +
+        "<td style=\"min-width:310px;\">" + actionCell + "</td></tr>";
+    });
+    html += "</tbody></table></div></section>";
+    return html;
+  }
+
+  function renderBracketsTab() {
+    ensureSelectedWeight();
+    var aMap = athleteMap();
+    var pWeights = populatedWeights();
+    var weightTabs = pWeights.length > 0 ? pWeights : BOYS_WEIGHTS;
+    var classAthletes = (state.athletes || [])
+      .filter(function (a) {
+        return a.weight_class_id === ui.selectedWeight &&
+          (ui.selectedDivision === "ALL" || String(a.division_id || "VARSITY").toUpperCase() === ui.selectedDivision);
+      })
+      .sort(function (a, b) { return a.seed_rank - b.seed_rank; });
+    var eligCount = classAthletes.filter(isAthleteEligible).length;
+    var classBouts = (state.bouts || [])
+      .filter(function (b) {
+        return b.weight_class_id === ui.selectedWeight &&
+          (ui.selectedDivision === "ALL" || String(b.division_id || "VARSITY").toUpperCase() === ui.selectedDivision);
+      })
+      .sort(function (a, b) { return (a.round_index - b.round_index) || (a.bout_number - b.bout_number); });
+
+    var champRounds = new Map();
+    var consRounds = new Map();
+    classBouts.forEach(function (b) {
+      var m = b.is_consolation ? consRounds : champRounds;
+      var arr = m.get(b.round_label) || [];
+      arr.push(b);
+      m.set(b.round_label, arr);
+    });
+
+    var divOpts = "<option value=\"ALL\">All Divisions</option>" + DIVISIONS.map(function (d) {
+      return "<option value=\"" + d + "\"" + (ui.selectedDivision === d ? " selected" : "") + ">" + d + "</option>";
+    }).join("");
+
+    var wtBtns = weightTabs.map(function (wc) {
+      var cnt = (state.athletes || []).filter(function (a) {
+        return a.weight_class_id === wc && isAthleteEligible(a) &&
+          (ui.selectedDivision === "ALL" || String(a.division_id || "VARSITY").toUpperCase() === ui.selectedDivision);
+      }).length;
+      return "<button type=\"button\" class=\"pill-btn " + (ui.selectedWeight === wc ? "active" : "") + "\" data-select-weight=\"" + wc + "\">" + wc + " lbs" + (cnt > 0 ? (" (" + cnt + ")") : "") + "</button>";
+    }).join("");
+
+    var html = "<section class=\"card\"><div class=\"filter-bar\" style=\"margin-bottom:10px;\">" +
+      "<select id=\"select-bracket-div\" aria-label=\"Select division\">" + divOpts + "</select>" +
+      wtBtns + "</div>" +
+      "<div class=\"card-head\" style=\"border-top:1px solid var(--border-subtle);padding-top:10px;\">" +
+      "<div><h2>" + esc(ui.selectedWeight) + " lbs Bracket (" + eligCount + " Eligible Wrestlers)</h2></div>" +
+      "<div class=\"filter-bar\">" +
+      "<select id=\"select-bracket-format\" aria-label=\"Bracket format\">" +
+      "<option value=\"AUTO_BY_COUNT\"" + (ui.selectedFormat === "AUTO_BY_COUNT" ? " selected" : "") + ">Auto by Count (2=Bo3, 3-5=Pool, 6+=Double Elim)</option>" +
+      "<option value=\"BEST_OF_THREE\"" + (ui.selectedFormat === "BEST_OF_THREE" ? " selected" : "") + ">Best of 3 Series</option>" +
+      "<option value=\"ROUND_ROBIN_POOL\"" + (ui.selectedFormat === "ROUND_ROBIN_POOL" ? " selected" : "") + ">Round-Robin Pool</option>" +
+      "<option value=\"DOUBLE_ELIM_CROSSOVER\"" + (ui.selectedFormat === "DOUBLE_ELIM_CROSSOVER" ? " selected" : "") + ">Double-Elimination (Crossover)</option>" +
+      "<option value=\"TRUE_SECOND_CHALLENGE\"" + (ui.selectedFormat === "TRUE_SECOND_CHALLENGE" ? " selected" : "") + ">Double-Elimination + True Second</option>" +
+      "</select>" +
+      "<button type=\"button\" class=\"btn-primary\" id=\"btn-gen-class\">Generate " + esc(ui.selectedWeight) + " lbs</button>" +
+      "<button type=\"button\" class=\"btn-ok\" id=\"btn-gen-all\">Generate All Weight Classes</button>" +
+      "<button type=\"button\" data-quick-print=\"class-bracket\">Print " + esc(ui.selectedWeight) + " lbs Wall Sheet</button>" +
+      "</div></div>";
+
+    function renderRoundCols(rMap) {
+      var out = "<div class=\"bracket-cols\">";
+      rMap.forEach(function (bouts, label) {
+        out += "<div class=\"bracket-col\"><div style=\"font-size:11px;font-weight:800;text-transform:uppercase;color:var(--text-muted);border-bottom:1px solid var(--border-subtle);padding-bottom:4px;\">" + esc(label) + "</div>";
+        bouts.forEach(function (b) {
+          var ra = aMap.get(b.red_athlete_id), ga = aMap.get(b.green_athlete_id);
+          var done = isBoutDone(b);
+          out += "<div class=\"bracket-node\"><div style=\"display:flex;justify-content:space-between;color:var(--text-muted);font-weight:700;\"><span>#" + b.bout_number + " · Mat " + (b.assigned_mat_id || 1) + "</span><span>" + (b.is_bye ? "BYE" : (done ? ("FINAL (" + esc(b.win_type) + ")") : "OPEN")) + "</span></div>" +
+            "<div class=\"corner-row red\" style=\"padding:4px 6px;\"><span>R: " + esc(ra ? ("#" + ra.seed_rank + " " + ra.public_display_name + " (" + ra.team_id + ")") : (b.is_bye ? "BYE" : "TBD")) + "</span><strong>" + (b.is_bye ? "" : b.red_score) + "</strong></div>" +
+            "<div class=\"corner-row green\" style=\"padding:4px 6px;\"><span>G: " + esc(ga ? ("#" + ga.seed_rank + " " + ga.public_display_name + " (" + ga.team_id + ")") : (b.is_bye ? "BYE" : "TBD")) + "</span><strong>" + (b.is_bye ? "" : b.green_score) + "</strong></div>" +
+            (!b.is_bye && done ? "<button type=\"button\" style=\"min-height:26px;font-size:11px;\" data-open-correction=\"" + esc(b.match_id) + "\">Correct / Reopen</button>" : "") +
+            "</div>";
+        });
+        out += "</div>";
+      });
+      out += "</div>";
+      return out;
+    }
+
+    if (classBouts.length === 0) {
+      html += "<p class=\"sub\">No bracket generated yet for " + esc(ui.selectedWeight) + " lbs.</p>";
+    } else {
+      if (champRounds.size > 0) {
+        html += "<h3 style=\"font-size:12px;text-transform:uppercase;color:var(--text-muted);margin:8px 0;\">Championship / Pool Rounds</h3>" + renderRoundCols(champRounds);
+      }
+      if (consRounds.size > 0) {
+        html += "<h3 style=\"font-size:12px;text-transform:uppercase;color:var(--text-muted);margin:14px 0 8px;\">Consolation &amp; Placement Rounds</h3>" + renderRoundCols(consRounds);
+      }
+      if (classBouts[0].format === Format.RoundRobinPool || classBouts[0].format === Format.BestOfThree) {
+        var ps = computeBracketStandings(ui.selectedWeight, ui.selectedDivision === "ALL" ? undefined : ui.selectedDivision);
+        html += "<h3 style=\"font-size:12px;text-transform:uppercase;color:var(--text-muted);margin:14px 0 8px;\">Pool / Series Standings</h3>" +
+          "<table><thead><tr><th>Place</th><th>Wrestler</th><th>School</th><th class=\"num\">W-L</th><th class=\"num\">Falls</th><th class=\"num\">Bonus</th><th class=\"num\">Pt Diff</th></tr></thead><tbody>" +
+          ps.map(function (r) {
+            var diff = r.points_scored - r.points_allowed;
+            return "<tr><td><strong>#" + r.place + "</strong></td><td>" + esc(r.public_display_name) + "</td><td>" + esc(r.team_name) + "</td><td class=\"num\">" + r.wins + "-" + r.losses + "</td><td class=\"num\">" + r.falls_forfeits_dq + "</td><td class=\"num\">+" + r.bonus_points.toFixed(1) + "</td><td class=\"num\">" + (diff >= 0 ? ("+" + diff) : diff) + "</td></tr>";
+          }).join("") + "</tbody></table>";
+      }
+    }
+    html += "</section>";
+
+    // Seed table
+    html += "<section class=\"card\"><div class=\"card-head\"><h2>Seed Order — " + esc(ui.selectedWeight) + " lbs</h2></div>" +
+      (classAthletes.length === 0 ? "<p class=\"sub\">No wrestlers in this weight class.</p>" :
+        "<table><thead><tr><th>Seed</th><th>Wrestler</th><th>School</th><th>Status</th><th class=\"num\">Reorder</th></tr></thead><tbody>" +
+        classAthletes.map(function (a, i) {
+          return "<tr><td><strong>#" + a.seed_rank + "</strong></td><td>" + esc(a.public_display_name) + "</td><td>" + esc(a.team_name + " (" + a.team_id + ")") + "</td><td>" + (isAthleteEligible(a) ? "ELIGIBLE" : esc(STAGE_LABELS[a.check_in_stage] || "PENDING")) + "</td>" +
+            "<td class=\"num\"><button type=\"button\" style=\"min-height:26px;padding:2px 8px;\" data-seed-up=\"" + esc(a.athlete_id) + "\"" + (i === 0 ? " disabled" : "") + ">↑</button> " +
+            "<button type=\"button\" style=\"min-height:26px;padding:2px 8px;\" data-seed-down=\"" + esc(a.athlete_id) + "\"" + (i === classAthletes.length - 1 ? " disabled" : "") + ">↓</button></td></tr>";
+        }).join("") + "</tbody></table>") +
+      "</section>";
+    return html;
+  }
+
+  function buildPrintableHtml(mode) {
+    var aMap = athleteMap();
+    var allContested = (state.bouts || []).filter(function (b) { return !b.is_bye; })
+      .sort(function (a, b) { return a.bout_number - b.bout_number; });
+    var pDesc = state.rules_version === NOVICE_RULESET ? "1-2-2 Periods" : "2-2-2 Periods";
+
+    function slipCardHtml(b) {
+      var ra = b ? aMap.get(b.red_athlete_id) : null;
+      var ga = b ? aMap.get(b.green_athlete_id) : null;
+      return "<div class=\"runner-slip\">" +
+        "<div class=\"runner-slip-head\"><span>" + (b ? ("MAT " + (b.assigned_mat_id || 1) + " · BOUT #" + b.bout_number) : "MAT ____ · BOUT #______") + "</span>" +
+        "<span style=\"font-size:12px;\">" + (b ? esc((b.division_id || "VARSITY") + " · " + b.weight_class_id + " LBS · " + b.round_label) : "DIV ______ · WT ______ LBS") + "</span></div>" +
+        "<div style=\"font-size:11px;color:#334155;\">" + esc(state.tournament_name || "OpenMat Tournament") + " (" + pDesc + ") — Circle Winner &amp; Return Slip to Head Table Laptop</div>" +
+        "<div class=\"runner-slip-corner\"><span>[  ] RED: " + (b ? esc(ra ? ("#" + ra.seed_rank + " " + ra.public_display_name + " (" + ra.team_name + ")") : (b.red_athlete_id || "________________")) : "________________________________") + "</span><span>Pts: <span class=\"runner-box\"></span></span></div>" +
+        "<div class=\"runner-slip-corner\"><span>[  ] GREEN: " + (b ? esc(ga ? ("#" + ga.seed_rank + " " + ga.public_display_name + " (" + ga.team_name + ")") : (b.green_athlete_id || "________________")) : "________________________________") + "</span><span>Pts: <span class=\"runner-box\"></span></span></div>" +
+        "<div style=\"display:flex;justify-content:space-between;align-items:center;font-size:11px;font-weight:700;padding-top:2px;\">" +
+        "<span>Win Type: [ ] FALL (Time ______)  [ ] TF  [ ] MD  [ ] DEC  [ ] FF  [ ] INJ  [ ] DQ</span>" +
+        "<span>Ref / Table: ________</span></div></div>";
+    }
+
+    if (mode === "blank-slips") {
+      var blanks = [];
+      for (var bi = 0; bi < 8; bi++) blanks.push(slipCardHtml(null));
+      return "<div class=\"print-slips-grid\">" + blanks.join("") + "</div>";
+    }
+    if (mode === "staged-slips" || mode === "round-slips") {
+      var slips = allContested.filter(function (b) {
+        if (isBoutDone(b)) return false;
+        if (mode === "staged-slips") {
+          return Boolean(b.red_athlete_id && b.green_athlete_id) &&
+            (b.lifecycle === Lifecycle.Ready || b.lifecycle === Lifecycle.InProgress || b.mat_queue_order <= 2);
+        }
+        return b.round_index === Number(ui.printRound || 1);
+      });
+      if (slips.length === 0) {
+        return "<p>No matching uncompleted bouts for this slip selection. Try Round Slips or Blank Emergency Slips.</p>";
+      }
+      return "<div class=\"print-slips-grid\">" + slips.map(slipCardHtml).join("") + "</div>";
+    }
+
+    // Wall bracket sheets
+    ensureSelectedWeight();
+    var targetWeights = mode === "class-bracket" ? [ui.selectedWeight] : populatedWeights();
+    var sheets = [];
+    if (mode === "all-brackets") {
+      var standings = computeTeamStandings();
+      sheets.push("<div class=\"wall-bracket-sheet wall-page-break\"><h2 style=\"margin:0 0 8px;\">" + esc(state.tournament_name) + " — Official Team Standings</h2>" +
+        "<table><thead><tr><th>Rank</th><th>School</th><th class=\"num\">Total Pts</th><th class=\"num\">Adv</th><th class=\"num\">Place</th><th class=\"num\">Bonus</th><th class=\"num\">Falls</th><th class=\"num\">Champs</th></tr></thead><tbody>" +
+        standings.map(function (s) {
+          return "<tr><td>#" + s.rank + "</td><td><strong>" + esc(s.team_name) + "</strong> (" + esc(s.team_id) + ")</td><td class=\"num\"><strong>" + s.total_points.toFixed(1) + "</strong></td><td class=\"num\">" + s.advancement_points.toFixed(1) + "</td><td class=\"num\">" + s.placement_points.toFixed(1) + "</td><td class=\"num\">" + s.bonus_points.toFixed(1) + "</td><td class=\"num\">" + s.falls_forfeits_dq + "</td><td class=\"num\">" + s.first_place_winners + "</td></tr>";
+        }).join("") + "</tbody></table></div>");
+    }
+    targetWeights.forEach(function (wc, idx) {
+      var bouts = (state.bouts || []).filter(function (b) { return b.weight_class_id === wc && !b.is_bye; })
+        .sort(function (a, b) { return (Number(a.is_consolation) - Number(b.is_consolation)) || (a.round_index - b.round_index) || (a.bout_number - b.bout_number); });
+      if (bouts.length === 0) return;
+      var cls = (idx < targetWeights.length - 1) ? "wall-bracket-sheet wall-page-break" : "wall-bracket-sheet";
+      sheets.push("<div class=\"" + cls + "\"><h2 style=\"margin:0 0 8px;\">" + esc(state.tournament_name) + " — " + esc(wc) + " lbs Bracket</h2>" +
+        "<table><thead><tr><th>Bout #</th><th>Mat</th><th>Round</th><th>Red Corner</th><th>Green Corner</th><th>Winner &amp; Result</th></tr></thead><tbody>" +
+        bouts.map(function (b) {
+          var ra = aMap.get(b.red_athlete_id), ga = aMap.get(b.green_athlete_id);
+          var wa = b.winner_athlete_id ? aMap.get(b.winner_athlete_id) : null;
+          return "<tr><td><strong>#" + b.bout_number + "</strong></td><td>Mat " + (b.assigned_mat_id || 1) + "</td><td>" + esc(b.round_label) + "</td>" +
+            "<td>" + esc(ra ? ("#" + ra.seed_rank + " " + ra.public_display_name + " (" + ra.team_id + ")") : "TBD") + "</td>" +
+            "<td>" + esc(ga ? ("#" + ga.seed_rank + " " + ga.public_display_name + " (" + ga.team_id + ")") : "TBD") + "</td>" +
+            "<td>" + (isBoutDone(b) ? ("<strong>" + esc(wa ? wa.public_display_name : b.winner_athlete_id) + "</strong> (" + esc(b.win_type) + " " + b.red_score + "-" + b.green_score + ")") : "________________") + "</td></tr>";
+        }).join("") + "</tbody></table></div>");
+    });
+    return sheets.join("") || "<p>No brackets generated yet.</p>";
+  }
+
+  function renderPrintTab() {
+    var roundsSet = {};
+    (state.bouts || []).forEach(function (b) { if (!b.is_bye) roundsSet[b.round_index] = true; });
+    var rounds = Object.keys(roundsSet).map(Number).sort(function (a, b) { return a - b; });
+    if (rounds.length === 0) rounds = [1];
+
+    var previewHtml = buildPrintableHtml(ui.printMode);
+    document.getElementById("print-only-container").innerHTML = previewHtml;
+
+    return "<section class=\"card\"><div class=\"card-head\"><div><h2>Print Paper Runner Slips and Wall Brackets</h2>" +
+      "<p class=\"sub\">Print cuttable bout slips for mat runners or full bracket sheets to tape on the gymnasium wall.</p></div>" +
+      "<button type=\"button\" class=\"btn-primary\" id=\"btn-trigger-print\">Print Selected Packet</button></div>" +
+      "<div class=\"filter-bar\" style=\"margin-bottom:14px;\">" +
+      "<button type=\"button\" class=\"pill-btn " + (ui.printMode === "staged-slips" ? "active" : "") + "\" data-print-mode=\"staged-slips\">Active Mat &amp; On-Deck Slips</button>" +
+      "<button type=\"button\" class=\"pill-btn " + (ui.printMode === "round-slips" ? "active" : "") + "\" data-print-mode=\"round-slips\">Round Slips</button>" +
+      (ui.printMode === "round-slips"
+        ? "<select id=\"select-print-round\" aria-label=\"Select round for slips\">" + rounds.map(function (r) { return "<option value=\"" + r + "\"" + (Number(ui.printRound) === r ? " selected" : "") + ">Round " + r + "</option>"; }).join("") + "</select>"
+        : "") +
+      "<button type=\"button\" class=\"pill-btn " + (ui.printMode === "blank-slips" ? "active" : "") + "\" data-print-mode=\"blank-slips\">Blank Emergency Slips (8)</button>" +
+      "<button type=\"button\" class=\"pill-btn " + (ui.printMode === "class-bracket" ? "active" : "") + "\" data-print-mode=\"class-bracket\">Selected Weight Wall Sheet (" + esc(ui.selectedWeight || "132") + " lbs)</button>" +
+      "<button type=\"button\" class=\"pill-btn " + (ui.printMode === "all-brackets" ? "active" : "") + "\" data-print-mode=\"all-brackets\">All Wall Brackets + Standings</button>" +
+      "</div>" +
+      "<div style=\"border-top:1px solid var(--border-subtle);padding-top:12px;\">" + previewHtml + "</div></section>";
+  }
+
+  function renderStandingsTab() {
+    var standings = computeTeamStandings();
+    var q = ui.rosterSearch.trim().toLowerCase();
+    var filteredRoster = (state.athletes || []).filter(function (a) {
+      if (!q) return true;
+      return a.public_display_name.toLowerCase().indexOf(q) >= 0 ||
+        a.team_name.toLowerCase().indexOf(q) >= 0 ||
+        a.team_id.toLowerCase().indexOf(q) >= 0 ||
+        a.weight_class_id.indexOf(q) >= 0;
+    });
+
+    var schoolOpts = PRESET_SCHOOLS.map(function (s) {
+      return "<option value=\"" + esc(s.teamId) + "\"" + (ui.walkupTeamId === s.teamId ? " selected" : "") + ">" + esc(s.teamName + " (" + s.teamId + ")") + "</option>";
+    }).join("") + "<option value=\"CUSTOM\">Custom School</option>";
+
+    var html = "<section class=\"card\"><div class=\"card-head\"><div><h2>NFHS Team Standings</h2>" +
+      "<p class=\"sub\">Advancement (+2 Champ / +1 Cons), Bonus (+2 Fall/FF/DQ, +1.5 TF, +1 MD), and Placement (+16 1st, +9 3rd).</p></div>" +
+      "<button type=\"button\" data-quick-print=\"all-brackets\">Print Standings &amp; Brackets</button></div>" +
+      (standings.length === 0 ? "<p class=\"sub\">No schools registered yet.</p>" :
+        "<div style=\"overflow-x:auto;\"><table><thead><tr><th>Rank</th><th>School / Team</th><th class=\"num\">Total Pts</th><th class=\"num\">Adv</th><th class=\"num\">Place</th><th class=\"num\">Bonus</th><th class=\"num\">Pins/FF</th><th class=\"num\">TF</th><th class=\"num\">MD</th><th class=\"num\">Champs</th></tr></thead><tbody>" +
+        standings.map(function (s) {
+          return "<tr><td><strong>#" + s.rank + "</strong></td><td><strong>" + esc(s.team_name) + "</strong> (" + esc(s.team_id) + ")</td><td class=\"num\"><strong>" + s.total_points.toFixed(1) + "</strong></td><td class=\"num\">" + s.advancement_points.toFixed(1) + "</td><td class=\"num\">" + s.placement_points.toFixed(1) + "</td><td class=\"num\">" + s.bonus_points.toFixed(1) + "</td><td class=\"num\">" + s.falls_forfeits_dq + "</td><td class=\"num\">" + s.tech_falls + "</td><td class=\"num\">" + s.major_decisions + "</td><td class=\"num\">" + s.first_place_winners + "</td></tr>";
+        }).join("") + "</tbody></table></div>") + "</section>";
+
+    // Offline Event Settings & Walk-up Wrestler
+    html += "<section class=\"card\"><div class=\"card-head\"><h2>Event Settings and Walk-Up Wrestler</h2></div>" +
+      "<div class=\"filter-bar\" style=\"margin-bottom:12px;\">" +
+      "<label>Mats: <select id=\"select-mat-count\">" + [1,2,3,4,5,6,7,8,10,12,16,20].map(function (n) { return "<option value=\"" + n + "\"" + (Number(state.mat_count) === n ? " selected" : "") + ">" + n + " Mats</option>"; }).join("") + "</select></label>" +
+      "<label>Periods: <select id=\"select-rules-version\">" +
+      "<option value=\"" + NOVICE_RULESET + "\"" + (state.rules_version === NOVICE_RULESET ? " selected" : "") + ">Novice / JV (1-2-2 min)</option>" +
+      "<option value=\"" + VARSITY_RULESET + "\"" + (state.rules_version === VARSITY_RULESET ? " selected" : "") + ">Varsity (2-2-2 min)</option>" +
+      "</select></label></div>" +
+      "<div class=\"filter-bar\">" +
+      "<input type=\"text\" id=\"input-walkup-name\" placeholder=\"Walk-up wrestler full name\" value=\"" + esc(ui.walkupName) + "\" />" +
+      "<select id=\"select-walkup-school\" aria-label=\"Preset school\">" + schoolOpts + "</select>" +
+      "<input type=\"text\" id=\"input-walkup-team-name\" placeholder=\"School name\" value=\"" + esc(ui.walkupTeamName) + "\" />" +
+      "<input type=\"text\" id=\"input-walkup-team-id\" placeholder=\"Code\" style=\"width:80px;\" value=\"" + esc(ui.walkupTeamId) + "\" />" +
+      "<select id=\"select-walkup-div\" aria-label=\"Walk-up division\">" + DIVISIONS.map(function (d) { return "<option value=\"" + d + "\"" + (ui.walkupDivision === d ? " selected" : "") + ">" + d + "</option>"; }).join("") + "</select>" +
+      "<select id=\"select-walkup-wt\" aria-label=\"Walk-up weight\">" + ALL_WEIGHTS.map(function (w) { return "<option value=\"" + w + "\"" + (ui.walkupWeight === w ? " selected" : "") + ">" + w + " lbs</option>"; }).join("") + "</select>" +
+      "<button type=\"button\" class=\"btn-primary\" id=\"btn-add-walkup\">+ Add Eligible Wrestler</button>" +
+      "</div></section>";
+
+    // Roster & Scratch
+    html += "<section class=\"card\"><div class=\"card-head\"><div><h2>Roster and Scratch Controls (" + (state.athletes || []).length + ")</h2>" +
+      "<p class=\"sub\">Scratching a wrestler automatically forfeits unstarted bouts and advances opponents.</p></div>" +
+      "<input type=\"search\" id=\"input-roster-search\" aria-label=\"Search roster\" placeholder=\"Search wrestler, school, or weight...\" value=\"" + esc(ui.rosterSearch) + "\" /></div>" +
+      "<div style=\"overflow-x:auto;max-height:440px;overflow-y:auto;\"><table><thead><tr><th>Wrestler</th><th>School</th><th>Div / Wt</th><th>Seed</th><th>Status</th><th class=\"num\">Action</th></tr></thead><tbody>" +
+      filteredRoster.map(function (a) {
+        var scratched = a.check_in_stage === 6 || a.check_in_stage === 7;
+        return "<tr><td><strong>" + esc(a.public_display_name) + "</strong></td><td>" + esc(a.team_name + " (" + a.team_id + ")") + "</td><td>" + esc(a.division_id + " " + a.weight_class_id + " lbs") + "</td><td>#" + a.seed_rank + "</td>" +
+          "<td><span class=\"pill " + (scratched ? "err" : "ok") + "\">" + (scratched ? "SCRATCHED" : "ELIGIBLE") + "</span></td>" +
+          "<td class=\"num\">" + (scratched
+            ? "<button type=\"button\" style=\"min-height:28px;font-size:12px;\" data-reinstate-ath=\"" + esc(a.athlete_id) + "\">Reinstate</button>"
+            : "<button type=\"button\" class=\"btn-danger\" style=\"min-height:28px;font-size:12px;\" data-scratch-ath=\"" + esc(a.athlete_id) + "\">Scratch</button>") +
+          "</td></tr>";
+      }).join("") + "</tbody></table></div></section>";
+
+    return html;
+  }
+
+  function openCorrectionDialog(matchId) {
+    var bout = boutMap().get(matchId);
+    if (!bout) return;
+    var aMap = athleteMap();
+    var ra = aMap.get(bout.red_athlete_id), ga = aMap.get(bout.green_athlete_id);
+    var impact = previewDownstreamImpact(matchId);
+    ui.correctionMatchId = matchId;
+    ui.correctionWinnerId = bout.winner_athlete_id || bout.red_athlete_id;
+    ui.correctionWinType = (bout.win_type && WIN_TYPES.indexOf(bout.win_type) >= 0) ? bout.win_type : "DEC";
+    ui.correctionRedScore = String(bout.red_score || 0);
+    ui.correctionGreenScore = String(bout.green_score || 0);
+
+    var dlg = document.getElementById("fallback-correction-dialog");
+    dlg.innerHTML = "<h3 style=\"margin:0 0 8px;\">Correct or Reopen Bout #" + bout.bout_number + "</h3>" +
+      "<p class=\"sub\" style=\"margin-bottom:12px;\">Downstream bouts affected: <strong>" +
+      (impact.affected.length > 0 ? impact.affected.map(function (n) { return "#" + n.bout_number; }).join(", ") : "None") +
+      "</strong>" + (!impact.safe ? " — <span style=\"color:var(--status-err);\">Later downstream bouts have results. Correct or reopen the downstream bout first.</span>" : "") + "</p>" +
+      "<div style=\"display:grid;gap:8px;margin-bottom:14px;\">" +
+      "<label>Winner<br/><select id=\"dlg-corr-winner\" style=\"width:100%;\">" +
+      "<option value=\"" + esc(bout.red_athlete_id) + "\"" + (ui.correctionWinnerId === bout.red_athlete_id ? " selected" : "") + ">Red: " + esc(ra ? ra.public_display_name : bout.red_athlete_id) + "</option>" +
+      "<option value=\"" + esc(bout.green_athlete_id) + "\"" + (ui.correctionWinnerId === bout.green_athlete_id ? " selected" : "") + ">Green: " + esc(ga ? ga.public_display_name : bout.green_athlete_id) + "</option>" +
+      "</select></label>" +
+      "<label>Win Type<br/><select id=\"dlg-corr-wintype\" style=\"width:100%;\">" +
+      WIN_TYPES.map(function (wt) { return "<option value=\"" + wt + "\"" + (ui.correctionWinType === wt ? " selected" : "") + ">" + wt + "</option>"; }).join("") +
+      "</select></label>" +
+      "<div style=\"display:grid;grid-template-columns:1fr 1fr;gap:8px;\">" +
+      "<label>Red Score<br/><input type=\"number\" id=\"dlg-corr-red\" min=\"0\" max=\"999\" style=\"width:100%;\" value=\"" + esc(ui.correctionRedScore) + "\" /></label>" +
+      "<label>Green Score<br/><input type=\"number\" id=\"dlg-corr-green\" min=\"0\" max=\"999\" style=\"width:100%;\" value=\"" + esc(ui.correctionGreenScore) + "\" /></label>" +
+      "</div></div>" +
+      "<div style=\"display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;\">" +
+      "<button type=\"button\" class=\"btn-danger\" id=\"btn-dlg-reopen\"" + (!impact.safe ? " disabled" : "") + ">Clear Result (Reopen Bout)</button>" +
+      "<div style=\"display:flex;gap:6px;\">" +
+      "<button type=\"button\" id=\"btn-dlg-cancel\">Cancel</button>" +
+      "<button type=\"button\" class=\"btn-primary\" id=\"btn-dlg-apply\"" + (!impact.safe ? " disabled" : "") + ">Apply Correction</button>" +
+      "</div></div>";
+    if (typeof dlg.showModal === "function") dlg.showModal();
+    else dlg.setAttribute("open", "");
+  }
+
+  function closeCorrectionDialog() {
+    var dlg = document.getElementById("fallback-correction-dialog");
+    if (dlg && typeof dlg.close === "function" && dlg.open) dlg.close();
+    else if (dlg) dlg.removeAttribute("open");
+  }
+
+  function render() {
+    document.documentElement.setAttribute("data-theme", ui.theme);
+    var contested = (state.bouts || []).filter(function (b) { return !b.is_bye; });
+    var doneCount = contested.filter(isBoutDone).length;
+    var eligAthletes = (state.athletes || []).filter(isAthleteEligible).length;
+
+    var titleEl = document.getElementById("hdr-tournament-title");
+    if (titleEl) titleEl.textContent = state.tournament_name || "OpenMat Emergency Fallback Tournament";
+    var saveEl = document.getElementById("hdr-save-status");
+    if (saveEl) saveEl.textContent = lastSavedLabel + (dirtySinceFileExport ? " · Unexported edits" : "");
+    var progEl = document.getElementById("hdr-progress-summary");
+    if (progEl) progEl.textContent = eligAthletes + " Eligible · " + doneCount + " / " + contested.length + " Bouts · " + (state.mat_count || 5) + " Mats";
+
+    ["desk","brackets","print","standings"].forEach(function (t) {
+      var btn = document.getElementById("tab-btn-" + t);
+      if (btn) btn.setAttribute("aria-selected", ui.tab === t ? "true" : "false");
+    });
+
+    var mainEl = document.getElementById("fallback-main");
+    var toastHtml = ui.toastMsg
+      ? "<div class=\"toast " + (ui.toastKind === "err" ? "err" : "ok") + "\" role=\"status\"><span>" + esc(ui.toastMsg) + "</span><button type=\"button\" id=\"btn-dismiss-toast\" style=\"min-height:26px;padding:2px 8px;font-size:11px;\">Dismiss</button></div>"
+      : "";
+
+    var bodyHtml = "";
+    if (ui.tab === "desk") bodyHtml = renderDeskTab();
+    else if (ui.tab === "brackets") bodyHtml = renderBracketsTab();
+    else if (ui.tab === "print") bodyHtml = renderPrintTab();
+    else bodyHtml = renderStandingsTab();
+
+    mainEl.innerHTML = toastHtml + bodyHtml;
+  }
+
+  // ===========================================================================
+  // Event Delegation (Zero Inline Event Handlers)
+  // ===========================================================================
+
+  document.addEventListener("click", function (e) {
+    var target = e.target && e.target.closest ? e.target.closest("button") : null;
+    if (!target) return;
+    try {
+      if (target.id === "btn-save-html") { exportUpdatedStandaloneHtml(); return; }
+      if (target.id === "btn-export-csv") { exportOpenMatBackupCsv(); return; }
+      if (target.id === "btn-export-xlsx") { exportOfflineXlsx(); return; }
+      if (target.id === "btn-open-wallboard") { openWallboardWindow(); return; }
+      if (target.id === "btn-toggle-theme") { ui.theme = ui.theme === "dark" ? "light" : "dark"; render(); return; }
+      if (target.id === "btn-dismiss-toast") { ui.toastMsg = ""; render(); return; }
+      if (target.id === "btn-auto-dispatch") { autoDispatchRestedBouts(); return; }
+      if (target.id === "btn-trigger-print") { window.print(); return; }
+      if (target.id === "btn-gen-class") {
+        var created = generateBracketForClass(ui.selectedWeight, ui.selectedFormat, ui.selectedDivision === "ALL" ? undefined : ui.selectedDivision);
+        showToast("Generated " + ui.selectedWeight + " lbs bracket (" + created.length + " nodes).", "ok");
+        return;
+      }
+      if (target.id === "btn-gen-all") { generateAllBracketsOffline(); return; }
+      if (target.id === "btn-add-walkup") {
+        var nm = ui.walkupName.trim();
+        if (!nm) throw new Error("Enter the walk-up wrestler's name.");
+        var tId = (ui.walkupTeamId.trim() || "UNAT").toUpperCase();
+        var tName = ui.walkupTeamName.trim() || tId;
+        var athId = "ATH-" + tId + "-" + ui.walkupWeight + "-" + Date.now().toString(36).toUpperCase();
+        state.athletes.push({
+          athlete_id: athId,
+          opaque_pass_token: "PASS-" + ui.walkupWeight + "-" + Date.now().toString(36),
+          public_display_name: nm,
+          team_id: tId,
+          team_name: tName,
+          division_id: ui.walkupDivision,
+          weight_class_id: ui.walkupWeight,
+          seed_rank: (state.athletes.filter(function (a) { return a.weight_class_id === ui.walkupWeight; }).length + 1),
+          flowrestling_id: "",
+          check_in_stage: 5,
+          weigh_in_eligible: true,
+          medically_cleared: true,
+          matches_wrestled_today: 0,
+          prior_day_matches: 0,
+          last_bout_ended_ms: 0,
+          updated_at_ms: Date.now()
+        });
+        state.weigh_ins[athId] = { station_id: "WALKUP", scale_id: "WALKUP", measured_weight_tenths: Number(ui.walkupWeight) * 10 };
+        state.medicals[athId] = { reviewer_id: "Head Official", decision: "CLEARED" };
+        ui.walkupName = "";
+        persistState(true);
+        showToast("Added walk-up wrestler " + nm + " (" + ui.walkupWeight + " lbs).", "ok");
+        return;
+      }
+      if (target.id === "btn-dlg-cancel") { closeCorrectionDialog(); return; }
+      if (target.id === "btn-dlg-apply") { applyCorrectionFromDialog(); return; }
+      if (target.id === "btn-dlg-reopen") { reopenBoutFromDialog(); return; }
+
+      var tabAttr = target.getAttribute("data-tab") || target.getAttribute("data-goto-tab");
+      if (tabAttr) { ui.tab = tabAttr; render(); return; }
+
+      var quickPrint = target.getAttribute("data-quick-print");
+      if (quickPrint) {
+        ui.printMode = quickPrint;
+        ui.tab = "print";
+        render();
+        window.print();
+        return;
+      }
+
+      var printMode = target.getAttribute("data-print-mode");
+      if (printMode) { ui.printMode = printMode; render(); return; }
+
+      var deskFilter = target.getAttribute("data-desk-filter");
+      if (deskFilter) { ui.deskFilter = deskFilter; render(); return; }
+
+      var selWt = target.getAttribute("data-select-weight");
+      if (selWt) { ui.selectedWeight = selWt; render(); return; }
+
+      var saveMatchId = target.getAttribute("data-save-bout");
+      if (saveMatchId) { recordPaperResult(saveMatchId, target.closest(".slip-form")); return; }
+
+      var clearRestId = target.getAttribute("data-clear-rest");
+      if (clearRestId) {
+        var bRest = boutMap().get(clearRestId);
+        if (bRest) {
+          var aMap = athleteMap();
+          [bRest.red_athlete_id, bRest.green_athlete_id].forEach(function (id) {
+            var a = aMap.get(id);
+            if (a) a.last_bout_ended_ms = 0;
+          });
+          state.athletes = Array.from(aMap.values());
+          persistState(true);
+          showToast("Cleared 30-minute rest timer for Bout #" + bRest.bout_number + ".", "ok");
+        }
+        return;
+      }
+
+      var callBoutId = target.getAttribute("data-call-bout");
+      if (callBoutId) {
+        var bMap = boutMap();
+        var cb = bMap.get(callBoutId);
+        if (cb) {
+          Array.from(bMap.values()).forEach(function (other) {
+            if (other.assigned_mat_id === cb.assigned_mat_id && other.lifecycle === Lifecycle.Ready) {
+              other.lifecycle = Lifecycle.Assigned;
+            }
+          });
+          cb.lifecycle = Lifecycle.Ready;
+          state.bouts = Array.from(bMap.values());
+          persistState(true);
+          showToast("Called Bout #" + cb.bout_number + " onto Mat " + cb.assigned_mat_id + ".", "ok");
+        }
+        return;
+      }
+
+      var holdBoutId = target.getAttribute("data-hold-bout");
+      if (holdBoutId) {
+        var hb = boutMap().get(holdBoutId);
+        if (hb) {
+          var bMap2 = boutMap();
+          bMap2.get(holdBoutId).lifecycle = Lifecycle.Assigned;
+          bMap2.get(holdBoutId).mat_queue_order = (hb.mat_queue_order || 1) + 2;
+          state.bouts = Array.from(bMap2.values());
+          promoteMatReadyBout(hb.assigned_mat_id, Date.now());
+          persistState(true);
+          showToast("Held Bout #" + hb.bout_number + " on deck.", "ok");
+        }
+        return;
+      }
+
+      var corrId = target.getAttribute("data-open-correction");
+      if (corrId) { openCorrectionDialog(corrId); return; }
+
+      var seedUp = target.getAttribute("data-seed-up");
+      var seedDown = target.getAttribute("data-seed-down");
+      if (seedUp || seedDown) {
+        var targetAthId = seedUp || seedDown;
+        var delta = seedUp ? -1 : 1;
+        var targetAth = athleteMap().get(targetAthId);
+        if (targetAth) {
+          var peers = state.athletes.filter(function (a) {
+            return a.weight_class_id === targetAth.weight_class_id && a.division_id === targetAth.division_id;
+          }).sort(function (a, b) { return a.seed_rank - b.seed_rank; });
+          var idx = peers.findIndex(function (a) { return a.athlete_id === targetAthId; });
+          var sw = idx + delta;
+          if (idx >= 0 && sw >= 0 && sw < peers.length) {
+            var tmp = peers[idx].seed_rank;
+            peers[idx].seed_rank = peers[sw].seed_rank;
+            peers[sw].seed_rank = tmp;
+            if (peers[idx].seed_rank === peers[sw].seed_rank) {
+              peers.forEach(function (p, pi) { p.seed_rank = pi + 1; });
+            }
+            persistState(true);
+            render();
+          }
+        }
+        return;
+      }
+
+      var scratchId = target.getAttribute("data-scratch-ath");
+      if (scratchId) {
+        var aMapS = athleteMap();
+        var bMapS = boutMap();
+        var sa = aMapS.get(scratchId);
+        if (sa) {
+          sa.check_in_stage = 7;
+          advanceScratchesInternal(bMapS, aMapS, Date.now());
+          state.athletes = Array.from(aMapS.values());
+          state.bouts = Array.from(bMapS.values());
+          persistState(true);
+          showToast("Scratched " + sa.public_display_name + " and updated open bouts.", "ok");
+        }
+        return;
+      }
+
+      var reinstateId = target.getAttribute("data-reinstate-ath");
+      if (reinstateId) {
+        var aMapR = athleteMap();
+        var ra2 = aMapR.get(reinstateId);
+        if (ra2) {
+          ra2.check_in_stage = 5;
+          ra2.weigh_in_eligible = true;
+          ra2.medically_cleared = true;
+          state.athletes = Array.from(aMapR.values());
+          persistState(true);
+          showToast("Reinstated " + ra2.public_display_name + ".", "ok");
+        }
+        return;
+      }
+    } catch (err) {
+      showToast(err && err.message ? err.message : String(err), "err");
+    }
+  });
+
+  document.addEventListener("change", function (e) {
+    var el = e.target;
+    if (!el) return;
+    try {
+      if (el.id === "input-import-csv" && el.files && el.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function () {
+          try { importCsvOffline(String(reader.result || "")); }
+          catch (err) { showToast(err && err.message ? err.message : String(err), "err"); }
+          el.value = "";
+        };
+        reader.readAsText(el.files[0]);
+        return;
+      }
+      if (el.id === "select-bracket-div") { ui.selectedDivision = el.value; render(); return; }
+      if (el.id === "select-bracket-format") { ui.selectedFormat = el.value; return; }
+      if (el.id === "select-print-round") { ui.printRound = Number(el.value); render(); return; }
+      if (el.id === "select-mat-count") { state.mat_count = Number(el.value); persistState(true); render(); return; }
+      if (el.id === "select-rules-version") { state.rules_version = el.value; persistState(true); render(); return; }
+      if (el.id === "select-walkup-school") {
+        var found = PRESET_SCHOOLS.find(function (s) { return s.teamId === el.value; });
+        if (found) { ui.walkupTeamId = found.teamId; ui.walkupTeamName = found.teamName; render(); }
+        return;
+      }
+      if (el.id === "select-walkup-div") { ui.walkupDivision = el.value; return; }
+      if (el.id === "select-walkup-wt") { ui.walkupWeight = el.value; return; }
+      if (el.id === "dlg-corr-winner") { ui.correctionWinnerId = el.value; return; }
+      if (el.id === "dlg-corr-wintype") { ui.correctionWinType = el.value; return; }
+
+      var slipWinnerId = el.getAttribute("data-slip-winner");
+      if (slipWinnerId) {
+        var b1 = boutMap().get(slipWinnerId);
+        if (b1) getSlipInput(b1).winnerId = el.value;
+        return;
+      }
+      var slipTypeId = el.getAttribute("data-slip-wintype");
+      if (slipTypeId) {
+        var b2 = boutMap().get(slipTypeId);
+        if (b2) getSlipInput(b2).winType = el.value;
+        return;
+      }
+      var moveMatId = el.getAttribute("data-move-mat");
+      if (moveMatId) {
+        var bMapM = boutMap();
+        var bm = bMapM.get(moveMatId);
+        if (bm) {
+          bm.assigned_mat_id = Number(el.value);
+          state.bouts = Array.from(bMapM.values());
+          persistState(true);
+          showToast("Moved Bout #" + bm.bout_number + " to Mat " + bm.assigned_mat_id + ".", "ok");
+        }
+        return;
+      }
+    } catch (err) {
+      showToast(err && err.message ? err.message : String(err), "err");
+    }
+  });
+
+  document.addEventListener("input", function (e) {
+    var el = e.target;
+    if (!el) return;
+    if (el.id === "input-desk-search") {
+      var pos = el.selectionStart;
+      ui.deskSearch = el.value;
+      render();
+      var nextInput = document.getElementById("input-desk-search");
+      if (nextInput) { nextInput.focus(); try { nextInput.setSelectionRange(pos, pos); } catch (_e) {} }
+      return;
+    }
+    if (el.id === "input-roster-search") {
+      var pos2 = el.selectionStart;
+      ui.rosterSearch = el.value;
+      render();
+      var nextR = document.getElementById("input-roster-search");
+      if (nextR) { nextR.focus(); try { nextR.setSelectionRange(pos2, pos2); } catch (_e2) {} }
+      return;
+    }
+    if (el.id === "input-walkup-name") { ui.walkupName = el.value; return; }
+    if (el.id === "input-walkup-team-name") { ui.walkupTeamName = el.value; return; }
+    if (el.id === "input-walkup-team-id") { ui.walkupTeamId = el.value; return; }
+    if (el.id === "dlg-corr-red") { ui.correctionRedScore = el.value; return; }
+    if (el.id === "dlg-corr-green") { ui.correctionGreenScore = el.value; return; }
+
+    var rId = el.getAttribute("data-slip-red");
+    if (rId) {
+      var br = boutMap().get(rId);
+      if (br) getSlipInput(br).redScore = el.value;
+      return;
+    }
+    var gId = el.getAttribute("data-slip-green");
+    if (gId) {
+      var bg = boutMap().get(gId);
+      if (bg) getSlipInput(bg).greenScore = el.value;
+      return;
+    }
+  });
+
+  // Periodic refresh for 30-minute NFHS recovery rest countdowns
+  setInterval(function () {
+    var activeTag = document.activeElement ? document.activeElement.tagName : "";
+    if (activeTag !== "INPUT" && activeTag !== "SELECT" && ui.tab === "desk") {
+      render();
+    }
+  }, 30000);
+
+  ensureSelectedWeight();
+  render();
+})();</script>
+</body>
+</html>

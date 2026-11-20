@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="OpenMat wrestler self-registration page for entering name, school, division, and weight class before weigh-ins."
+    />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#1d4ed8" />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <title>OpenMat — Wrestler Self-Registration</title>
+    <style>
+      :root {
+        --bg-page: #f8fafc;
+        --bg-card: #ffffff;
+        --bg-inset: #f1f5f9;
+        --text-primary: #0f172a;
+        --text-secondary: #334155;
+        --text-muted: #64748b;
+        --border-subtle: #e2e8f0;
+        --border-strong: #cbd5e1;
+        --accent-primary: #1d4ed8;
+        --accent-hover: #1e40af;
+        --status-ok: #15803d;
+        --status-ok-bg: #dcfce7;
+        --status-warn: #b45309;
+        --status-warn-bg: #fef3c7;
+        --status-err: #b91c1c;
+        --status-err-bg: #fee2e2;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        :root:not([data-theme='light']) {
+          --bg-page: #0b0f17;
+          --bg-card: #111827;
+          --bg-inset: #1e293b;
+          --text-primary: #f8fafc;
+          --text-secondary: #cbd5e1;
+          --text-muted: #94a3b8;
+          --border-subtle: #1f2937;
+          --border-strong: #334155;
+          --accent-primary: #2563eb;
+          --accent-hover: #3b82f6;
+          --status-ok: #4ade80;
+          --status-ok-bg: rgba(22, 163, 74, 0.2);
+          --status-warn: #fbbf24;
+          --status-warn-bg: rgba(217, 119, 6, 0.2);
+          --status-err: #f87171;
+          --status-err-bg: rgba(220, 38, 38, 0.2);
+        }
+      }
+
+      :root[data-theme='dark'] {
+        --bg-page: #0b0f17;
+        --bg-card: #111827;
+        --bg-inset: #1e293b;
+        --text-primary: #f8fafc;
+        --text-secondary: #cbd5e1;
+        --text-muted: #94a3b8;
+        --border-subtle: #1f2937;
+        --border-strong: #334155;
+        --accent-primary: #2563eb;
+        --accent-hover: #3b82f6;
+        --status-ok: #4ade80;
+        --status-ok-bg: rgba(22, 163, 74, 0.2);
+        --status-warn: #fbbf24;
+        --status-warn-bg: rgba(217, 119, 6, 0.2);
+        --status-err: #f87171;
+        --status-err-bg: rgba(220, 38, 38, 0.2);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        background: var(--bg-page);
+        color: var(--text-primary);
+        line-height: 1.45;
+      }
+
+      .reg-shell {
+        max-width: 520px;
+        margin: 0 auto;
+        padding: 16px;
+      }
+
+      .reg-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 12px;
+        margin-bottom: 14px;
+      }
+
+      .reg-eyebrow {
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--accent-primary);
+      }
+
+      .reg-title {
+        margin: 2px 0 4px;
+        font-size: 21px;
+        font-weight: 800;
+      }
+
+      .reg-sub {
+        margin: 0;
+        font-size: 13px;
+        color: var(--text-secondary);
+      }
+
+      .reg-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border-subtle);
+        border-radius: 12px;
+        padding: 18px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+      }
+
+      .reg-field {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        margin-bottom: 14px;
+      }
+
+      .reg-field label,
+      .reg-fieldset legend {
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--text-primary);
+      }
+
+      .reg-field input,
+      .reg-field select {
+        width: 100%;
+        min-height: 46px;
+        padding: 10px 12px;
+        border-radius: 8px;
+        border: 1px solid var(--border-strong);
+        background: var(--bg-page);
+        color: var(--text-primary);
+        font-size: 16px;
+      }
+
+      .reg-field input[aria-invalid='true'],
+      .reg-field select[aria-invalid='true'] {
+        border-color: var(--status-err);
+      }
+
+      .reg-field input:focus-visible,
+      .reg-field select:focus-visible,
+      button:focus-visible,
+      a:focus-visible {
+        outline: 3px solid var(--accent-primary);
+        outline-offset: 2px;
+      }
+
+      .reg-grid-two {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+
+      @media (max-width: 400px) {
+        .reg-grid-two {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .reg-fieldset {
+        border: 1px solid var(--border-subtle);
+        border-radius: 10px;
+        padding: 10px 12px 12px;
+        margin: 0 0 14px;
+      }
+
+      .reg-radio-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+        margin-top: 6px;
+      }
+
+      .reg-radio-option {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        min-height: 44px;
+        padding: 8px 10px;
+        border-radius: 8px;
+        border: 1px solid var(--border-strong);
+        background: var(--bg-page);
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 700;
+      }
+
+      .reg-radio-option:has(input:checked) {
+        border-color: var(--accent-primary);
+        background: var(--bg-inset);
+      }
+
+      .reg-radio-option input[type='radio'] {
+        width: 18px;
+        height: 18px;
+        margin: 0;
+        accent-color: var(--accent-primary);
+      }
+
+      .field-hint {
+        font-size: 12px;
+        color: var(--text-muted);
+      }
+
+      .field-error {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--status-err);
+      }
+
+      .btn-submit {
+        width: 100%;
+        min-height: 50px;
+        border: 0;
+        border-radius: 10px;
+        background: var(--accent-primary);
+        color: #ffffff;
+        font-size: 16px;
+        font-weight: 800;
+        cursor: pointer;
+      }
+
+      .btn-submit:hover {
+        background: var(--accent-hover);
+      }
+
+      .btn-secondary {
+        min-height: 42px;
+        padding: 8px 14px;
+        border-radius: 8px;
+        border: 1px solid var(--border-strong);
+        background: var(--bg-inset);
+        color: var(--text-primary);
+        font-size: 14px;
+        font-weight: 700;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .pass-qr-frame {
+        margin: 14px auto;
+        padding: 14px;
+        width: fit-content;
+        background: #ffffff;
+        border-radius: 12px;
+        border: 2px solid var(--border-strong);
+      }
+
+      .pass-summary {
+        background: var(--bg-inset);
+        border-radius: 10px;
+        padding: 12px 14px;
+        margin: 12px 0;
+        display: grid;
+        gap: 6px;
+        font-size: 14px;
+        overflow-wrap: anywhere;
+      }
+
+      .status-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 5px 10px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 800;
+      }
+
+      .status-pill.ok {
+        background: var(--status-ok-bg);
+        color: var(--status-ok);
+      }
+
+      .status-pill.warn {
+        background: var(--status-warn-bg);
+        color: var(--status-warn);
+      }
+
+      .status-pill.err {
+        background: var(--status-err-bg);
+        color: var(--status-err);
+      }
+
+      .quarantine-notice {
+        margin-top: 12px;
+        padding: 10px 12px;
+        border-radius: 8px;
+        background: var(--status-warn-bg);
+        color: var(--status-warn);
+        font-size: 13px;
+        font-weight: 700;
+      }
+    </style>
+    <script type="module" crossorigin src="./assets/index-CVGg66hS.js"></script>
+  </head>
+  <body>
+    <noscript>
+      <p>Enable JavaScript to enter your wrestler information and display your weigh-in QR pass.</p>
+    </noscript>
+    <openmat-register-app></openmat-register-app>
+  </body>
+</html>

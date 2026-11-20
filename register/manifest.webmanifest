@@ -1,0 +1,10 @@
+{
+  "name": "OpenMat Wrestler Self-Registration",
+  "short_name": "OpenMat Register",
+  "description": "Enter wrestler name, school, division, and weight class before weigh-ins.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0b0f17",
+  "theme_color": "#1d4ed8"
+}
